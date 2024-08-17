@@ -1,0 +1,20 @@
+-- local Job = require("plenary.job")
+--
+-- vim.api.nvim_create_autocmd("BufWrite", {
+--    pattern = { "*.norg" },
+--    callback = function()
+--       local lines = {}
+--       Job:new({
+--          command = "norg-fmt",
+--          args = { vim.api.nvim_buf_get_name(0) },
+--          on_stdout = function(_, line)
+--             print(line)
+--             if line ~= "" then
+--                lines[#lines + 1] = line
+--             end
+--          end,
+--       }):sync()
+--       print(vim.inspect(lines))
+--       vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+--    end,
+-- })
