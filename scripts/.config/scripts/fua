@@ -1,0 +1,19 @@
+#/usr/bin/env bash
+
+choices="lua5.1\nlua5.2\nlua5.3\nlua5.4\nluajit"
+
+selected=`printf $choices | fzf`
+
+echo $selected
+
+if [ $selected = "lua5.1" ]; then
+  lua5.1
+elif [ $selected = "lua5.2" ]; then
+  lua5.2
+elif [ $selected = "lua5.3" ]; then
+  lua5.3
+elif [ $selected = "lua5.4" ]; then
+  lua5.4
+elif [ $selected = "luajit" ]; then
+  luajit
+fi

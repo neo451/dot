@@ -1,0 +1,15 @@
+#/usr/bin/env bash
+
+choices="fish\nbash\nzsh"
+
+selected=`printf $choices | fzf`
+
+echo $selected
+
+if [ $selected = "fish" ]; then
+  fish
+elif [ $selected = "bash" ]; then
+  bash
+elif [ $selected = "zsh" ]; then
+  zsh
+fi
