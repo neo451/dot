@@ -658,3 +658,19 @@ Company is a text completion framework for Emacs. The name stands for “complet
 
 #+end_src
 
+* elfeed
+#+begin_src emacs-lisp
+    (setq elfeed-feeds
+        '("https://sspai.com/feed" "https://consequence.net/feed/" "https://archlinux.org/feeds/news/" "https://abeautifulmess.com/feed/"))
+#+end_src
+
+#+RESULTS:
+| https://sspai.com/feed | https://consequence.net/feed/ | https://archlinux.org/feeds/news/ |
+
+* mu4e
+#+begin_src emacs-lisp
+  (use-package mu4e
+    :ensure nil
+    :load-path "/usr/share/emacs/site-lisp/mu4e/"
+    )
+#+end_src

@@ -15,7 +15,10 @@ alias c clear
 alias inv 'nvim $(fzf --preview="bat {} --color=always")'
 alias fsh 'bash /home/n451/.config/scripts/fsh'
 alias fua 'bash /home/n451/.config/scripts/fua'
+alias ls 'exa -lah'
 fzf --fish | source
+
+alias nb 'busted --lua=nlua'
 
 fish_add_path ~/wabt-1.0.3/bin
 fish_add_path ~/nvim/nvim-linux64/bin/

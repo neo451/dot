@@ -1,3 +1,0 @@
-return {
-   "wsdjeg/ChineseLinter.vim",
-}

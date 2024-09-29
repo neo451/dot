@@ -1,34 +1,32 @@
-require("config.keymaps")
-require("config.options")
-require("config.lazy")
-require("config.autocmds")
+local rocks_config = {
+	rocks_path = vim.fn.stdpath("data") .. "/rocks",
+}
 
-pp = function(a)
-   print(vim.inspect(a))
+vim.g.rocks_nvim = rocks_config
+
+local luarocks_path = {
+	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
+	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
+}
+package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
+
+local luarocks_cpath = {
+	vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
+	vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
+}
+package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
+
+vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*"))
+
+-- require("clean").clean_keymap()
+-- require("clean").clean_plugins()
+
+require("dev")
+require("key")
+require("opt")
+require("auto")
+
+for path in vim.fs.dir("/home/n451/.config/nvim/lua/plugins") do
+	path = path:gsub(".lua", "")
+	pcall(require, "plugins." .. path)
 end
-
-vim.filetype.add({
-   extension = {
-      modal = "modal",
-      sc = "supercollider",
-      scd = "supercollider",
-   },
-})
-
--- require("nvim-web-devicons").set_icon_by_filetype({ norg = "md" })
-
--- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
--- parser_config.modal = {
---    install_info = {
---       url = "~/modal/tree-sitter-modal", -- local path or git repo
---       files = { "src/parser.c", "src/scanner.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
---       -- generate_requires_npm = true, -- if stand-alone parser without npm dependencies
---       -- requires_generate_from_grammar = true, -- if folder contains pre-generated src/parser.c
---    },
---    -- filetype = "modal", -- if filetype does not match the parser name
--- }
--- vim.treesitter.language.register("modal", "modal")
---
--- -- vim.filetype.add({
--- --    tidal = "tidal",
--- -- })
