@@ -1,22 +1,16 @@
--- update lualine
-local function rime_status()
-	if vim.g.rime_enabled then
-		return "ㄓ"
-	else
-		return ""
-	end
-end
+local Harpoonline = require("harpoonline")
+Harpoonline.setup({
+	on_update = function()
+		require("lualine").refresh()
+	end,
+})
 
-require("lualine").setup({
-	sections = {
-		lualine_x = {
-			rime_status,
-		},
-		lualine_y = {},
-	},
+local harpoon = { Harpoonline.format, "filename" }
+
+local lualine = require("lualine")
+lualine.setup({
 	options = {
-		globalstatus = true,
-		section_separators = { left = "", right = "" },
-		component_separators = { left = "", right = "" },
+		component_separators = "",
+		section_separators = "",
 	},
 })

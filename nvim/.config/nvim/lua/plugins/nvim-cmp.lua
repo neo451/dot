@@ -9,11 +9,11 @@ local compare = require("cmp.config.compare")
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = "text_symbol",
+			mode = "symbol",
 			maxwidth = 50,
 			ellipsis_char = "...",
 			show_labelDetails = true,
-			before = function(entry, vim_item)
+			before = function(_, vim_item)
 				return vim_item
 			end,
 		}),
@@ -34,38 +34,38 @@ cmp.setup({
 			}),
 			{ "i", "c" }
 		),
-		["<Space>"] = cmp.mapping(function(fallback)
-			local entry = cmp.get_selected_entry()
-			if entry == nil then
-				entry = cmp.core.view:get_first_entry()
-			end
-			if entry and entry.source.name == "nvim_lsp" and entry.source.source.client.name == "rime_ls" then
-				cmp.confirm({
-					behavior = cmp.ConfirmBehavior.Replace,
-					select = true,
-				})
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<CR>"] = cmp.mapping(function(fallback)
-			local entry = cmp.get_selected_entry()
-			if entry == nil then
-				entry = cmp.core.view:get_first_entry()
-			end
-			if entry and entry.source.name == "nvim_lsp" and entry.source.source.client.name == "rime_ls" then
-				cmp.abort()
-			else
-				if entry ~= nil then
-					cmp.confirm({
-						behavior = cmp.ConfirmBehavior.Replace,
-						select = true,
-					})
-				else
-					fallback()
-				end
-			end
-		end, { "i", "s" }),
+		-- ["<Space>"] = cmp.mapping(function(fallback)
+		-- 	local entry = cmp.get_selected_entry()
+		-- 	if entry == nil then
+		-- 		entry = cmp.core.view:get_first_entry()
+		-- 	end
+		-- 	if entry and entry.source.name == "nvim_lsp" and entry.source.source.client.name == "rime_ls" then
+		-- 		cmp.confirm({
+		-- 			behavior = cmp.ConfirmBehavior.Replace,
+		-- 			select = true,
+		-- 		})
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, { "i", "s" }),
+		-- ["<CR>"] = cmp.mapping(function(fallback)
+		-- 	local entry = cmp.get_selected_entry()
+		-- 	if entry == nil then
+		-- 		entry = cmp.core.view:get_first_entry()
+		-- 	end
+		-- 	if entry and entry.source.name == "nvim_lsp" and entry.source.source.client.name == "rime_ls" then
+		-- 		cmp.abort()
+		-- 	else
+		-- 		if entry ~= nil then
+		-- 			cmp.confirm({
+		-- 				behavior = cmp.ConfirmBehavior.Replace,
+		-- 				select = true,
+		-- 			})
+		-- 		else
+		-- 			fallback()
+		-- 		end
+		-- 	end
+		-- end, { "i", "s" }),
 	},
 	sorting = {
 		comparators = {
@@ -80,13 +80,14 @@ cmp.setup({
 		},
 	},
 	sources = {
-		-- { name = "luasnip" },
+		{ name = "lazydev", group_index = 0 },
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lua" },
 		{ name = "nvim_lsp" },
-		{ name = "copilot" },
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "emoji" },
+		{ name = "copilot", group_index = 2 },
 	},
 	snippet = {
 		expand = function(args)
@@ -121,30 +122,3 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-require("lspconfig").lua_ls.setup({
-	capabilities = capabilities,
-})
-
-local ls = require("luasnip")
-ls.config.set_config({
-	history = false,
-	updateevents = "TextChanged,TextChangedI",
-})
-
--- for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
--- 	loadfile(ft_path)()
--- end
---
--- vim.keymap.set({ "i", "s" }, "<c-k>", function()
--- 	if ls.expand_or_jumpable() then
--- 		ls.expand_or_jump()
--- 	end
--- end, { silent = true })
---
--- vim.keymap.set({ "i", "s" }, "<c-j>", function()
--- 	if ls.jumpable(-1) then
--- 		ls.jump(-1)
--- 	end
--- end, { silent = true })

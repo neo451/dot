@@ -1,6 +1,6 @@
-require "neotest".setup {
-  adapters = {
-    require "neotest-plenary",
-    require "neotest-golang"
-  }
-}
+require("neotest").setup({
+	adapters = {
+		require("neotest-plenary"),
+		require("neotest-golang"),
+	},
+})

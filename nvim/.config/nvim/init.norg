@@ -1,0 +1,47 @@
+@document.meta
+tangle: ./init.lua
+@end
+
+#tangle
+@code lua
+vim.g.maplocalleader = " "
+vim.g.mapleader = " "
+@end
+
+@code lua
+local function prequire(name)
+	local ok = pcall(require, name)
+	if not ok then
+		vim.notify("config." .. name .. " not loaded")
+	end
+end
+@end
+@code lua
+prequire("lazy-nvim")
+-- require("rock")
+prequire("dev")
+prequire("opt")
+prequire("auto")
+prequire("key")
+prequire("lsp")
+@end
+
+-- local open = vim.ui.open
+
+-- vim.ui.open = function(path, opts)
+-- 	open(path, { cmd = { "wslview" } })
+-- end
+@code lua
+for path in vim.fs.dir("/home/n451/.config/nvim/lua/plugins") do
+   path = path:gsub(".lua", "")
+   pcall(require, "plugins." .. path)
+end
+@end
+
+@code lua
+vim.cmd.colorscheme("tokyonight")
+@end
+
+@code lua
+require("plugins.feed")
+@end

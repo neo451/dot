@@ -1,32 +1,18 @@
-local rocks_config = {
-	rocks_path = vim.fn.stdpath("data") .. "/rocks",
-}
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-vim.g.rocks_nvim = rocks_config
-
-local luarocks_path = {
-	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
-	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
-}
-package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
-
-local luarocks_cpath = {
-	vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
-	vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
-}
-package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
-
-vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*"))
-
--- require("clean").clean_keymap()
--- require("clean").clean_plugins()
-
-require("dev")
-require("key")
-require("opt")
-require("auto")
-
-for path in vim.fs.dir("/home/n451/.config/nvim/lua/plugins") do
-	path = path:gsub(".lua", "")
-	pcall(require, "plugins." .. path)
+local function prequire(mod)
+	local ok = pcall(require, mod)
+	if not ok then
+		vim.notify("config." .. mod .. "failed")
+	end
 end
+
+-- prequire "rock"
+prequire("lazy-nvim")
+prequire("key")
+prequire("opt")
+prequire("auto")
+prequire("lsp")
+prequire("dev")
+vim.cmd.colorscheme("catppuccin")

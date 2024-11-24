@@ -7,3 +7,9 @@
 --   end,
 --   ft = { "markdown" },
 -- },
+
+require("render-markdown").setup({
+	heading = {
+		icons = { "◉ ", "○ ", "✸ ", "✿ " },
+	},
+})

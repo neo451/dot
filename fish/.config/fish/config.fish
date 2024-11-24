@@ -1,3 +1,5 @@
+set OPENAI_API_HOST "https://chatapi.midjourney-vip.cn"
+set OPENAI_API_KEY "sk-AiOEra4wDV8ZzDoF168b03De54Ee422fB8DdEbB22001C45b"
 alias zi "NVIM_APPNAME=zh-nvim nvim"
 alias maiden "maiden-remote-repl --host 192.168.43.179"
 alias bat batcat
@@ -16,6 +18,8 @@ alias inv 'nvim $(fzf --preview="bat {} --color=always")'
 alias fsh 'bash /home/n451/.config/scripts/fsh'
 alias fua 'bash /home/n451/.config/scripts/fua'
 alias ls 'exa -lah'
+alias cdfeed 'cd /home/n451/.local/share/nvim/feed/'
+alias nf 'vi -c "Feed show_index"'
 fzf --fish | source
 
 alias nb 'busted --lua=nlua'
@@ -41,6 +45,8 @@ set DENO_INSTALL "/home/n451/.deno"
 set PATH "$DENO_INSTALL/bin:$PATH"
 set MODULAR_HOME "/home/n451/.modular"
 set PATH "/home/n451/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
+set BROWSER "/mnt/d/zen/zen.exe"
+
 fish_add_path ~/roc_nightly-linux_x86_64-2024-07-13-070d14a
 
 starship init fish | source

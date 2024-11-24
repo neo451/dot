@@ -1,8 +1,8 @@
 require("conform").setup({
-	formatters_by_ft = {
-		markdown = { "markdownlint" },
-		lua = { "stylua" },
-		zig = { "zig fmt" },
-		cpp = { "clang-format" },
-	},
+   formatters_by_ft = {
+      markdown = { "markdownlint", "injected" },
+      lua = { "stylua" },
+      cpp = { "clang-format" },
+      xml = { "xmllint" },
+   },
 })
