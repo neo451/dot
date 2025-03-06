@@ -1,32 +1,40 @@
-local rocks_config = {
-	rocks_path = vim.fn.stdpath("data") .. "/rocks",
-}
-
-vim.g.rocks_nvim = rocks_config
-
-local luarocks_path = {
-	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
-	vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
-}
-package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
-
-local luarocks_cpath = {
-	vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
-	vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
-}
-package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
-
-vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*"))
-
--- require("clean").clean_keymap()
--- require("clean").clean_plugins()
-
-require("dev")
-require("key")
-require("opt")
-require("auto")
-
-for path in vim.fs.dir("/home/n451/.config/nvim/lua/plugins") do
-	path = path:gsub(".lua", "")
-	pcall(require, "plugins." .. path)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+   if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+         { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+         { out, "WarningMsg" },
+         { "\nPress any key to exit..." },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
+   end
 end
+vim.opt.rtp:prepend(lazypath)
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+assert(require("keymaps"))
+assert(require("autocmds"))
+assert(require("options"))
+
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("rime_ls")
+vim.diagnostic.config({ virtual_lines = true })
+
+vim.g.rime_enabled = true
+vim.g.feed_debug = false
+vim.g.ghost_text = false
+
+require("lazy").setup({
+   spec = {
+      { import = "plugins" },
+   },
+   install = { colorscheme = { "catppuccin" } },
+   checker = { enabled = true },
+})
+
+require("rime") -- additional rime stuff

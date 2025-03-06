@@ -1,9 +1,0 @@
-*Asdada*
-**asdadad**
-
-asdda
-
-#
-
-```lua
-```
