@@ -11,21 +11,20 @@ return {
       ".git",
    },
    filetypes = { "lua" },
+   capabilities = require("blink.cmp").get_lsp_capabilities(),
    settings = {
       Lua = {
          runtime = {
             version = "LuaJIT",
          },
-         inlay_hints = { enable = true },
-         workspace = {
-            -- library = vim.api.nvim_get_runtime_file("", true),
-            library = {
-               vim.env.VIMRUNTIME,
-               -- [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-               -- [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-               -- ["/usr/share/awesome/lib/"] = true,
-            },
+         hint = {
+            enable = true,
          },
+         -- workspace = {
+         --    library = {
+         --       vim.env.VIMRUNTIME,
+         --    },
+         -- },
       },
    },
 }

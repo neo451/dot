@@ -25,6 +25,7 @@ opt.undolevels = 10000
 opt.updatetime = 200 -- Save swap file and trigger CursorHold
 opt.winminwidth = 5 -- Minimum window width
 opt.foldlevelstart = 99 -- Start with all folds closed
+opt.ignorecase = true
 
 -- writing
 opt.spelllang = "en,cjk"
