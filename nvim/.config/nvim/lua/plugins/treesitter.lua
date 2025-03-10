@@ -6,6 +6,9 @@ return {
       opts = {
          ensure_installed = "all",
          ignore_install = { "org" },
+         higfhlight = {
+            enable = true,
+         },
          textobjects = {
             swap = {
                enable = true,

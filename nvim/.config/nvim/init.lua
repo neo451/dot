@@ -38,3 +38,5 @@ require("lazy").setup({
 })
 
 require("rime") -- additional rime stuff
+
+vim.cmd("ShowkeysToggle")

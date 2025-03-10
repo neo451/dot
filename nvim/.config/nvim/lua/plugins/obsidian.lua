@@ -12,12 +12,12 @@ return {
          date_format = "%Y-%m-%d",
          time_format = "%H:%M",
       },
-      note_id_func = function()
-         return "hello"
-      end,
-      -- ui = {
-      --    enable = false,
-      -- },
+      ui = {
+         enable = false,
+      },
+      picker = {
+         name = "snacks.pick",
+      },
       completion = {
          blink = true,
          nvim_cmp = false,
@@ -28,6 +28,16 @@ return {
             name = "brain",
             path = "~/Brain",
          },
+      },
+   },
+   keys = {
+      {
+         "<leader>os",
+         "<cmd>ObsidianSearch<cr>",
+      },
+      {
+         "<leader>on",
+         "<cmd>ObsidianNew<cr>",
       },
    },
 }

@@ -9,6 +9,9 @@ local function gen_feed_sections()
 
    for i = 1, 5 do
       local id = ids[i]
+      if not id then
+         break
+      end
       table.insert(sections, {
          pane = 2,
          icon = " ",
@@ -30,7 +33,7 @@ return {
    ---@module 'snacks'
    ---@type snacks.Config
    opts = {
-      -- image = { enabled = true },
+      image = { enabled = true },
       bigfile = { enabled = true },
       -- explorer = { enabled = true },
       indent = { enabled = true },

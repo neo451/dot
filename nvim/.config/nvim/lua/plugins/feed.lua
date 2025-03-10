@@ -7,6 +7,14 @@ local function play_podcast()
    end
 end
 
+local function open_zathura()
+   local _, id = require("feed").get_entry()
+   local db = require("feed").db
+   vim.fn.jobstart(
+      ("pandoc %s -f html -t pdf --pdf-engine  xelatex -o - | zathura -"):format(tostring(db.dir / "data" / id))
+   )
+end
+
 local function show_in_w3m()
    if not vim.fn.executable("w3m") then
       vim.notify("w3m not installed")
@@ -58,6 +66,7 @@ local function icon_tags(id, db)
    }
 
    local get_icon = function(name)
+      print(name)
       if icons[name] then
          return icons[name]
       end
@@ -114,17 +123,12 @@ return {
       },
       keys = {
          index = {
-            [play_podcast] = "p",
-            [show_in_w3m] = "w",
+            { "p", play_podcast },
+            { "w", show_in_w3m },
+            { "z", open_zathura },
          },
       },
-      feeds = {
-         "https://neovim.io/news.xml",
-         "https://dotfyle.com/this-week-in-neovim/rss.xml",
-         "https://feeds.feedburner.com/ruanyifeng",
-         "https://hnrss.org/frontpage",
-         -- "https://www.ruanyifeng.com/blog/atom.xml",
-      },
+      feeds = require("feeds"),
       rsshub = {
          instance = "127.0.0.1:1200",
       },
@@ -155,7 +159,7 @@ return {
          },
          tags = {
             color = "String",
-            format = icon_tags,
+            -- format = icon_tags,
          },
       },
       picker = {

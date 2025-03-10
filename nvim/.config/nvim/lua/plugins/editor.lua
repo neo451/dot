@@ -10,8 +10,17 @@ return {
       },
    },
    {
-      "nvim-lualine/lualine.nvim",
+      "folke/noice.nvim",
       opts = {},
+   },
+   {
+      "nvzone/showkeys",
+      cmd = "ShowkeysToggle",
+      opts = {
+         timeout = 1,
+         maxkeys = 5,
+         -- more opts
+      },
    },
    {
       "folke/which-key.nvim",

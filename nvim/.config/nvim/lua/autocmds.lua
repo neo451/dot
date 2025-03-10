@@ -123,9 +123,26 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
    end,
 })
-
 -- vim.api.nvim_create_autocmd("LspAttach", {
 --    callback = function(ev)
---       vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
+--       -- vim.print("triggered", ev)
+--       vim.lsp.inlay_hint.enable(true)
+--       -- vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
 --    end,
 -- })
+--
+vim.api.nvim_create_autocmd("InsertEnter", {
+   callback = function(ev)
+      -- vim.print("triggered", ev)
+      vim.lsp.inlay_hint.enable(true)
+      -- vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
+   end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+   callback = function(ev)
+      -- vim.print("triggered", ev)
+      vim.lsp.inlay_hint.enable(false)
+      -- vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
+   end,
+})

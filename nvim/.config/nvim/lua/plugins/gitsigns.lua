@@ -25,14 +25,14 @@ return {
          end
 
         -- stylua: ignore start
-        map("n", "<Down>", function()
+        map("n", "]c", function()
           if vim.wo.diff then
             vim.cmd.normal({ "]c", bang = true })
           else
             gs.nav_hunk("next")
           end
         end, "Next Hunk")
-        map("n", "<Up>", function()
+        map("n", "[c", function()
           if vim.wo.diff then
             vim.cmd.normal({ "[c", bang = true })
           else
