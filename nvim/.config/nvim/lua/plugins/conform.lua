@@ -8,6 +8,9 @@ return {
       formatters_by_ft = {
          lua = { "stylua" },
          markdown = { "prettier", "injected" },
+         html = { "prettier" },
+         javascript = { "prettier" },
+         typescript = { "prettier" },
       },
    },
 }

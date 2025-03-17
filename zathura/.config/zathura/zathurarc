@@ -3,4 +3,4 @@ set selection-clipboard clipboard
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 
-# map gO index
+map gO toggle_index

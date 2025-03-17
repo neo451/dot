@@ -6,7 +6,7 @@ return {
       opts = {
          ensure_installed = "all",
          ignore_install = { "org" },
-         higfhlight = {
+         highlight = {
             enable = true,
          },
          textobjects = {
