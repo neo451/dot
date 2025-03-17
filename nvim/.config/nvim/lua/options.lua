@@ -1,4 +1,6 @@
 local opt = vim.opt
+local o = vim.o
+vim.g.markdown_recommended_style = 0
 
 -- ui
 opt.number = true
@@ -17,8 +19,14 @@ opt.tabstop = 2 -- Number of spaces tabs count for
 opt.shiftwidth = 3
 
 -- editing
+o.autowrite = true
+o.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+o.completeopt = "menu,menuone,noselect"
+o.wrap = true
+o.winminwidth = 5 -- Minimum window width
+
 opt.termguicolors = true -- True color support
-opt.timeoutlen = 300
+opt.timeoutlen = 200
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.undofile = true
 opt.undolevels = 10000

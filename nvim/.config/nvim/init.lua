@@ -29,6 +29,14 @@ vim.g.rime_enabled = true
 vim.g.feed_debug = false
 vim.g.ghost_text = false
 
+vim.keymap.set("n", "<leader>rs", function()
+   if vim.g.rime_enabled then
+      vim.g.rime_enabled = false
+   else
+      vim.g.rime_enabled = true
+   end
+end)
+
 require("lazy").setup({
    spec = {
       { import = "plugins" },
@@ -39,4 +47,4 @@ require("lazy").setup({
 
 require("rime") -- additional rime stuff
 
-vim.cmd("ShowkeysToggle")
+-- vim.cmd("ShowkeysToggle")

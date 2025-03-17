@@ -7,6 +7,7 @@ local function play_podcast()
    end
 end
 
+-- TODO: add to docs
 local function open_zathura()
    local _, id = require("feed").get_entry()
    local db = require("feed").db
@@ -66,7 +67,6 @@ local function icon_tags(id, db)
    }
 
    local get_icon = function(name)
-      print(name)
       if icons[name] then
          return icons[name]
       end
@@ -100,7 +100,7 @@ end
 --          og_background = vim.opt.background
 --       end
 --       vim.cmd.colorscheme("e-ink")
---       vim.opt.background = "light"
+--       vim.opt.background = "dark"
 --    end,
 -- })
 --
@@ -115,11 +115,29 @@ end
 return {
    dir = "~/Plugins/feed.nvim",
    dev = true,
+   keys = {
+      {
+         "<leader>Fs",
+         "<cmd>Feed search<cr>",
+         desc = "Feed search",
+      },
+      {
+         "<leader>Ff",
+         "<cmd>Feed<cr>",
+         desc = "Feed",
+      },
+   },
    ---@module 'feed'
    ---@type feed.config
    opts = {
+      web = {
+         open_browser = true,
+      },
       zen = {
-         enabled = true,
+         enabled = false,
+      },
+      date = {
+         locale = "zh_CN.utf8",
       },
       keys = {
          index = {
@@ -146,6 +164,9 @@ return {
             auth = "n451/1e4d0d767d8647e7caa5c89ad5ae35f7fb8ccc45",
          },
       },
+      progress = {
+         backend = "fidget",
+      },
       ui = {
          order = { "date", "feed", "tags", "title", "reading_time" },
          reading_time = {
@@ -159,7 +180,7 @@ return {
          },
          tags = {
             color = "String",
-            -- format = icon_tags,
+            format = icon_tags,
          },
       },
       picker = {

@@ -2,15 +2,21 @@ return {
    {
       "OXY2DEV/markview.nvim",
       -- lazy = true,
-      enabled = false,
+      enabled = true,
    },
    {
       "MeanderingProgrammer/render-markdown.nvim",
       dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
       ---@module 'render-markdown'
       ---@type render.md.UserConfig
-      opts = {},
-      enabled = true,
+      opts = {
+         win_options = {
+            concealcursor = {
+               rendered = "nvc",
+            },
+         },
+      },
+      enabled = false,
    },
    {
       "iamcco/markdown-preview.nvim",
