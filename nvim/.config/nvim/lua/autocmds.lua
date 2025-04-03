@@ -123,26 +123,18 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
    end,
 })
--- vim.api.nvim_create_autocmd("LspAttach", {
---    callback = function(ev)
---       -- vim.print("triggered", ev)
---       vim.lsp.inlay_hint.enable(true)
---       -- vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
---    end,
--- })
---
-vim.api.nvim_create_autocmd("InsertEnter", {
-   callback = function(ev)
-      -- vim.print("triggered", ev)
-      vim.lsp.inlay_hint.enable(true)
-      -- vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
-   end,
-})
 
-vim.api.nvim_create_autocmd("InsertLeave", {
-   callback = function(ev)
-      -- vim.print("triggered", ev)
-      vim.lsp.inlay_hint.enable(false)
-      -- vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
+vim.api.nvim_create_autocmd('LspAttach', {
+   group = augroup "lsp",
+   callback = function(args)
+      local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+      -- if not pcall(require, "blink.cmp") then
+      --    if client:supports_method('textDocument/completion') then
+      --       local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+      --       client.server_capabilities.completionProvider.triggerCharacters = chars
+      --       -- vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      --    end
+      -- end
    end,
 })

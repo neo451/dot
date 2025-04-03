@@ -1,40 +1,56 @@
+-- mine
+vim.g.rime_enabled = true
+vim.g.feed_debug = false
+vim.g.ghost_text = false
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 local opt = vim.opt
 local o = vim.o
 vim.g.markdown_recommended_style = 0
 
 -- ui
-opt.number = true
-opt.relativenumber = true
-opt.wrap = true
-opt.breakindent = true
-opt.showmode = false
-opt.cursorline = true
-opt.list = true
+o.number = true
+o.relativenumber = true
+o.breakindent = true
+o.showmode = false
+o.cursorline = true
+o.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-opt.expandtab = true
-opt.undofile = true
-opt.splitright = true
-opt.splitbelow = true
-opt.tabstop = 2 -- Number of spaces tabs count for
-opt.shiftwidth = 3
+
+-- search
+o.ignorecase = true
+
+-- typing
+o.expandtab = true
+o.undofile = true
+o.tabstop = 2 -- Number of spaces tabs count for
+o.shiftwidth = 3
+
+-- window manage
+o.splitright = true
+o.splitbelow = true
 
 -- editing
 o.autowrite = true
 o.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-o.completeopt = "menu,menuone,noselect"
-o.wrap = true
-o.winminwidth = 5 -- Minimum window width
 
-opt.termguicolors = true -- True color support
-opt.timeoutlen = 200
-opt.wildmode = "longest:full,full" -- Command-line completion mode
-opt.undofile = true
-opt.undolevels = 10000
-opt.updatetime = 200 -- Save swap file and trigger CursorHold
-opt.winminwidth = 5 -- Minimum window width
-opt.foldlevelstart = 99 -- Start with all folds closed
-opt.ignorecase = true
+-- completion
+o.completeopt = "menu,menuone,noselect"
+o.wildmode = "longest:full,full" -- Command-line completion mode
+
+-- undo
+o.undofile = true
+o.undolevels = 10000
+o.updatetime = 200 -- Save swap file and trigger CursorHold
 
 -- writing
-opt.spelllang = "en,cjk"
-opt.conceallevel = 2 -- So that I can see `` in markdown files
+o.spelllang = "en,cjk"
+
+-- diagnostic
+vim.diagnostic.config({
+   virtual_lines = {
+      current_line = true
+   }
+})

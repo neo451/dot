@@ -1,11 +1,11 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+   local lazyrepo = "git@github.com:folke/lazy.nvim.git"
    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
    if vim.v.shell_error ~= 0 then
       vim.api.nvim_echo({
          { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-         { out, "WarningMsg" },
+         { out,                            "WarningMsg" },
          { "\nPress any key to exit..." },
       }, true, {})
       vim.fn.getchar()
@@ -14,30 +14,17 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
+assert(require("options"))
 assert(require("keymaps"))
 assert(require("autocmds"))
-assert(require("options"))
 
 vim.lsp.enable("lua_ls")
-vim.lsp.enable("rime_ls")
-vim.diagnostic.config({ virtual_lines = true })
-
-vim.g.rime_enabled = true
-vim.g.feed_debug = false
-vim.g.ghost_text = false
-
-vim.keymap.set("n", "<leader>rs", function()
-   if vim.g.rime_enabled then
-      vim.g.rime_enabled = false
-   else
-      vim.g.rime_enabled = true
-   end
-end)
+-- vim.lsp.enable("rime_ls")
 
 require("lazy").setup({
+   git = {
+      url_format = "git@github.com:%s.git",
+   },
    spec = {
       { import = "plugins" },
    },
@@ -46,5 +33,3 @@ require("lazy").setup({
 })
 
 require("rime") -- additional rime stuff
-
--- vim.cmd("ShowkeysToggle")
