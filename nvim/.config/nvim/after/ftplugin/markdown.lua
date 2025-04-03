@@ -12,7 +12,21 @@ vim.wo.smoothscroll = true
 vim.wo.foldtext = ""
 vim.wo.foldlevel = 99
 vim.bo.shiftwidth = 2
+vim.wo.conceallevel = 1
 
 local buf = vim.api.nvim_get_current_buf()
 
-vim.keymap.set("n", "<Tab>", "za", { buffer = buf })
+local map = function(mode, lhs, rhs)
+   vim.keymap.set(mode, lhs, rhs, {
+      expr = true,
+      silent = true,
+      buffer = buf
+   })
+end
+
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'")
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'")
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'")
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'")
+
+vim.keymap.set('n', "<Tab>", "za")

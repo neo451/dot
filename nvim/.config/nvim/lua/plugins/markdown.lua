@@ -1,9 +1,9 @@
 return {
-   {
-      "OXY2DEV/markview.nvim",
-      -- lazy = true,
-      enabled = true,
-   },
+   -- {
+   -- "OXY2DEV/markview.nvim",
+   -- -- lazy = true,
+   -- enabled = true,
+   -- },
    {
       "MeanderingProgrammer/render-markdown.nvim",
       dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
@@ -16,7 +16,7 @@ return {
             },
          },
       },
-      enabled = false,
+      enabled = true,
    },
    {
       "iamcco/markdown-preview.nvim",

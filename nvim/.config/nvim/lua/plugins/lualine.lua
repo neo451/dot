@@ -20,7 +20,7 @@ return {
          "oil",
          "quickfix",
          "man",
-         "feed",
+         --"feed",
       },
    },
 }

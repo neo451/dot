@@ -1,10 +1,11 @@
+---@diagnostic disable: missing-fields
 local function gen_feed_sections()
    local feed = require("feed")
    local ids = feed.db:filter()
    local sections = {
       { section = "header" },
-      { section = "keys", gap = 1, padding = 1 },
-      { pane = 2, title = "Feeds", padding = 1 },
+      { section = "keys",  gap = 1,         padding = 1 },
+      { pane = 2,          title = "Feeds", padding = 1 },
    }
 
    for i = 1, 5 do
@@ -33,38 +34,38 @@ return {
    ---@module 'snacks'
    ---@type snacks.Config
    opts = {
-      image = { enabled = true },
+      -- image = { enabled = true },
       bigfile = { enabled = true },
       -- explorer = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
-      notifier = {
-         enabled = true,
-         timeout = 3000,
-      },
+      -- notifier = {
+      --    enabled = true,
+      --    timeout = 3000,
+      -- },
       picker = { enabled = true },
-      quickfile = { enabled = true },
-      scope = { enabled = true },
+      -- quickfile = { enabled = true },
+      -- scope = { enabled = true },
       scroll = { enabled = true },
       statuscolumn = { enabled = true },
-      words = { enabled = true },
-      dashboard = {
-         sections = gen_feed_sections(),
-      },
-      -- styles = {
-      --    notification = {
-      --       -- wo = { wrap = true } -- Wrap notifications
-      --    },
+      -- words = { enabled = true },
+      -- dashboard = {
+      --    sections = gen_feed_sections(),
       -- },
+      styles = {
+         notification = {
+            wo = { wrap = true }
+         },
+      },
    },
    keys = {
-      {
-         "<leader><space>",
-         function()
-            Snacks.picker.smart()
-         end,
-         desc = "Smart Find Files",
-      },
+      -- {
+      --    "<leader><space>",
+      --    function()
+      --       Snacks.picker.smart()
+      --    end,
+      --    desc = "Smart Find Files",
+      -- },
       {
          "<leader>,",
          function()
@@ -548,12 +549,12 @@ return {
             Snacks.toggle.diagnostics():map("<leader>ud")
             Snacks.toggle.line_number():map("<leader>ul")
             Snacks.toggle
-               .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-               :map("<leader>uc")
+                .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+                :map("<leader>uc")
             Snacks.toggle.treesitter():map("<leader>uT")
             Snacks.toggle
-               .option("background", { off = "light", on = "dark", name = "Dark Background" })
-               :map("<leader>ub")
+                .option("background", { off = "light", on = "dark", name = "Dark Background" })
+                :map("<leader>ub")
             Snacks.toggle.inlay_hints():map("<leader>uh")
             Snacks.toggle.indent():map("<leader>ug")
             Snacks.toggle.dim():map("<leader>uD")

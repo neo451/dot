@@ -115,6 +115,7 @@ end
 return {
    dir = "~/Plugins/feed.nvim",
    dev = true,
+   cmd = "Feed",
    keys = {
       {
          "<leader>Fs",
