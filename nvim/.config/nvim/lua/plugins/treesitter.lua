@@ -8,9 +8,9 @@ return {
          for _, config in pairs(configs) do
             config.install_info.url = config.install_info.url:gsub("https://github.com/", "git@github.com:")
          end
-         require "nvim-treesitter.install".prefer_git = true
-         require "nvim-treesitter.configs".setup {
-            ensure_installed = { "xml", "html", "markdown", "yaml" },
+         require("nvim-treesitter.install").prefer_git = true
+         require("nvim-treesitter.configs").setup({
+            ensure_installed = { "nix", "xml", "html", "markdown", "yaml", "regex", "bash" },
             ignore_install = { "org" },
             highlight = {
                enable = true,
@@ -38,7 +38,7 @@ return {
                   include_surrounding_whitespace = false,
                },
             },
-         }
+         })
       end,
    },
 }

@@ -4,6 +4,7 @@ return {
       "nvim-lua/plenary.nvim",
    },
    dir = "~/Plugins/obsidian.nvim/",
+   -- enabled = false,
    dev = true,
    lazy = false,
    opts = {
@@ -25,8 +26,8 @@ return {
       },
       workspaces = {
          {
-            name = "brain",
-            path = "~/Brain",
+            name = "notes",
+            path = "~/Notes",
          },
       },
    },

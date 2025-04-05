@@ -52,6 +52,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("FileType", {
    group = augroup("close_with_q"),
    pattern = {
+      "query",
       "PlenaryTestPopup",
       "checkhealth",
       "dbout",
@@ -124,8 +125,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
    end,
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-   group = augroup "lsp",
+vim.api.nvim_create_autocmd("LspAttach", {
+   group = augroup("lsp"),
    callback = function(args)
       local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 

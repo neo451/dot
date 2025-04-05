@@ -51,6 +51,6 @@ o.spelllang = "en,cjk"
 -- diagnostic
 vim.diagnostic.config({
    virtual_lines = {
-      current_line = true
-   }
+      current_line = true,
+   },
 })

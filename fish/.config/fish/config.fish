@@ -3,8 +3,6 @@ alias maiden "maiden-remote-repl --host 192.168.43.179"
 alias bat batcat
 alias mvi "~/neov/bin/nvim"
 #alias scsynth "/usr/bin/scsynth"
-alias sclang "/mnt/d/audio-software/sclang.exe"
-alias scsynth "/mnt/d/audio-software/scsynth"
 alias vi nvim
 alias em "emacs -nw"
 alias lua "lua5.1"

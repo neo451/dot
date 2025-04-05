@@ -20,7 +20,7 @@ local map = function(mode, lhs, rhs)
    vim.keymap.set(mode, lhs, rhs, {
       expr = true,
       silent = true,
-      buffer = buf
+      buffer = buf,
    })
 end
 
@@ -29,4 +29,4 @@ map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'")
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'")
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'")
 
-vim.keymap.set('n', "<Tab>", "za")
+vim.keymap.set("n", "<Tab>", "za")

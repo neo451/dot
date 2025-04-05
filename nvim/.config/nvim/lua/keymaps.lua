@@ -3,6 +3,30 @@ local map = vim.keymap.set
 map("i", "jk", "<esc>")
 map("n", "<leader><leader>x", "<cmd>w<cr><cmd>so %<cr>")
 
+map("n", "<leader>/", function()
+   Snacks.picker.grep()
+end, { desc = "Grep" })
+
+map("n", "<leader>fc", function()
+   Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+end, { desc = "Find Config File" })
+
+map("n", "<leader>fR", function()
+   Snacks.picker.resume()
+end, { desc = "Resume" })
+
+map("n", "<leader>,", function()
+   Snacks.picker.buffers()
+end, { desc = "Buffers" })
+
+map("n", "<leader>fr", function()
+   Snacks.picker.recent()
+end, { desc = "Recent" })
+
+map("n", "<leader>n", function()
+   Snacks.notifier.show_history()
+end, { desc = "Notification History" })
+
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
