@@ -1,4 +1,4 @@
 return {
-   dir = "~/Plugins/nvim-zh/",
+   -- dir = "~/Plugins/nvim-zh/",
    -- opts = {},
 }

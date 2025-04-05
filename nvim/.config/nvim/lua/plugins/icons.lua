@@ -1,6 +1,5 @@
 return {
    "echasnovski/mini.icons",
-   lazy = true,
    opts = {
       file = {
          [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
@@ -9,10 +8,11 @@ return {
       filetype = {
          dotenv = { glyph = "", hl = "MiniIconsYellow" },
       },
-      lsp = {
-         copilot = { glyph = "", hl = "MiniIconsCyan" },
-         ["rime-ls"] = { glyph = "", hl = "MiniIconsGreen" },
-      },
+      -- TODO:
+      -- lsp = {
+      --    copilot = { glyph = "", hl = "MiniIconsCyan" },
+      --    ["rime-ls"] = { glyph = "", hl = "MiniIconsGreen" },
+      -- },
    },
    init = function()
       package.preload["nvim-web-devicons"] = function()

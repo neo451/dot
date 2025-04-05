@@ -18,7 +18,9 @@ return {
       -- },
    },
 
-   version = "*",
+   -- build = "cargo build --release",
+   -- build = "nix run .#build-plugin",
+   -- version = "*",
    ---@module 'blink.cmp'
    ---@type blink.cmp.Config
    opts = {
@@ -85,7 +87,7 @@ return {
       },
 
       sources = {
-         default = { "lazydev", "lsp", "path", "snippets", "buffer", "nerdfont", },
+         default = { "lazydev", "lsp", "path", "snippets", "buffer", "nerdfont" },
          -- "copilot" },
          providers = {
             copilot = {
@@ -103,7 +105,7 @@ return {
             nerdfont = {
                module = "blink-nerdfont",
                name = "Nerd Fonts",
-               score_offset = 15,        -- Tune by preference
+               score_offset = 15, -- Tune by preference
                opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
             },
             lsp = {

@@ -6,6 +6,7 @@ return {
          lsp_format = "fallback",
       },
       formatters_by_ft = {
+         nix = { "nixfmt" },
          lua = { "stylua" },
          markdown = { "prettier", "injected" },
          html = { "prettier" },
