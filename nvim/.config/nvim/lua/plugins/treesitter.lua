@@ -10,7 +10,19 @@ return {
          end
          require("nvim-treesitter.install").prefer_git = true
          require("nvim-treesitter.configs").setup({
-            ensure_installed = { "nix", "xml", "html", "markdown", "yaml", "regex", "bash" },
+            ensure_installed = {
+               "nix",
+               "xml",
+               "html",
+               "markdown",
+               -- "markdown_inline",
+               "yaml",
+               "regex",
+               "bash",
+               "json",
+               "jsonc",
+               "hyprlang",
+            },
             ignore_install = { "org" },
             highlight = {
                enable = true,

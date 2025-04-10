@@ -1,12 +1,5 @@
 return {
    {
-      "f-person/auto-dark-mode.nvim",
-      enabled = false,
-      opts = {
-         fallback = "dark",
-      },
-   },
-   {
       "mbbill/undotree",
       keys = {
          {
@@ -14,19 +7,6 @@ return {
             "<cmd>UndotreeToggle<cr>",
             desc = "Toggle undotree",
          },
-      },
-   },
-   {
-      "folke/noice.nvim",
-      opts = {},
-   },
-   {
-      "nvzone/showkeys",
-      cmd = "ShowkeysToggle",
-      opts = {
-         timeout = 1,
-         maxkeys = 5,
-         -- more opts
       },
    },
    {

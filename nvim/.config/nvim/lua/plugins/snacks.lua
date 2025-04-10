@@ -34,7 +34,7 @@ return {
    ---@module 'snacks'
    ---@type snacks.Config
    opts = {
-      -- image = { enabled = true },
+      image = { enabled = true },
       bigfile = { enabled = true },
       -- explorer = { enabled = true },
       indent = { enabled = true },
@@ -43,7 +43,9 @@ return {
          enabled = true,
          timeout = 3000,
       },
-      picker = { enabled = true },
+      picker = {
+         enabled = true,
+      },
       -- scope = { enabled = true },
       scroll = { enabled = true },
       statuscolumn = { enabled = true },
