@@ -7,6 +7,10 @@ map("n", "<leader>/", function()
    Snacks.picker.grep()
 end, { desc = "Grep" })
 
+map("n", "<leader>fn", function()
+   Snacks.picker.files({ cwd = "~/nixos-config/" })
+end, { desc = "Find Config File" })
+
 map("n", "<leader>fc", function()
    Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "Find Config File" })

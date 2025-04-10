@@ -8,6 +8,7 @@ return {
       neovim = {
          "https://neovim.io/news.xml",
          "https://dotfyle.com/this-week-in-neovim/rss.xml",
+         "v1nh1shungry/nvim-weekly-cn/releases",
       },
       zig = {
          "https://ziglang.org/news/index.xml",
@@ -22,8 +23,8 @@ return {
    --    "https://feeds.feedburner.com/ruanyifeng",
    --    "https://www.openmymind.net/atom.xml",
    -- },
-   -- podcast = {
-   --    "https://feeds.megaphone.fm/BVLLC2163264914",
-   --    "https://feeds.simplecast.com/dHoohVNH",
-   -- },
+   podcast = {
+      "https://feeds.megaphone.fm/BVLLC2163264914",
+      "https://feeds.simplecast.com/dHoohVNH",
+   },
 }

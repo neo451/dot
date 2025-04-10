@@ -17,7 +17,13 @@ return {
          vim.cmd.colorscheme("catppuccin")
       end,
    },
-   { "folke/tokyonight.nvim" },
+   "folke/tokyonight.nvim",
    "rebelot/kanagawa.nvim",
    "alexxGmZ/e-ink.nvim",
+   {
+      "catgoose/nvim-colorizer.lua",
+      event = "BufReadPre",
+      opts = { -- set to setup table
+      },
+   },
 }

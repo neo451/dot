@@ -12,6 +12,7 @@ return {
          html = { "prettier" },
          javascript = { "prettier" },
          typescript = { "prettier" },
+         json = { "jq" },
       },
    },
 }

@@ -22,9 +22,12 @@ opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 -- search
 o.ignorecase = true
 
+-- term
+o.shell = "fish"
+
 -- typing
 o.expandtab = true
-o.undofile = true
+-- o.undofile = true
 o.tabstop = 2 -- Number of spaces tabs count for
 o.shiftwidth = 3
 

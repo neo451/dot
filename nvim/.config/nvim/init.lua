@@ -20,7 +20,7 @@ assert(require("autocmds"))
 
 pcall(vim.lsp.enable, "lua_ls")
 pcall(vim.lsp.enable, "nixd")
--- vim.lsp.enable("rime_ls")
+pcall(vim.lsp.enable, "rime_ls")
 
 require("lazy").setup({
    git = {
@@ -31,6 +31,9 @@ require("lazy").setup({
    },
    install = { colorscheme = { "catppuccin" } },
    checker = { enabled = true },
+   readme = {
+      enabled = false,
+   },
 })
 
 require("rime") -- additional rime stuff

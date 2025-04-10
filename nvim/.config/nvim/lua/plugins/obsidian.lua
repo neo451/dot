@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
    "obsidian-nvim/obsidian.nvim",
    dependencies = {
@@ -7,7 +8,23 @@ return {
    -- enabled = false,
    dev = true,
    lazy = false,
+   ---@module 'obsidian'
+   ---@type obsidian.config.ClientOpts
    opts = {
+      attachments = {
+         -- confirm_img_paste = false,
+         -- img_name_func = function()
+         --    return string.format("%s-", os.date("%Y%m%d%H%M%S"))
+         --    -- return string.format("Pasted image %s", os.date("%Y%m%d%H%M%S"))
+         -- end,
+         -- img_text_func = function()
+         -- end,
+      },
+      follow_img_func = function(img)
+         -- vim.fn.jobstart({ "qlmanage", "-p", img }) -- Mac OS quick look preview
+         vim.ui.open(img)
+         -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
+      end,
       templates = {
          folder = "templates",
          date_format = "%Y-%m-%d",
