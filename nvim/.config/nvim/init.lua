@@ -1,16 +1,16 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-   local lazyrepo = "git@github.com:folke/lazy.nvim.git"
-   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-   if vim.v.shell_error ~= 0 then
-      vim.api.nvim_echo({
-         { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-         { out, "WarningMsg" },
-         { "\nPress any key to exit..." },
-      }, true, {})
-      vim.fn.getchar()
-      os.exit(1)
-   end
+  local lazyrepo = "git@github.com:folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -18,22 +18,28 @@ assert(require("options"))
 assert(require("keymaps"))
 assert(require("autocmds"))
 
-pcall(vim.lsp.enable, "lua_ls")
-pcall(vim.lsp.enable, "nixd")
-pcall(vim.lsp.enable, "rime_ls")
+local servers = {
+  "lua_ls",
+  "gopls",
+  "harper_ls",
+  "nixd",
+  "rime_ls",
+}
+
+for _, name in ipairs(servers) do
+  pcall(vim.lsp.enable, name)
+end
 
 require("lazy").setup({
-   git = {
-      url_format = "git@github.com:%s.git",
-   },
-   spec = {
-      { import = "plugins" },
-   },
-   install = { colorscheme = { "catppuccin" } },
-   checker = { enabled = true },
-   readme = {
-      enabled = false,
-   },
+  git = {
+    url_format = "git@github.com:%s.git",
+  },
+  spec = {
+    { import = "plugins" },
+  },
+  install = { colorscheme = { "catppuccin" } },
+  checker = { enabled = true },
+  readme = { enabled = false },
 })
 
 require("rime") -- additional rime stuff

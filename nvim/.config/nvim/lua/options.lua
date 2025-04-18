@@ -40,7 +40,7 @@ o.autowrite = true
 o.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 
 -- completion
-o.completeopt = "menu,menuone,noselect"
+o.completeopt = "menu,menuone"
 o.wildmode = "longest:full,full" -- Command-line completion mode
 
 -- undo

@@ -2,7 +2,7 @@ return {
    {
       "OXY2DEV/markview.nvim",
       -- lazy = true,
-      enabled = true,
+      enabled = false,
    },
    {
       "MeanderingProgrammer/render-markdown.nvim",
