@@ -3,19 +3,20 @@ return {
   dependencies = {
     "rafamadriz/friendly-snippets",
     "MahanRahmati/blink-nerdfont.nvim",
-    -- "fang2hou/blink-copilot",
-    -- {
-    --    "zbirenbaum/copilot.lua",
-    --    cmd = "Copilot",
-    --    event = "InsertEnter",
-    --    opts = {
-    --       filetypes = {
-    --          markdown = false,
-    --       },
-    --       suggestion = { enabled = false },
-    --       panel = { enabled = false },
-    --    },
-    -- },
+    "fang2hou/blink-copilot",
+    "moyiz/blink-emoji.nvim",
+    {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+      opts = {
+        filetypes = {
+          markdown = false,
+        },
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      },
+    },
   },
   enabled = true,
 
@@ -91,7 +92,15 @@ return {
     },
 
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer", "nerdfont" },
+      default = {
+        "lazydev",
+        "lsp",
+        "path",
+        "snippets",
+        "buffer",
+        -- "nerdfont",
+        "emoji",
+      },
       -- "copilot" },
       providers = {
         copilot = {
@@ -111,6 +120,20 @@ return {
           name = "Nerd Fonts",
           score_offset = 15, -- Tune by preference
           opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
+        },
+        emoji = {
+          module = "blink-emoji",
+          name = "Emoji",
+          score_offset = 15, -- Tune by preference
+          opts = { insert = true }, -- Insert emoji (default) or complete its name
+          should_show_items = function()
+            return vim.tbl_contains(
+              -- Enable emoji completion only for git commits and markdown.
+              -- By default, enabled for all file-types.
+              { "gitcommit", "markdown" },
+              vim.o.filetype
+            )
+          end,
         },
         lsp = {
           transform_items = function(_, items)

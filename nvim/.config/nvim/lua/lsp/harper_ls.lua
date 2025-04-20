@@ -3,12 +3,20 @@ local capabilities = has_blink and require("blink.cmp").get_lsp_capabilities()
   or vim.lsp.protocol.make_client_capabilities()
 
 return {
-  cmd = { "gopls" },
-  filetypes = { "go", "gomod", "gowork", "gotmpl" },
-  root_markers = {
-    "go.work",
-    "go.mod",
-    ".git",
-  },
+  cmd = { "harper-ls", "--stdio" },
   capabilities = capabilities,
+  root_markers = {
+    ".git",
+    -- for obsidian
+    ".obsidian",
+    ".trash",
+  },
+  filetypes = {
+    "gitcommit",
+    "typst",
+    "markdown",
+    "txt",
+    "org",
+    "norg",
+  },
 }

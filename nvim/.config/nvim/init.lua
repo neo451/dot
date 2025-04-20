@@ -14,9 +14,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-assert(require("options"))
-assert(require("keymaps"))
-assert(require("autocmds"))
+require("options")
+require("keymaps")
+require("autocmds")
 
 local servers = {
   "lua_ls",
@@ -24,11 +24,10 @@ local servers = {
   "harper_ls",
   "nixd",
   "rime_ls",
+  "marksman",
 }
 
-for _, name in ipairs(servers) do
-  pcall(vim.lsp.enable, name)
-end
+vim.g.my_color = "tokyonight-storm"
 
 require("lazy").setup({
   git = {
@@ -37,9 +36,22 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
   },
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { vim.g.my_color, "habamax" } },
   checker = { enabled = true },
   readme = { enabled = false },
 })
+
+local has_blink = pcall(require, "blink.cmp")
+local capabilities = has_blink and require("blink.cmp").get_lsp_capabilities()
+  or vim.lsp.protocol.make_client_capabilities()
+
+for _, name in ipairs(servers) do
+  local config = require("lsp." .. name)
+  config.capabilities = capabilities
+  vim.lsp.config[name] = config
+  pcall(vim.lsp.enable, name)
+end
+
+vim.cmd.colorscheme(vim.g.my_color)
 
 require("rime") -- additional rime stuff

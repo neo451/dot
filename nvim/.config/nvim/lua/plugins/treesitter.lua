@@ -16,9 +16,10 @@ return {
           "xml",
           "html",
           "markdown",
+          "vimdoc",
           "lua",
           "luadoc",
-          -- "markdown_inline",
+          "gitcommit",
           "yaml",
           "regex",
           "bash",
@@ -29,6 +30,7 @@ return {
         ignore_install = { "org" },
         highlight = {
           enable = true,
+          additional_vim_regex_highlighting = false,
         },
         textobjects = {
           swap = {

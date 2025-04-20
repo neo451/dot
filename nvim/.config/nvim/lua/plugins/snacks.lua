@@ -34,7 +34,7 @@ return {
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
-    image = { enabled = true },
+    -- image = { enabled = true },
     bigfile = { enabled = true },
     -- explorer = { enabled = true },
     indent = { enabled = true },

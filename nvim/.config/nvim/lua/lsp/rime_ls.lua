@@ -1,6 +1,3 @@
-local has_blink = pcall(require, "blink.cmp")
-local capabilities = has_blink and require("blink.cmp").get_lsp_capabilities()
-   or vim.lsp.protocol.make_client_capabilities()
 return {
    cmd = { "rime_ls" },
    -- cmd = { '/home/wlh/coding/rime-ls/target/debug/rime_ls' },
@@ -22,5 +19,4 @@ return {
       show_filter_text_in_label = false,
       long_filter_text = true,
    },
-   capabilities = vim.lsp.protocol.make_client_capabilities(),
 }
