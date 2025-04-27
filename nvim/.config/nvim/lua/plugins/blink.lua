@@ -1,10 +1,21 @@
 return {
   "saghen/blink.cmp",
+  event = "InsertEnter",
   dependencies = {
     "rafamadriz/friendly-snippets",
     "MahanRahmati/blink-nerdfont.nvim",
     "fang2hou/blink-copilot",
     "moyiz/blink-emoji.nvim",
+    -- {
+    --   "copilotlsp-nvim/copilot-lsp",
+    --   init = function()
+    --     vim.g.copilot_nes_debounce = 500
+    --     vim.lsp.enable("copilot")
+    --     vim.keymap.set("n", "<tab>", function()
+    --       require("copilot-lsp.nes").apply_pending_nes()
+    --     end)
+    --   end,
+    -- },
     {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",
@@ -18,8 +29,7 @@ return {
       },
     },
   },
-  enabled = true,
-
+  cond = vim.g.my_cmp == "blink",
   -- build = "cargo build --release",
   -- build = "nix run .#build-plugin",
   -- version = "*",
@@ -29,6 +39,21 @@ return {
     fuzzy = { implementation = "lua" },
     keymap = {
       preset = "default",
+      ["<Tab>"] = {
+        function(cmp)
+          if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+            cmp.hide()
+            return require("copilot-lsp.nes").apply_pending_nes()
+          end
+          if cmp.snippet_active() then
+            return cmp.accept()
+          else
+            return cmp.select_and_accept()
+          end
+        end,
+        "snippet_forward",
+        "fallback",
+      },
       [";"] = {
         function(cmp)
           if not vim.g.rime_enabled then
@@ -98,28 +123,28 @@ return {
         "path",
         "snippets",
         "buffer",
-        -- "nerdfont",
-        "emoji",
+        "nerdfont",
+        -- "emoji",
+        "copilot",
       },
       -- "copilot" },
       providers = {
         copilot = {
           name = "copilot",
           module = "blink-copilot",
-          score_offset = 100,
+          score_offset = 80,
           async = true,
         },
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
-          -- make lazydev completions top priority (see `:h blink.cmp`)
           score_offset = 100,
         },
         nerdfont = {
           module = "blink-nerdfont",
           name = "Nerd Fonts",
           score_offset = 15, -- Tune by preference
-          opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
+          opts = { insert = true },
         },
         emoji = {
           module = "blink-emoji",
@@ -133,18 +158,6 @@ return {
               { "gitcommit", "markdown" },
               vim.o.filetype
             )
-          end,
-        },
-        lsp = {
-          transform_items = function(_, items)
-            -- the default transformer will do this
-            for _, item in ipairs(items) do
-              if item.kind == require("blink.cmp.types").CompletionItemKind.Snippet then
-                item.score_offset = item.score_offset - 3
-              end
-            end
-            -- you can define your own filter for rime item
-            return items
           end,
         },
       },

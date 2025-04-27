@@ -48,12 +48,17 @@ o.undofile = true
 o.undolevels = 10000
 o.updatetime = 200 -- Save swap file and trigger CursorHold
 
+o.formatoptions = "jcroqlnt" -- Format options
+
 -- writing
 o.spelllang = "en,cjk"
 
 -- diagnostic
 vim.diagnostic.config({
-   virtual_lines = {
-      current_line = true,
-   },
+  virtual_text = {
+    current_line = true,
+  },
+  -- virtual_lines = {
+  --   current_line = true,
+  -- },
 })

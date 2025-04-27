@@ -1,4 +1,5 @@
 return {
-   "altermo/nelisp",
-   branch = "lua",
+  "altermo/nelisp",
+  branch = "lua",
+  cond = false,
 }

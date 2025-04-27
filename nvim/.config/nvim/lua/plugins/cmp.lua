@@ -15,5 +15,5 @@ return {
       }),
     })
   end,
-  enablde = false,
+  cond = vim.g.my_cmp == "cmp",
 }

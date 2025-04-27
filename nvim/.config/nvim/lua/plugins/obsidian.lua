@@ -2,59 +2,60 @@
 return {
   {
     "obsidian-nvim/obsidian.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
     dir = "~/Plugins/obsidian.nvim/",
-    -- enabled = false,
     dev = true,
-    lazy = false,
+    cmd = { "ObsidianNew", "ObsidianQuickSwitch" },
+    lazy = true,
     ---@module 'obsidian'
     ---@type obsidian.config.ClientOpts
     opts = {
-      note_id_func = function(title)
-        return title
-      end,
-
+      legacy_commands = true,
       prefer_config_from_obsidian_app = true,
+      -- preferred_link_style = "markdown",
+
+      statusline = {
+        enabled = true,
+      },
+
+      daily_notes = {
+        folder = "daily_notes",
+      },
+      calendar = {
+        cmd = "CalendarT",
+        close_after = true,
+      },
 
       picker = { name = "telescope.nvim" },
 
       attachments = {
-        confirm_img_paste = true,
+        confirm_img_paste = false,
       },
-      -- preferred_link_style = "markdown",
-      follow_img_func = function(img)
-        vim.ui.open(img)
+
+      note_id_func = function(title)
+        return title
       end,
+
       templates = {
         folder = "templates",
         date_format = "%Y-%m-%d",
         time_format = "%H:%M",
       },
       completion = {
-        blink = false,
-        nvim_cmp = false,
-        -- min_chars = 2,
+        blink = vim.g.my_cmp == "blink",
+        nvim_cmp = vim.g.my_cmp == "cmp",
       },
       workspaces = {
         {
           name = "notes",
           path = "~/Notes",
         },
+        {
+          name = "work",
+          path = "~/Work",
+        },
       },
       ui = {
         enable = false,
-      },
-    },
-    keys = {
-      {
-        "<leader>os",
-        "<cmd>ObsidianSearch<cr>",
-      },
-      {
-        "<leader>on",
-        "<cmd>ObsidianNew<cr>",
       },
     },
   },

@@ -19,6 +19,7 @@ require("keymaps")
 require("autocmds")
 
 local servers = {
+  "dummy",
   "lua_ls",
   "gopls",
   "harper_ls",
@@ -27,7 +28,18 @@ local servers = {
   "marksman",
 }
 
-vim.g.my_color = "tokyonight-storm"
+---@alias cmp "cmp" | "blink" | "mini"
+---@alias pickers "snacks.picker" | "mini.pick" | "telescope" | "fzf-lua"
+
+---@type cmp
+vim.g.my_cmp = "blink"
+-- vim.g.my_cmp = "cmp"
+
+---@type pickers
+vim.g.my_picker = "snacks.picker"
+
+---@type "render-markdown" | "markview"
+vim.g.markdown_renderer = "render-markdown"
 
 require("lazy").setup({
   git = {
@@ -38,12 +50,17 @@ require("lazy").setup({
   },
   install = { colorscheme = { vim.g.my_color, "habamax" } },
   checker = { enabled = true },
-  readme = { enabled = false },
 })
 
-local has_blink = pcall(require, "blink.cmp")
-local capabilities = has_blink and require("blink.cmp").get_lsp_capabilities()
-  or vim.lsp.protocol.make_client_capabilities()
+-- vim.g.my_color = "tokyonight-storm"
+vim.g.my_color = "duskfox"
+vim.cmd.colorscheme(vim.g.my_color)
+
+-- local has_blink = pcall(require, "blink.cmp")
+-- local capabilities = has_blink and require("blink.cmp").get_lsp_capabilities()
+--   or vim.lsp.protocol.make_client_capabilities()
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 for _, name in ipairs(servers) do
   local config = require("lsp." .. name)
@@ -52,6 +69,8 @@ for _, name in ipairs(servers) do
   pcall(vim.lsp.enable, name)
 end
 
-vim.cmd.colorscheme(vim.g.my_color)
-
 require("rime") -- additional rime stuff
+
+vim.api.nvim_create_user_command("Lsp", "checkhealth vim.lsp", {})
+
+require("search").setup({})

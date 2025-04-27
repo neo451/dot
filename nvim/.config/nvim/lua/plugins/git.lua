@@ -1,58 +1,44 @@
 return {
-   {
-      "chrisgrieser/nvim-tinygit",
-      config = function()
-         vim.keymap.set("n", "<leader>ga", function()
-            require("tinygit").interactiveStaging()
-         end, { desc = "git add" })
-         vim.keymap.set("n", "<leader>gc", function()
-            require("tinygit").smartCommit()
-         end, { desc = "git commit" })
-         vim.keymap.set("n", "<leader>gp", function()
-            require("tinygit").push()
-         end, { desc = "git push" })
-      end,
-   },
-   {
-      "NeogitOrg/neogit",
-      dependencies = {
-         "nvim-lua/plenary.nvim", -- required
-         "sindrets/diffview.nvim", -- optional - Diff integration
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+    },
+    config = true,
+    keys = {
+      {
+        "<leader>gg",
+        "<cmd>Neogit<cr>",
+        desc = "Neo Git",
       },
-      config = true,
-      keys = {
-         {
-            "<leader>gg",
-            "<cmd>Neogit<cr>",
-            desc = "Neo Git",
-         },
+    },
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    -- event = "LazyFile",
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
       },
-   },
-   {
-      "lewis6991/gitsigns.nvim",
-      -- event = "LazyFile",
-      opts = {
-         signs = {
-            add = { text = "▎" },
-            change = { text = "▎" },
-            delete = { text = "" },
-            topdelete = { text = "" },
-            changedelete = { text = "▎" },
-            untracked = { text = "▎" },
-         },
-         signs_staged = {
-            add = { text = "▎" },
-            change = { text = "▎" },
-            delete = { text = "" },
-            topdelete = { text = "" },
-            changedelete = { text = "▎" },
-         },
-         on_attach = function(buffer)
-            local gs = package.loaded.gitsigns
+      signs_staged = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+      },
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
 
-            local function map(mode, l, r, desc)
-               vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-            end
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
 
         -- stylua: ignore start
         map("n", "]c", function()
@@ -80,7 +66,7 @@ return {
         map("n", "<leader>ghd", gs.diffthis, "Diff This")
         map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-         end,
-      },
-   },
+      end,
+    },
+  },
 }

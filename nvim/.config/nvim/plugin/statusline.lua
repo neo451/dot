@@ -11,6 +11,7 @@ local statusline = {
   "%<",
   "%=",
   '%{%v:lua._diy_statusline("doing")%}',
+  '%{%v:lua._diy_statusline("wc")%}',
   '%{%v:lua._diy_statusline("lsp")%}',
   '%{%v:lua._diy_statusline("ft")%}',
   '%{%v:lua._diy_statusline("percentage")%}',
@@ -105,17 +106,6 @@ function cmp.git()
   return branch, "DiyStatuslineDevinfo"
 end
 
--- local time
--- local uv = vim.uv
--- local timer = uv.new_timer()
--- if timer then
---    timer:start(0, 1000, function()
---       time = os.date("%H:%M:%S")
---       vim.schedule(function()
---          vim.o.statusline = concat(statusline)
---       end)
---    end)
--- end
 --
 -- function cmp.time()
 --    return time, "@comment.hint"
@@ -198,4 +188,19 @@ function cmp.harpoon()
   end
 end
 
-vim.o.statusline = concat(statusline)
+function cmp.wc()
+  --   return require("wordcounter").count_cur_buf_words()
+  return vim.g.obsidian_statusline
+end
+
+-- local time
+-- local uv = vim.uv
+-- local timer = uv.new_timer()
+-- if timer then
+--   timer:start(0, 1000, function()
+--     vim.schedule(function()
+--       vim.o.statusline = concat(statusline)
+--     end)
+--   end)
+-- end
+-- vim.o.statusline = concat(statusline)

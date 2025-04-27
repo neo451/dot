@@ -4,11 +4,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     config = function()
-      local configs = require("nvim-treesitter.parsers").get_parser_configs()
-      for _, config in pairs(configs) do
-        config.install_info.url = config.install_info.url:gsub("https://github.com/", "git@github.com:")
-      end
-      require("nvim-treesitter.install").prefer_git = true
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "go",
@@ -26,11 +21,12 @@ return {
           "json",
           "jsonc",
           "hyprlang",
+          -- "norg",
         },
         ignore_install = { "org" },
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = false,
+          additional_vim_regex_highlighting = true,
         },
         textobjects = {
           swap = {

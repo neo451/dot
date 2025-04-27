@@ -34,13 +34,15 @@ return {
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
-    -- image = { enabled = true },
+    image = {
+      enabled = true,
+    },
     bigfile = { enabled = true },
     -- explorer = { enabled = true },
     indent = { enabled = true },
     -- input = { enabled = true },
     notifier = {
-      enabled = false,
+      enabled = true,
       timeout = 3000,
     },
     picker = {
@@ -50,9 +52,9 @@ return {
     scroll = { enabled = true },
     statuscolumn = { enabled = true },
     -- words = { enabled = true },
-    -- dashboard = {
-    --    sections = gen_feed_sections(),
-    -- },
+    dashboard = {
+      --    sections = gen_feed_sections(),
+    },
     styles = {
       notification = {
         wo = { wrap = true },
