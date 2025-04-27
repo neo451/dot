@@ -4,8 +4,8 @@ return {
     "obsidian-nvim/obsidian.nvim",
     dir = "~/Plugins/obsidian.nvim/",
     dev = true,
-    cmd = { "ObsidianNew", "ObsidianQuickSwitch" },
-    lazy = true,
+    -- cmd = { "ObsidianNew", "ObsidianQuickSwitch" },
+    -- lazy = true,
     ---@module 'obsidian'
     ---@type obsidian.config.ClientOpts
     opts = {

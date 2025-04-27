@@ -13,7 +13,7 @@ end
 
 return {
   "monaqa/dial.nvim",
-  recommended = true,
+  cond = false,
   desc = "Increment and decrement numbers, dates, and more",
   -- stylua: ignore
   keys = {

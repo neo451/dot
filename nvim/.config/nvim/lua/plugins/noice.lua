@@ -8,4 +8,5 @@ return {
       inc_rename = false, -- enables an input dialog for inc-rename.nvim
     },
   },
+  cond = true,
 }

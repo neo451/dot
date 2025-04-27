@@ -1,5 +1,4 @@
 return {
-
   {
     "kyza0d/vocal.nvim",
     dependencies = {
@@ -37,6 +36,7 @@ return {
     "nvzone/showkeys",
     cmd = "ShowkeysToggle",
     opts = {
+      position = "top-left",
       timeout = 1,
       maxkeys = 5,
       -- more opts
