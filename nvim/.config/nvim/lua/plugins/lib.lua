@@ -17,4 +17,8 @@ return {
     lazy = true,
     -- cond = vim.g.my_picker == "fzf-lua",
   },
+  {
+    "nvim-neotest/nvim-nio",
+    lazy = true,
+    },
 }

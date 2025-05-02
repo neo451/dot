@@ -9,8 +9,8 @@ set("n", "ycc", function()
   return "yy" .. vim.v.count1 .. "gcc']p"
 end, { remap = true, expr = true })
 
--- fix previous spell
-set("i", "<C-l>", "<c-g>u<Esc>[s1z=gi<c-g>u")
+-- fix previous spell error
+set("i", "<C-l>", "<c-g>u<Esc>[s1z=g<c-g>u")
 
 --search within visual selection - this is magic
 set("x", "/", "<Esc>/\\%V")
@@ -19,7 +19,17 @@ set("x", "/", "<Esc>/\\%V")
 set("n", "J", "mzJ`z:delmarks z<cr>")
 
 set("i", "jk", "<esc>")
-set("n", "<leader><leader>x", "<cmd>w<cr><cmd>so %<cr>")
+set("n", "<leader><leader>x", function()
+  local base = vim.fs.basename(vim.fn.expand("%"))
+  if vim.startswith(base, "test_") then
+    return "<cmd>lua MiniTest.run_file()<cr>"
+  end
+  return "<cmd>w<cr><cmd>so %<cr>"
+end, { expr = true })
+
+set("n", "<C-/>", function()
+  Snacks.terminal.toggle()
+end, { desc = "Terminal" })
 
 set("n", "<leader>/", function()
   Snacks.picker.grep()

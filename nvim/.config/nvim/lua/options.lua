@@ -3,6 +3,8 @@ vim.g.rime_enabled = true
 vim.g.feed_debug = false
 vim.g.ghost_text = false
 
+vim.o.cmdheight = 0
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
@@ -55,9 +57,7 @@ o.spelllang = "en,cjk"
 
 -- diagnostic
 vim.diagnostic.config({
-  virtual_text = {
-    current_line = true,
-  },
+  virtual_text = true,
   -- virtual_lines = {
   --   current_line = true,
   -- },

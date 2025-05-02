@@ -27,8 +27,4 @@ return {
     "folke/todo-comments.nvim",
     opts = {},
   },
-  {
-    "echasnovski/mini.ai",
-    opts = {},
-  },
 }

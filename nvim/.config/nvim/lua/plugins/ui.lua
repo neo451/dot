@@ -1,5 +1,7 @@
 return {
-  "OXY2DEV/ui.nvim",
-  lazy = false,
-  cond = false,
+  {
+    "OXY2DEV/ui.nvim",
+    lazy = false,
+    cond = false,
+  },
 }

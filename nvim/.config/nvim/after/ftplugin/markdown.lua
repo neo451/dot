@@ -1,5 +1,4 @@
-vim.bo.shiftwidth = 2
-vim.wo.conceallevel = 3
+vim.wo.spell = true
 
 local buf = vim.api.nvim_get_current_buf()
 
@@ -17,13 +16,13 @@ map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'")
 -- vim.keymap.set("n", "<Tab>", "za", { noremap = true })
 -- vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 
--- vim.opt_local.formatoptions:append("r") -- `<CR>` in insert mode
--- vim.opt_local.formatoptions:append("o") -- `o` in normal mode
--- vim.opt_local.comments = {
---   "b:>",
---   "b:-",
--- }
---
+vim.opt_local.formatoptions:append("r") -- `<CR>` in insert mode
+vim.opt_local.formatoptions:append("o") -- `o` in normal mode
+vim.opt_local.comments = {
+  "b:>",
+  "b:-",
+}
+
 -- vim.keymap.set("i", "<S-CR>", "<C-o>o<C-u>")
 -- vim.keymap.set("n", "<leader><cr>", "o<bs><bs>")
 --
@@ -56,7 +55,7 @@ vim.keymap.set("v", "<C-b>", "xi****<ESC>hhp", { desc = "Bold Selected Text" })
 vim.keymap.set("n", "<leader>B", "$v0xi****<ESC>hhp", { desc = "Bold Entire Line" })
 vim.keymap.set("n", "<C-b>", "bvexi****<ESC>hhp", { desc = "Bold Word Under Cursor" })
 
-vim.keymap.set("n", "<leader>p", "<cmd>ObsidianPasteImg<cr>", { desc = "ObsidianPasteImg" })
+vim.keymap.set("n", "<leader>p", "<cmd>Obsidian paste_img<cr>", { desc = "ObsidianPasteImg" })
 
 -- MiniPairs.map_buf(buf, "i", "*", { action = "open", pair = "**" })
 -- MiniPairs.map_buf(buf, "i", "_", { action = "open", pair = "__" })

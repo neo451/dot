@@ -76,18 +76,18 @@ end
 vim.keymap.set("n", "<Plug>(LspDialInc)", dial(true), { noremap = true })
 vim.keymap.set("n", "<Plug>(LspDialDec)", dial(false), { noremap = true })
 
-vim.keymap.set("n", "<C-a>", function()
-  if tonumber(vim.fn.expand("<cword>")) ~= nil then
-    return "<C-a>"
-  else
-    return "<Plug>(LspDialInc)"
-  end
-end, { expr = true })
-
-vim.keymap.set("n", "<C-x>", function()
-  if tonumber(vim.fn.expand("<cword>")) ~= nil then
-    return "<C-x>"
-  else
-    return "<Plug>(LspDialDec)"
-  end
-end, { expr = true })
+-- vim.keymap.set("n", "<C-a>", function()
+--   if tonumber(vim.fn.expand("<cword>")) ~= nil then
+--     return "<C-a>"
+--   else
+--     return "<Plug>(LspDialInc)"
+--   end
+-- end, { expr = true })
+--
+-- vim.keymap.set("n", "<C-x>", function()
+--   if tonumber(vim.fn.expand("<cword>")) ~= nil then
+--     return "<C-x>"
+--   else
+--     return "<Plug>(LspDialDec)"
+--   end
+-- end, { expr = true })

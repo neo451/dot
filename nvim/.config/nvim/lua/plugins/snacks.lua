@@ -36,13 +36,21 @@ return {
   opts = {
     image = {
       enabled = true,
+      wo = {
+        winhighlight = "FloatBorder:WhichKeyBorder",
+      },
+      doc = {
+        inline = false,
+        max_width = 45,
+        max_height = 20,
+      },
     },
     bigfile = { enabled = true },
     -- explorer = { enabled = true },
     indent = { enabled = true },
     -- input = { enabled = true },
     notifier = {
-      enabled = true,
+      enabled = false,
       timeout = 3000,
     },
     picker = {
@@ -58,6 +66,10 @@ return {
     styles = {
       notification = {
         wo = { wrap = true },
+      },
+      snacks_image = {
+        relative = "editor",
+        col = -1,
       },
     },
   },
@@ -208,20 +220,6 @@ return {
         Snacks.notifier.hide()
       end,
       desc = "Dismiss All Notifications",
-    },
-    {
-      "<c-/>",
-      function()
-        Snacks.terminal()
-      end,
-      desc = "Toggle Terminal",
-    },
-    {
-      "<c-_>",
-      function()
-        Snacks.terminal()
-      end,
-      desc = "which_key_ignore",
     },
     {
       "<leader>N",

@@ -1,15 +1,19 @@
 return {
   {
+    "dundalek/bloat.nvim",
+    cmd = "Bloat",
+  },
+  {
     "kyza0d/vocal.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
     opts = {},
-    enabled = false,
+    cond = false,
   },
   {
     "mecattaf/murmur.nvim",
-    event = "VeryLazy",
+    cond = false,
     opts = {
       -- Optional: Override default configuration
       server = {

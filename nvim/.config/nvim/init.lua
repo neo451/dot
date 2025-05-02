@@ -1,19 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "git@github.com:folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
+require("boot")
 require("options")
 require("keymaps")
 require("autocmds")
@@ -26,6 +11,7 @@ local servers = {
   "nixd",
   "rime_ls",
   "marksman",
+  "zls",
 }
 
 ---@alias cmp "cmp" | "blink" | "mini"
@@ -40,6 +26,11 @@ vim.g.my_picker = "snacks.picker"
 
 ---@type "render-markdown" | "markview"
 vim.g.markdown_renderer = "render-markdown"
+
+vim.cmd([[
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': 'md'}]
+]])
 
 require("lazy").setup({
   git = {
@@ -74,3 +65,7 @@ require("rime") -- additional rime stuff
 vim.api.nvim_create_user_command("Lsp", "checkhealth vim.lsp", {})
 
 require("search").setup({})
+
+pcall(function()
+  require("vim._extui").enable({})
+end)

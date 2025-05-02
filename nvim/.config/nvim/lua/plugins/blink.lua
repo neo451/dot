@@ -1,21 +1,12 @@
 return {
   "saghen/blink.cmp",
   event = "InsertEnter",
+  version = "1.*",
   dependencies = {
     "rafamadriz/friendly-snippets",
     "MahanRahmati/blink-nerdfont.nvim",
     "fang2hou/blink-copilot",
     "moyiz/blink-emoji.nvim",
-    -- {
-    --   "copilotlsp-nvim/copilot-lsp",
-    --   init = function()
-    --     vim.g.copilot_nes_debounce = 500
-    --     vim.lsp.enable("copilot")
-    --     vim.keymap.set("n", "<tab>", function()
-    --       require("copilot-lsp.nes").apply_pending_nes()
-    --     end)
-    --   end,
-    -- },
     {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",
@@ -32,11 +23,9 @@ return {
   cond = vim.g.my_cmp == "blink",
   -- build = "cargo build --release",
   -- build = "nix run .#build-plugin",
-  -- version = "*",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    fuzzy = { implementation = "lua" },
     keymap = {
       preset = "default",
       ["<Tab>"] = {

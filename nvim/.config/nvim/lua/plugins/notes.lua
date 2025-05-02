@@ -1,4 +1,33 @@
 return {
+  -- TODO:
+  {
+    "vimwiki/vimwiki",
+    cond = false,
+  },
+  {
+    "jakewvincent/mkdnflow.nvim",
+    enabled = false,
+  },
+
+  {
+    "nvim-orgmode/orgmode",
+    -- event = "VeryLazy",
+    ft = { "org" },
+    config = function()
+      -- Setup orgmode
+      require("orgmode").setup({
+        org_agenda_files = "~/orgfiles/**/*",
+        org_default_notes_file = "~/orgfiles/refile.org",
+      })
+
+      -- NOTE: If you are using nvim-treesitter with ~ensure_installed = "all"~ option
+      -- add ~org~ to ignore_install
+      -- require('nvim-treesitter.configs').setup({
+      --   ensure_installed = 'all',
+      --   ignore_install = { 'org' },
+      -- })
+    end,
+  },
   {
     "zk-org/zk-nvim",
     cmd = "ZkIndex",
@@ -20,6 +49,9 @@ return {
   {
     "nvim-neorg/neorg",
     cmd = "Neorg",
+    dependencies = {
+      { "nvim-neorg/lua-utils.nvim", lazy = true },
+    },
     version = "*", -- Pin Neorg to the latest stable release
     config = {
       ["core.dirman"] = {

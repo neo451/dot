@@ -1,6 +1,7 @@
 return {
   {
     "rasulomaroff/reactive.nvim",
+    event = "BufEnter",
     opts = {
       builtin = {
         cursorline = true,

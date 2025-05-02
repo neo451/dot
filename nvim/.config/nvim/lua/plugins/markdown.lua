@@ -1,5 +1,9 @@
 return {
   {
+    "dhruvasagar/vim-table-mode",
+    ft = { "markdown" },
+  },
+  {
     "OXY2DEV/markview.nvim",
     lazy = false,
     cond = vim.g.markdown_renderer == "markview",
@@ -15,7 +19,7 @@ return {
         icons = { "◉ ", "◎ ", "○ ", "✺ ", "▶ ", "⤷ " },
       },
     },
-    cond = vim.g.markdown_renderer == "render-markdown",
+    -- cond = vim.g.markdown_renderer == "render-markdown",
   },
   {
     "iamcco/markdown-preview.nvim",
