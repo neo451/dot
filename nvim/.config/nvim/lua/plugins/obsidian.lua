@@ -47,12 +47,9 @@ return {
   {
     "obsidian-nvim/obsidian.nvim",
     dir = "~/Plugins/obsidian.nvim/",
-    -- event = "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md",
     event = "BufReadPre /home/n451/Notes/*.md",
     cmd = "Obsidian",
     dev = true,
-    -- cmd = { "Obsidian", "ObsidianNew", "ObsidianQuickSwitch" },
-    -- lazy = true,
     ---@module 'obsidian'
     ---@type obsidian.config.ClientOpts
     opts = {
@@ -112,12 +109,12 @@ return {
       },
     },
 
-    keys = {
-      {
-        "<leader>O",
-        "<cmd>Obsidian<cr>",
-        desc = "Obsidian",
-      },
-    },
+    -- keys = {
+    --   {
+    --     "<leader>O",
+    --     "<cmd>Obsidian<cr>",
+    --     desc = "Obsidian",
+    --   },
+    -- },
   },
 }

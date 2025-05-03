@@ -66,6 +66,10 @@ vim.api.nvim_create_user_command("Lsp", "checkhealth vim.lsp", {})
 
 require("search").setup({})
 
-pcall(function()
-  require("vim._extui").enable({})
-end)
+-- pcall(function()
+--   require("vim._extui").enable({
+--     msg = {
+--       pos = "box",
+--     }
+--   })
+-- end)

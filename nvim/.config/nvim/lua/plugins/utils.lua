@@ -1,5 +1,11 @@
 return {
   {
+    "ThePrimeagen/refactoring.nvim",
+    cmd = "Refactor",
+    config = true,
+    opts = {},
+  },
+  {
     "dundalek/bloat.nvim",
     cmd = "Bloat",
   },

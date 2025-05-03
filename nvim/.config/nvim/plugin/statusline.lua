@@ -193,14 +193,14 @@ function cmp.wc()
   return vim.g.obsidian_statusline
 end
 
--- local time
--- local uv = vim.uv
--- local timer = uv.new_timer()
--- if timer then
---   timer:start(0, 1000, function()
---     vim.schedule(function()
---       vim.o.statusline = concat(statusline)
---     end)
---   end)
--- end
--- vim.o.statusline = concat(statusline)
+local time
+local uv = vim.uv
+local timer = uv.new_timer()
+if timer then
+  timer:start(0, 1000, function()
+    vim.schedule(function()
+      vim.o.statusline = concat(statusline)
+    end)
+  end)
+end
+vim.o.statusline = concat(statusline)

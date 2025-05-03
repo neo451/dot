@@ -1,18 +1,13 @@
--- mine
-vim.g.rime_enabled = true
-vim.g.feed_debug = false
-vim.g.ghost_text = false
-
-vim.o.cmdheight = 0
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 local opt = vim.opt
 local o = vim.o
+
 vim.g.markdown_recommended_style = 0
 
 -- ui
+o.cmdheight = 1
 o.number = true
 o.relativenumber = true
 o.breakindent = true

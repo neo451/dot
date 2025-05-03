@@ -1,5 +1,13 @@
 return {
   {
+    "jmbuhr/otter.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    ft = { "markdown" },
+    opts = {},
+  },
+  {
     "dhruvasagar/vim-table-mode",
     ft = { "markdown" },
   },

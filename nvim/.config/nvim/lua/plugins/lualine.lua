@@ -1,5 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim",
+  cond = false,
   opts = {
     options = {
       section_separators = "",
@@ -9,7 +10,6 @@ return {
       lualine_x = {
         {
           "g:obsidian",
-          color = "String",
         },
         {
           "g:feed_progress",
