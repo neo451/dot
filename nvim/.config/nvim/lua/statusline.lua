@@ -3,22 +3,6 @@ local cmp = {}
 
 local concat = table.concat
 
-local statusline = {
-  '%{%v:lua._diy_statusline("mode")%}',
-  '%{%v:lua._diy_statusline("git")%}',
-  '%{%v:lua._diy_statusline("diagnostic")%}',
-  "%t %r %m",
-  "%<",
-  "%=",
-  '%{%v:lua._diy_statusline("doing")%}',
-  '%{%v:lua._diy_statusline("wc")%}',
-  '%{%v:lua._diy_statusline("lsp")%}',
-  '%{%v:lua._diy_statusline("ft")%}',
-  '%{%v:lua._diy_statusline("percentage")%}',
-  '%{%v:lua._diy_statusline("position")%}',
-  -- '%{%v:lua._diy_statusline("time")%}',
-}
-
 --- from lualine.nvim
 local mode2name = {
   ["n"] = "NORMAL",
@@ -106,11 +90,6 @@ function cmp.git()
   return branch, "DiyStatuslineDevinfo"
 end
 
---
--- function cmp.time()
---    return time, "@comment.hint"
--- end
-
 function cmp.diagnostic()
   local ignore = {
     ["c"] = true, -- command mode
@@ -157,8 +136,6 @@ function cmp.ft()
 end
 
 ---Show attached LSP clients in `[name1, name2]` format.
----Long server names will be modified. For example, `lua-language-server` will be shorten to `lua-ls`
----Returns an empty string if there aren't any attached LSP clients.
 function cmp.lsp()
   local attached_clients = vim.lsp.get_clients({ bufnr = 0 })
   if #attached_clients == 0 then
@@ -167,7 +144,7 @@ function cmp.lsp()
   local names = vim
     .iter(attached_clients)
     :map(function(client)
-      local name = client.name:gsub("language.server", "ls")
+      local name = client.name:match("%w+")
       return name
     end)
     :totable()
@@ -188,19 +165,46 @@ function cmp.harpoon()
   end
 end
 
-function cmp.wc()
-  --   return require("wordcounter").count_cur_buf_words()
-  return vim.g.obsidian_statusline
+function cmp.obsidian()
+  return vim.g.obsidian
 end
 
-local time
-local uv = vim.uv
-local timer = uv.new_timer()
-if timer then
-  timer:start(0, 1000, function()
-    vim.schedule(function()
-      vim.o.statusline = concat(statusline)
-    end)
-  end)
-end
-vim.o.statusline = concat(statusline)
+local cmps = {}
+
+return {
+  setup = function(sections)
+    for _, section in ipairs(sections.left) do
+      if type(section) == "string" then
+        table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
+      end
+    end
+
+    table.insert(cmps, "%t")
+    table.insert(cmps, "%r")
+    table.insert(cmps, "%m")
+    table.insert(cmps, "%<")
+    table.insert(cmps, "%=")
+
+    for _, section in ipairs(sections.right) do
+      if type(section) == "string" then
+        table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
+      end
+    end
+  end,
+  enable = function(enable)
+    if enable then
+      local uv = vim.uv
+      local timer = uv.new_timer()
+      if timer then
+        pcall(function()
+          timer:start(0, 1000, function()
+            vim.schedule(function()
+              vim.o.statusline = concat(cmps)
+            end)
+          end)
+        end)
+      end
+      vim.o.statusline = concat(cmps)
+    end
+  end,
+}

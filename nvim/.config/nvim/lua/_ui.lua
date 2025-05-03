@@ -165,20 +165,20 @@ local msg_show = function(kind, content, replace_last)
 
   ---|fE
 end
-
-local map = {
-  msg_show = msg_show,
-  -- msg_clear = noop,
-  -- msg_showmode = noop,
-  -- msg_showcmd = noop,
-  -- msg_ruler = noop,
-  -- msg_history_clear = noop,
-  msg_history_show = function(...)
-    local lines = arg2lines({ ... })
-    -- local lines = process_content(({ ... })[1])
-    open(lines)
-  end,
-}
+--
+-- local map = {
+--   msg_show = msg_show,
+--   -- msg_clear = noop,
+--   -- msg_showmode = noop,
+--   -- msg_showcmd = noop,
+--   -- msg_ruler = noop,
+--   -- msg_history_clear = noop,
+--   msg_history_show = function(...)
+--     local lines = arg2lines({ ... })
+--     -- local lines = process_content(({ ... })[1])
+--     open(lines)
+--   end,
+-- }
 --
 -- vim.ui_attach(namespace, {
 --   ext_cmdline = true,

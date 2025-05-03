@@ -66,10 +66,27 @@ vim.api.nvim_create_user_command("Lsp", "checkhealth vim.lsp", {})
 
 require("search").setup({})
 
--- pcall(function()
---   require("vim._extui").enable({
---     msg = {
---       pos = "box",
---     }
---   })
--- end)
+require("statusline").setup({
+  left = {
+    "mode",
+    "git",
+    "diagnostic",
+  },
+  right = {
+    "obsidian",
+    "lsp",
+    "ft",
+    -- "percentage",
+    -- "position",
+  },
+})
+
+require("statusline").enable(true)
+
+pcall(function()
+  require("vim._extui").enable({
+    msg = {
+      pos = "box",
+    },
+  })
+end)

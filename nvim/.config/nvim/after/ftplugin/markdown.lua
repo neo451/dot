@@ -8,6 +8,7 @@ local map = function(mode, lhs, rhs)
   })
 end
 
+-- visual lines TODO: make it togglable? some times need og jk for marcos
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'")
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'")
 
