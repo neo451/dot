@@ -1,5 +1,10 @@
 return {
   {
+    "webhooked/kanso.nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  {
     "rasulomaroff/reactive.nvim",
     event = "BufEnter",
     opts = {
@@ -12,7 +17,7 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    cond = false,
+    cond = true,
   },
   {
     "catppuccin/nvim",

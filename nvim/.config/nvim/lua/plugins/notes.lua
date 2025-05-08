@@ -12,7 +12,7 @@ return {
   {
     "nvim-orgmode/orgmode",
     -- event = "VeryLazy",
-    -- ft = { "org" },
+    ft = { "org" },
     config = function()
       -- Setup orgmode
       require("orgmode").setup({
@@ -40,7 +40,7 @@ return {
     cmd = "Telekasten",
     dependencies = {
       "nvim-telescope/telescope.nvim",
-      "nvim-telekasten/calendar-vim",
+      -- "nvim-telekasten/calendar-vim",
     },
     opts = {
       home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
@@ -49,6 +49,7 @@ return {
   {
     "nvim-neorg/neorg",
     cmd = "Neorg",
+    ft = { "norg" },
     dependencies = {
       { "nvim-neorg/lua-utils.nvim", lazy = true },
     },

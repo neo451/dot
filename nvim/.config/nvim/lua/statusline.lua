@@ -43,20 +43,6 @@ local mode2name = {
   ["t"] = "TERMINAL",
 }
 
-local mode2hl = {
-  N = "DiyStatuslineModeNormal",
-  I = "DiyStatuslineModeInsert",
-  V = "DiyStatuslineModeVisual",
-  R = "DiyStatuslineModeReplace",
-  C = "DiyStatuslineModeCommand",
-}
-
-setmetatable(cmp, {
-  __index = function()
-    return "DiyStatuslineModeOther"
-  end,
-})
-
 --- highlight pattern
 -- This has three parts:
 -- 1. the highlight group
@@ -171,40 +157,42 @@ end
 
 local cmps = {}
 
-return {
-  setup = function(sections)
-    for _, section in ipairs(sections.left) do
-      if type(section) == "string" then
-        table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
-      end
-    end
+local M = {}
 
-    table.insert(cmps, "%t")
-    table.insert(cmps, "%r")
-    table.insert(cmps, "%m")
-    table.insert(cmps, "%<")
-    table.insert(cmps, "%=")
-
-    for _, section in ipairs(sections.right) do
-      if type(section) == "string" then
-        table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
-      end
+M.setup = function(sections)
+  for _, section in ipairs(sections.left) do
+    if type(section) == "string" then
+      table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
     end
-  end,
-  enable = function(enable)
-    if enable then
-      local uv = vim.uv
-      local timer = uv.new_timer()
-      if timer then
-        pcall(function()
-          timer:start(0, 1000, function()
-            vim.schedule(function()
-              vim.o.statusline = concat(cmps)
-            end)
+  end
+
+  table.insert(cmps, "%t")
+  table.insert(cmps, "%r")
+  table.insert(cmps, "%m")
+  table.insert(cmps, "%<")
+  table.insert(cmps, "%=")
+
+  for _, section in ipairs(sections.right) do
+    if type(section) == "string" then
+      table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
+    end
+  end
+end
+
+M.enable = function(enable)
+  if enable then
+    local uv = vim.uv
+    local timer = uv.new_timer()
+    if timer then
+      timer:start(0, 1000, function()
+        vim.schedule(function()
+          pcall(function()
+            vim.o.statusline = concat(cmps)
           end)
         end)
-      end
-      vim.o.statusline = concat(cmps)
+      end)
     end
-  end,
-}
+  end
+end
+
+return M

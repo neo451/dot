@@ -53,29 +53,61 @@ local function get_n_rime_item_index(n, items)
   end
   return result
 end
---
--- if pcall(require, "blink.cmp") then
---    -- if last char is number, and the only completion item is provided by rime-ls, accept it
---    require("blink.cmp.completion.list").show_emitter:on(function(event)
---       if not vim.g.rime_enabled then
---          return
---       end
---       local col = vim.fn.col(".") - 1
---       -- if you don't want use number to select, change the match pattern by yourself
---       if event.context.line:sub(col, col):match("%d") == nil then
---          return
---       end
---       local rime_item_index = get_n_rime_item_index(2, event.items)
---       if #rime_item_index ~= 1 then
---          return
---       end
---       vim.schedule(function()
---          require("blink.cmp").accept({ index = rime_item_index[1] })
---       end)
---    end)
--- end
+
+if pcall(require, "blink.cmp") then
+  -- if last char is number, and the only completion item is provided by rime-ls, accept it
+  require("blink.cmp.completion.list").show_emitter:on(function(event)
+    if not vim.g.rime_enabled then
+      return
+    end
+    local col = vim.fn.col(".") - 1
+    -- if you don't want use number to select, change the match pattern by yourself
+    if event.context.line:sub(col, col):match("%d") == nil then
+      return
+    end
+    local rime_item_index = get_n_rime_item_index(2, event.items)
+    if #rime_item_index ~= 1 then
+      return
+    end
+    vim.schedule(function()
+      require("blink.cmp").accept({ index = rime_item_index[1] })
+    end)
+  end)
+end
+
+-- toggle rime
+vim.b.rime_enabled = false
+local toggle_rime = function()
+  local client = vim.lsp.get_clients({ name = "rime_ls" })[1]
+  assert(client, "rime_ls not found")
+
+  client:exec_cmd({
+    title = "toggle_rime",
+    command = "rime-ls.toggle-rime",
+  }, {}, function(_, result)
+    vim.print(result)
+  end)
+
+  -- vim.lsp.buf_request(0, "workspace/executeCommand", { command = "rime-ls.toggle-rime" }, function(_, result, ctx, _)
+  --   if ctx.client_id == client_id then
+  --     vim.b.rime_enabled = result
+  --   end
+  -- end)
+end
+
+vim.keymap.set("n", "<leader>rr", toggle_rime)
+
+-- update lualine
+local function rime_status()
+  if vim.b.rime_enabled then
+    return "ㄓ"
+  else
+    return ""
+  end
+end
 
 return {
+  status = rime_status,
   get_n_rime_item_index = get_n_rime_item_index,
   is_rime_item = is_rime_item,
 }

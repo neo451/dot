@@ -48,7 +48,7 @@ return {
     bigfile = { enabled = true },
     -- explorer = { enabled = true },
     indent = { enabled = true },
-    -- input = { enabled = true },
+    input = { enabled = true },
     notifier = {
       enabled = false,
       timeout = 3000,

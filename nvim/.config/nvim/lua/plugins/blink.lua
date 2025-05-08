@@ -5,44 +5,14 @@ return {
   dependencies = {
     "rafamadriz/friendly-snippets",
     "MahanRahmati/blink-nerdfont.nvim",
-    "fang2hou/blink-copilot",
     "moyiz/blink-emoji.nvim",
-    {
-      "zbirenbaum/copilot.lua",
-      cmd = "Copilot",
-      event = "InsertEnter",
-      opts = {
-        filetypes = {
-          markdown = false,
-        },
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      },
-    },
   },
   cond = vim.g.my_cmp == "blink",
-  -- build = "cargo build --release",
-  -- build = "nix run .#build-plugin",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
     keymap = {
       preset = "default",
-      ["<Tab>"] = {
-        function(cmp)
-          if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-            cmp.hide()
-            return require("copilot-lsp.nes").apply_pending_nes()
-          end
-          if cmp.snippet_active() then
-            return cmp.accept()
-          else
-            return cmp.select_and_accept()
-          end
-        end,
-        "snippet_forward",
-        "fallback",
-      },
       [";"] = {
         function(cmp)
           if not vim.g.rime_enabled then
@@ -107,22 +77,26 @@ return {
 
     sources = {
       default = {
-        "lazydev",
         "lsp",
         "path",
         "snippets",
         "buffer",
-        -- "nerdfont",
+        "lazydev",
         "emoji",
-        "copilot",
+        -- "nerdfont",
       },
-      -- "copilot" },
       providers = {
-        copilot = {
-          name = "copilot",
-          module = "blink-copilot",
-          score_offset = 80,
-          async = true,
+        lsp = {
+          transform_items = function(_, items)
+            -- the default transformer will do this
+            for _, item in ipairs(items) do
+              if item.kind == require("blink.cmp.types").CompletionItemKind.Snippet then
+                item.score_offset = item.score_offset - 3
+              end
+            end
+            -- you can define your own filter for rime item
+            return items
+          end,
         },
         lazydev = {
           name = "LazyDev",

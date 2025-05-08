@@ -1,6 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim",
-  cond = false,
+  cond = true,
   opts = {
     options = {
       section_separators = "",
@@ -8,6 +8,7 @@ return {
     },
     sections = {
       lualine_x = {
+        { require("rime").status, "encoding", "fileformat", "filetype" },
         {
           "g:obsidian",
         },

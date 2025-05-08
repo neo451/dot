@@ -19,13 +19,15 @@ set("x", "/", "<Esc>/\\%V")
 set("n", "J", "mzJ`z:delmarks z<cr>")
 
 set("i", "jk", "<esc>")
-set("n", "<leader><leader>x", function()
-  local base = vim.fs.basename(vim.fn.expand("%"))
-  if vim.startswith(base, "test_") then
-    return "<cmd>lua MiniTest.run_file()<cr>"
-  end
-  return "<cmd>w<cr><cmd>so %<cr>"
-end, { expr = true })
+
+set("n", "<leader><leader>x", "<cmd>w<cr><cmd>so %<cr>")
+-- set("n", "<leader><leader>x", function()
+--   -- local base = vim.fs.basename(vim.fn.expand("%"))
+--   -- if vim.startswith(base, "test_") then
+--   --   return "<cmd>lua MiniTest.run_file()<cr>"
+--   -- end
+--   return "<cmd>w<cr><cmd>so %<cr>"
+-- end, { expr = true })
 
 set("n", "<C-/>", function()
   Snacks.terminal.toggle()

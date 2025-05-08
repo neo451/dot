@@ -22,7 +22,7 @@ return {
       "json",
       "jsonc",
       "hyprlang",
-      -- "norg",
+      "norg",
     },
     ignore_install = { "org" },
     highlight = {

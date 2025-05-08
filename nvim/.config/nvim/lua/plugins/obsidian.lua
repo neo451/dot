@@ -1,5 +1,8 @@
 ---@diagnostic disable: missing-fields
 return {
+  { "Coup3z-pixel/calendar.nvim" },
+
+  -- TODO: https://github.com/ViViDboarder/vim-settings/blob/23cf5fc1feabcc1baf66a622ffb869117b51e50f/neovim/lua/plugins/obsidian.lua
   -- TODO: https://github.com/B4rc1/obsidian-companion.nvim?tab=readme-ov-file
   -- TODO: https://github.com/oflisback/obsidian-bridge.nvim
   {
@@ -47,15 +50,20 @@ return {
   {
     "obsidian-nvim/obsidian.nvim",
     dir = "~/Plugins/obsidian.nvim/",
-    event = "BufReadPre /home/n451/Notes/*.md",
+    -- event = "BufReadPre /home/n451/Notes/*.md",
     cmd = "Obsidian",
     dev = true,
     ---@module 'obsidian'
     ---@type obsidian.config.ClientOpts
     opts = {
-      legacy_commands = false,
       prefer_config_from_obsidian_app = true,
       preferred_link_style = "markdown",
+
+      callbacks = {
+        --   pre_write_note = function(client, note)
+        --     vim.print(client, note)
+        --   end,
+      },
 
       statusline = {
         enabled = true,
@@ -73,6 +81,11 @@ return {
 
       attachments = {
         confirm_img_paste = false,
+        img_text_func = function(client, path)
+          path = client:vault_relative_path(path) or path
+          local path_string = vim.uri_encode(vim.fs.basename(tostring(path)))
+          return string.format("![%s](%s)", path.name, path_string)
+        end,
       },
 
       note_id_func = function(title)

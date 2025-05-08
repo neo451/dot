@@ -1,5 +1,8 @@
 local buf = vim.api.nvim_get_current_buf()
 
+-- vim.wo.foldexpr = ""
+vim.g.markdown_folding = 1
+
 local map = function(mode, lhs, rhs)
   vim.keymap.set(mode, lhs, rhs, {
     expr = true,
@@ -54,7 +57,7 @@ vim.keymap.set("n", "<leader>p", "<cmd>Obsidian paste_img<cr>", { desc = "Obsidi
 
 -- for LSP diagnositics
 local has_otter, otter = pcall(require, "otter")
-
-if has_otter then
-  otter.activate()
-end
+--
+-- if has_otter then
+--   otter.activate()
+-- end
