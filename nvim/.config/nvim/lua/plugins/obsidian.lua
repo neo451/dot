@@ -1,6 +1,10 @@
 ---@diagnostic disable: missing-fields
 return {
-  { "Coup3z-pixel/calendar.nvim" },
+
+  {
+    "marcocofano/excalidraw.nvim",
+    opts = {},
+  },
 
   -- TODO: https://github.com/ViViDboarder/vim-settings/blob/23cf5fc1feabcc1baf66a622ffb869117b51e50f/neovim/lua/plugins/obsidian.lua
   -- TODO: https://github.com/B4rc1/obsidian-companion.nvim?tab=readme-ov-file
@@ -51,18 +55,23 @@ return {
     "obsidian-nvim/obsidian.nvim",
     dir = "~/Plugins/obsidian.nvim/",
     -- event = "BufReadPre /home/n451/Notes/*.md",
-    cmd = "Obsidian",
+    -- cmd = "Obsidian",
     dev = true,
     ---@module 'obsidian'
     ---@type obsidian.config.ClientOpts
     opts = {
+      cache = {
+        use_cache = true,
+      },
       prefer_config_from_obsidian_app = true,
       preferred_link_style = "markdown",
 
       callbacks = {
-        --   pre_write_note = function(client, note)
-        --     vim.print(client, note)
-        --   end,
+        enter_note = function(_, note)
+          if note.metadata and note.metadata.spell == false then
+            vim.wo.spell = false
+          end
+        end,
       },
 
       statusline = {
@@ -72,12 +81,26 @@ return {
       daily_notes = {
         folder = "daily_notes",
       },
+
       calendar = {
         cmd = "CalendarT",
         close_after = true,
       },
 
-      picker = { name = "snacks.pick" },
+      picker = { name = "telescope.nvim" },
+
+      note_frontmatter_func = function(note)
+        -- Add the title of the note as an alias.
+        local out = { id = note.id, tags = note.tags }
+        -- `note.metadata` contains any manually added fields in the frontmatter.
+        -- So here we just make sure those fields are kept in the frontmatter.
+        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+          for k, v in pairs(note.metadata) do
+            out[k] = v
+          end
+        end
+        return out
+      end,
 
       attachments = {
         confirm_img_paste = false,

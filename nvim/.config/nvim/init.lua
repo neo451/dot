@@ -20,7 +20,9 @@ vim.g.my_cmp = "blink"
 ---@type "snacks.picker" | "mini.pick" | "telescope" | "fzf-lua"
 vim.g.my_picker = "snacks.picker"
 
-vim.g.my_color = "tokyonight-storm"
+-- vim.g.my_color = "tokyonight-storm"
+---@type "tokyonight-storm" | "duskfox"
+vim.g.my_color = "duskfox"
 
 ---@type "render-markdown" | "markview"
 vim.g.markdown_renderer = "render-markdown"

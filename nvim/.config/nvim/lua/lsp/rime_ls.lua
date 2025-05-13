@@ -15,6 +15,6 @@ return {
     always_incomplete = true,
     preselect_first = false,
     show_filter_text_in_label = false,
-    long_filter_text = false,
+    long_filter_text = true,
   },
 }

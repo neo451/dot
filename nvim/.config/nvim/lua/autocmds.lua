@@ -65,11 +65,11 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-summary",
     "notify",
     "qf",
-    -- "snacks_win",
     "spectre_panel",
     "startuptime",
     "tsplayground",
     "codecompanion",
+    "2048Game",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false

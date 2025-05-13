@@ -4,12 +4,27 @@ set("n", "grl", function()
   vim.lsp.buf.document_link({ loclist = false })
 end)
 
+set("n", "<Leader>r", ":SnipRun<CR>")
+set("v", "<Leader>r", ":'<,'>SnipRun<CR>")
+
+set("n", "<C-S-C>", function()
+  local buf = vim.api.nvim_get_current_buf()
+  local file = vim.api.nvim_buf_get_name(buf)
+
+  vim.ui.input({ prompt = "To copy: ", default = file }, function(input)
+    if input then
+      vim.fn.setreg("+", input)
+      vim.notify("Copied filename to clipboard", 2)
+    end
+  end)
+end)
+
 -- mini version controls
 set("n", "ycc", function()
   return "yy" .. vim.v.count1 .. "gcc']p"
 end, { remap = true, expr = true })
 
--- fix previous spell error
+-- fix previous spell error FIX:
 set("i", "<C-l>", "<c-g>u<Esc>[s1z=g<c-g>u")
 
 --search within visual selection - this is magic
@@ -20,14 +35,14 @@ set("n", "J", "mzJ`z:delmarks z<cr>")
 
 set("i", "jk", "<esc>")
 
-set("n", "<leader><leader>x", "<cmd>w<cr><cmd>so %<cr>")
--- set("n", "<leader><leader>x", function()
---   -- local base = vim.fs.basename(vim.fn.expand("%"))
---   -- if vim.startswith(base, "test_") then
---   --   return "<cmd>lua MiniTest.run_file()<cr>"
---   -- end
---   return "<cmd>w<cr><cmd>so %<cr>"
--- end, { expr = true })
+-- set("n", "<leader><leader>x", "<cmd>w<cr><cmd>so %<cr>")
+set("n", "<leader><leader>x", function()
+  -- local base = vim.fs.basename(vim.fn.expand("%"))
+  -- if vim.startswith(base, "test_") then
+  --   return "<cmd>lua MiniTest.run_file()<cr>"
+  -- end
+  return "<cmd>w<cr><cmd>so %<cr>"
+end, { expr = true })
 
 set("n", "<C-/>", function()
   Snacks.terminal.toggle()

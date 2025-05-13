@@ -1,8 +1,5 @@
 local buf = vim.api.nvim_get_current_buf()
 
--- vim.wo.foldexpr = ""
-vim.g.markdown_folding = 1
-
 local map = function(mode, lhs, rhs)
   vim.keymap.set(mode, lhs, rhs, {
     expr = true,

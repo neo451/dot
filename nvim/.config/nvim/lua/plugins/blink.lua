@@ -3,9 +3,12 @@ return {
   event = "InsertEnter",
   version = "1.*",
   dependencies = {
-    "rafamadriz/friendly-snippets",
+    -- "rafamadriz/friendly-snippets",
     "MahanRahmati/blink-nerdfont.nvim",
     "moyiz/blink-emoji.nvim",
+    {
+      "Kaiser-Yang/blink-cmp-dictionary",
+    },
   },
   cond = vim.g.my_cmp == "blink",
   ---@module 'blink.cmp'
@@ -13,6 +16,8 @@ return {
   opts = {
     keymap = {
       preset = "default",
+      ["<C-b>"] = { "scroll_documentation_up" },
+      ["<C-f>"] = { "scroll_documentation_down" },
       [";"] = {
         function(cmp)
           if not vim.g.rime_enabled then
@@ -83,9 +88,21 @@ return {
         "buffer",
         "lazydev",
         "emoji",
+        "dictionary",
         -- "nerdfont",
       },
       providers = {
+        dictionary = {
+          module = "blink-cmp-dictionary",
+          name = "Dict",
+          -- Make sure this is at least 2.
+          -- 3 is recommended
+          min_keyword_length = 3,
+          opts = {
+            -- options for blink-cmp-dictionary
+            dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
+          },
+        },
         lsp = {
           transform_items = function(_, items)
             -- the default transformer will do this

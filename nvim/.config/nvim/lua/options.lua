@@ -27,7 +27,7 @@ o.shell = "fish"
 o.expandtab = true
 -- o.undofile = true
 o.tabstop = 2 -- Number of spaces tabs count for
-o.shiftwidth = 3
+o.shiftwidth = 2
 
 -- window manage
 o.splitright = true

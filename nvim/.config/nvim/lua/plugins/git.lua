@@ -1,9 +1,12 @@
 return {
   {
+    "sindrets/diffview.nvim", -- optional - Diff integration
+    opts = {},
+  },
+  {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
     },
     config = true,
     keys = {

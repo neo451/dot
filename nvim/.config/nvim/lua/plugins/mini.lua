@@ -14,9 +14,9 @@ return {
   {
     "echasnovski/mini.test",
     opts = {},
-    keys = {
-      "<leader><leader>x",
-    },
+    -- keys = {
+    --   "<leader><leader>x",
+    -- },
   },
   {
     "echasnovski/mini.keymap",

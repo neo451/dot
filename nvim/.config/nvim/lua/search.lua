@@ -1,3 +1,4 @@
+--- TODO: a complete function for prefix
 local config = {
   trigger = "<C-S-;>",
   default_engine = "bing",
