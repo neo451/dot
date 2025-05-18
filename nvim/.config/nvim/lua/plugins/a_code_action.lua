@@ -1,4 +1,5 @@
 return {
+  cond = false,
   "yarospace/dev-tools.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   specs = {

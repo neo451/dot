@@ -1,5 +1,7 @@
 local set = vim.keymap.set
 
+vim.keymap.set("v", "w", '<cmd>lua require("jieba_nvim").wordmotion_w()<CR>', { noremap = false, silent = true })
+
 set("n", "grl", function()
   vim.lsp.buf.document_link({ loclist = false })
 end)

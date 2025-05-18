@@ -1,6 +1,6 @@
 return {
-  -- {
-  --   dir = "~/Plugins/calendar.nvim/",
-  --   dev = true,
-  -- },
+  {
+    dir = "~/Plugins/calendar.nvim/",
+    dev = true,
+  },
 }

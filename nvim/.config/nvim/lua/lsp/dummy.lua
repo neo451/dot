@@ -17,11 +17,10 @@ local cap = {
 
 local res = {
   {
-    kind = 15,
     target = "https://dummy.io", -- TODO: resolve to path
     range = {
-      start = { line = 1, character = 1 },
-      ["end"] = { line = 1, character = 1 },
+      start = { line = 0, character = 0 },
+      ["end"] = { line = 0, character = 10 },
     },
   },
 }
@@ -31,6 +30,7 @@ return {
     return {
       request = function(method, params, handler, _)
         if method == ms.textDocument_documentLink then
+          -- vim.print(res)
           handler(nil, res)
         elseif method == ms.initialize then
           handler(nil, cap)

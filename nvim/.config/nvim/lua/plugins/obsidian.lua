@@ -63,8 +63,10 @@ return {
       cache = {
         use_cache = true,
       },
+
+      legacy_commands = false,
+
       prefer_config_from_obsidian_app = true,
-      preferred_link_style = "markdown",
 
       callbacks = {
         enter_note = function(_, note)
@@ -144,13 +146,5 @@ return {
         },
       },
     },
-
-    -- keys = {
-    --   {
-    --     "<leader>O",
-    --     "<cmd>Obsidian<cr>",
-    --     desc = "Obsidian",
-    --   },
-    -- },
   },
 }

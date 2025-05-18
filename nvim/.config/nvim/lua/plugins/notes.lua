@@ -30,7 +30,7 @@ return {
   },
   {
     "zk-org/zk-nvim",
-    cmd = "ZkIndex",
+    -- cmd = "ZkIndex",
     config = function()
       require("zk").setup({})
     end,

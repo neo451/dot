@@ -1,1 +1,1 @@
-return { "mason-org/mason.nvim", opts = {} }
+return { "mason-org/mason.nvim", cond = false, opts = {} }
