@@ -9,6 +9,7 @@ return {
       "https://neovim.io/news.xml",
       "https://dotfyle.com/this-week-in-neovim/rss.xml",
       "v1nh1shungry/nvim-weekly-cn/releases",
+      "r/neovim",
     },
     zig = {
       "https://ziglang.org/news/index.xml",

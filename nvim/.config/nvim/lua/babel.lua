@@ -4,6 +4,8 @@ local api = vim.api
 local ns_id = api.nvim_create_namespace("cb_run")
 local cb_id = 0
 
+local M = {}
+
 local inspect_node = function(node)
   if node then
     local buf = vim.api.nvim_get_current_buf()
@@ -37,11 +39,14 @@ local get_code_block = function()
   end
 end
 
-local strip = function(code)
+---@param code string
+---@return string code
+---@return string lang
+function M.parse_block(code)
   local lines = vim.split(code, "\n")
-  table.remove(lines, 1)
+  local lang = table.remove(lines, 1):sub(4)
   table.remove(lines, #lines)
-  return table.concat(lines, "\n")
+  return table.concat(lines, "\n"), lang
 end
 
 -- TODO: default display positions:
@@ -60,13 +65,16 @@ local function display_result(bnr, line_num, col_num, text, id)
   print(mark_id)
 end
 
+--- TODO: more runners
+--- TODO: run based on lang
 local function run()
   local code_block = get_code_block()
   if not code_block then
     vim.notify("not on a code block")
+    return
   end
   cb_id = cb_id + 1
-  local code = strip(code_block)
+  local code, lang = M.parse_block(code_block)
   local f = loadstring(code, ("MyRunCodeBlock[%d]"):format(cb_id))
   assert(f)
   setfenv(f, {
@@ -81,11 +89,10 @@ end
 
 vim.keymap.set("n", "<Plug>MyRun", run)
 
-return {
-  enable = function(enable)
-    if enable then
-      vim.keymap.set("n", "<S-CR>", "<Plug>MyRun")
-    end
-  end,
-  setup = function() end,
-}
+function M.enable(enable)
+  if enable then
+    vim.keymap.set("n", "<S-CR>", "<Plug>MyRun")
+  end
+end
+
+return M
