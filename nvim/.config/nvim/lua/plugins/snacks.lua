@@ -110,13 +110,6 @@ return {
       end,
       desc = "Find Git Files",
     },
-    {
-      "<leader>fp",
-      function()
-        Snacks.picker.projects()
-      end,
-      desc = "Projects",
-    },
     -- Grep
     {
       "<leader>sb",
@@ -200,13 +193,6 @@ return {
       desc = "Toggle Scratch Buffer",
     },
     {
-      "<leader>cR",
-      function()
-        Snacks.rename.rename_file()
-      end,
-      desc = "Rename File",
-    },
-    {
       "<leader>gB",
       function()
         Snacks.gitbrowse()
@@ -220,24 +206,6 @@ return {
         Snacks.notifier.hide()
       end,
       desc = "Dismiss All Notifications",
-    },
-    {
-      "<leader>N",
-      desc = "Neovim News",
-      function()
-        Snacks.win({
-          file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-          width = 0.8,
-          height = 0.8,
-          wo = {
-            spell = false,
-            wrap = false,
-            signcolumn = "yes",
-            statuscolumn = " ",
-            conceallevel = 3,
-          },
-        })
-      end,
     },
   },
   init = function()

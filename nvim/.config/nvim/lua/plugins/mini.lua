@@ -8,10 +8,6 @@ return {
     opts = {},
   },
   {
-    "echasnovski/mini.pairs",
-    opts = {},
-  },
-  {
     "echasnovski/mini.test",
     opts = {},
     -- keys = {

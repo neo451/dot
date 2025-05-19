@@ -1,11 +1,6 @@
 vim.g.mapleader = " "
--- vim.g.maplocalleader = "\\"
--- vim.g.maplocalleader = " "
-
 local opt = vim.opt
 local o = vim.o
-
-vim.g.markdown_recommended_style = 0
 
 -- ui
 o.cmdheight = 1

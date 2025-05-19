@@ -1,5 +1,5 @@
-require("options")
 require("boot")
+require("options")
 require("keymaps")
 require("autocmds")
 

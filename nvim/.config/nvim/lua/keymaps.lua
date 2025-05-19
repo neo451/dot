@@ -1,5 +1,11 @@
 local set = vim.keymap.set
 
+vim.keymap.set("n", "<leader>mm", ":RecallToggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>mn", ":RecallNext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>mp", ":RecallPrevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>mc", ":RecallClear<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ml", ":Telescope recall<CR>", { noremap = true, silent = true })
+
 vim.keymap.set("v", "w", '<cmd>lua require("jieba_nvim").wordmotion_w()<CR>', { noremap = false, silent = true })
 
 set("n", "grl", function()
@@ -78,6 +84,12 @@ set("n", "<leader>n", function()
   Snacks.notifier.show_history()
 end, { desc = "Notification History" })
 
+set("n", "<leader>fp", function()
+  Snacks.picker.projects()
+end, {
+  desc = "Projects",
+})
+
 set("n", "<leader>P", function()
   Snacks.picker()
 end, { desc = "All pickers" })
@@ -102,12 +114,6 @@ set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search R
 set("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
--- -- Resize window using <ctrl> arrow keys
--- map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
--- map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
--- map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
--- map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
---
 -- -- Move Lines
 -- map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
 -- map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
@@ -122,18 +128,15 @@ set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 -- map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 -- map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 -- map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
---
--- -- Clear search with <esc>
--- map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
---
--- -- Clear search, diff update and redraw
--- -- taken from runtime/lua/_editor.lua
--- map(
---    "n",
---    "<leader>ur",
---    "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
---    { desc = "Redraw / Clear hlsearch / Diff Update" }
--- )
+
+-- Clear search, diff update and redraw
+-- taken from runtime/lua/_editor.lua
+set(
+  "n",
+  "<leader>ur",
+  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / Clear hlsearch / Diff Update" }
+)
 
 -- Add undo break-points
 set("i", ",", ",<c-g>u")
