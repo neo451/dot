@@ -2,9 +2,10 @@ local uv = vim.uv
 local M = {}
 
 local function is_file(path)
-  print("checking if file for", path)
-  local stat = uv.fs_stat(path).type
-  return stat and stat == "file"
+  -- print("checking if file for", path)
+  local stat = uv.fs_stat(path)
+  assert(stat, path)
+  return stat.type == "file"
 end
 
 local function format_line(name, t)
@@ -26,7 +27,50 @@ vim.bo[state.buf].filetype = "lemon"
 ---@field level integer
 ---@field row integer
 
-local indent_size = 2
+local config = {}
+
+config.indent_size = 2
+
+local function count_indent(line)
+  local c = 0
+
+  for i = 1, #line do
+    local char = string.sub(line, i, i)
+    if char == " " then
+      c = c + 1
+    else
+      break
+    end
+  end
+  return c / config.indent_size
+end
+
+-- print(count_indent("      hello world"))
+
+---@param buf integer
+---@param anchor lemon.anchor
+local function close_node(buf, anchor)
+  local row = anchor.row
+  local parent_indent = anchor.level
+  local row_counter = row + 1
+  for _ = 1, 100 do
+    local line = vim.api.nvim_buf_get_lines(buf, row_counter, row_counter + 1, false)[1]
+    local indent_level = count_indent(line)
+    if indent_level == parent_indent - 1 then
+      break
+    end
+    row_counter = row_counter + 1
+  end
+  vim.api.nvim_buf_set_lines(buf, row, row_counter, true, {})
+end
+
+local function render_tree(buf, path, row, level)
+  for name, t in vim.fs.dir(path) do
+    local line = format_line(name, t)
+    vim.api.nvim_buf_set_lines(buf, row, row, false, { string.rep(" ", level * config.indent_size) .. line })
+    row = row + 1
+  end
+end
 
 ---@param path string
 ---@param anchor lemon.anchor?
@@ -36,66 +80,98 @@ local function edit_directory(path, anchor)
     row = 1,
   }
   local buf = state.buf
-  vim.bo[buf].filetype = "lemon"
   if anchor.level == 0 then
     vim.b[buf].current_dir = path
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "" })
-  end
-  local c = anchor.row
-
-  if c == 1 then
-    vim.api.nvim_buf_set_lines(buf, 0, 0, false, { "../" })
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "" }) -- clear buf
+    vim.api.nvim_buf_set_lines(buf, 0, 0, false, { "../" }) -- set parent line
     vim.api.nvim_set_current_buf(buf)
   end
 
-  for name, t in vim.fs.dir(path) do
-    local line = format_line(name, t)
-    vim.api.nvim_buf_set_lines(buf, c, c, false, { string.rep(" ", anchor.level) .. line })
-    c = c + 1
-  end
+  render_tree(buf, path, anchor.row, anchor.level)
 
-  vim.keymap.set("n", "<cr>", M.open_cursor)
-  vim.keymap.set("n", "<tab>", function()
-    local file = vim.fn.expand("<cfile>")
-    local full_path = vim.fs.joinpath(vim.b[buf].current_dir, file)
-    if is_file(full_path) then
-      return
-    end
-    if not state.cache[full_path] then
-      state.cache[full_path] = {
-        expanded = false,
-      }
-    end
-    local node = state.cache[full_path]
-    -- if node.expanded then
-    --   node.expanded = false
-    -- else
-    --   node.expanded = true
-    -- end
-
-    if not node.expanded then
-      local anchor = {
-        level = anchor.level + 1,
-        row = vim.api.nvim_win_get_cursor(0)[1],
-      }
-      vim.print(full_path, anchor)
-      edit_directory(full_path, anchor)
-      node.expanded = true
-    end
-  end)
+  vim.keymap.set("n", "<cr>", M.open_cursor, { buffer = buf })
+  vim.keymap.set("n", "<tab>", M.expand_cursor, { buffer = buf })
 end
 
 local function open(path)
   path = vim.fs.normalize(path)
-  print(path)
   return is_file(path) and vim.cmd.edit(path) or edit_directory(path)
+end
+
+local function parse_line(line)
+  line = line or vim.api.nvim_get_current_line()
+  line = vim.trim(line)
+  if vim.endswith(line, "/") then
+    return line:sub(1, -2)
+  end
+  return line
+end
+
+local function find_parent(buf, row, current)
+  local parents = {}
+  for i = row, 1, -1 do
+    local line = vim.api.nvim_buf_get_lines(buf, i, i + 1, false)[1]
+    local indent = count_indent(line)
+    if indent ~= current and indent ~= 0 then
+      current = indent
+      parents[#parents + 1] = parse_line(line)
+    end
+    if indent == 0 then
+      return parents
+    end
+  end
+end
+
+local function resolve_path(buf, buf_parent, row, level)
+  local parents = { buf_parent }
+  vim.list_extend(parents, find_parent(buf, row, level))
+  parents[#parents + 1] = vim.fn.expand("<cfile>")
+  return vim.fs.joinpath(unpack(parents))
+end
+
+function M.expand_cursor()
+  local buf = vim.api.nvim_get_current_buf()
+  local line = vim.api.nvim_get_current_line()
+  local buf_parent = vim.b[buf].current_dir
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local level = count_indent(line)
+  local full_path = resolve_path(buf, buf_parent, row, level)
+  if is_file(full_path) then
+    return
+  end
+  if not state.cache[full_path] then
+    state.cache[full_path] = {
+      expanded = false,
+    }
+  end
+  local node = state.cache[full_path]
+  -- BUG:
+  local cursor_anchor = {
+    level = level + 1,
+    row = row,
+  }
+  if not node.expanded then
+    edit_directory(full_path, cursor_anchor)
+    node.expanded = true
+  else
+    close_node(buf, cursor_anchor)
+    node.expanded = false
+  end
 end
 
 function M.open_cursor()
   local buf = vim.api.nvim_get_current_buf()
-  local parent = vim.b[buf].current_dir
-  local path = vim.fs.joinpath(parent, vim.fn.expand("<cfile>"))
-  open(path)
+  local line = vim.api.nvim_get_current_line()
+  local buf_parent = vim.b[buf].current_dir
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local level = count_indent(line)
+  if level == 0 then
+    local path = vim.fs.joinpath(buf_parent, vim.fn.expand("<cfile>"))
+    open(path)
+  else
+    local path = resolve_path(buf, buf_parent, row, level)
+    open(path)
+  end
 end
 
 function M.open()
