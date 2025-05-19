@@ -1,0 +1,9 @@
+return {
+  -- https://www.youtube.com/watch?v=nJR5lHBrviI
+  "fnune/recall.nvim",
+  {
+    "chentoast/marks.nvim",
+    -- event = "VeryLazy",
+    -- opts = {},
+  },
+}

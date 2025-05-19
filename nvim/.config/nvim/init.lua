@@ -3,17 +3,6 @@ require("boot")
 require("keymaps")
 require("autocmds")
 
-local servers = {
-  "dummy",
-  "lua_ls",
-  "gopls",
-  "harper_ls",
-  "nixd",
-  "rime_ls",
-  "zls",
-  -- "marksman",
-}
-
 ---@type "cmp" | "blink" | "mini"
 vim.g.my_cmp = "blink"
 
@@ -40,12 +29,18 @@ require("lazy").setup({
 
 vim.cmd.colorscheme(vim.g.my_color)
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local servers = {
+  "dummy",
+  "lua_ls",
+  "gopls",
+  "harper_ls",
+  "nixd",
+  "rime_ls",
+  "zls",
+  -- "marksman",
+}
 
 for _, name in ipairs(servers) do
-  local config = require("lsp." .. name)
-  config.capabilities = capabilities
-  vim.lsp.config[name] = config
   pcall(vim.lsp.enable, name)
 end
 
