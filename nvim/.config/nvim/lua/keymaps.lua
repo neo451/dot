@@ -1,5 +1,7 @@
 local set = vim.keymap.set
 
+vim.keymap.set("n", "-", "<cmd>Oil<cr>")
+
 vim.keymap.set("n", "<leader>mm", ":RecallToggle<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>mn", ":RecallNext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>mp", ":RecallPrevious<CR>", { noremap = true, silent = true })
