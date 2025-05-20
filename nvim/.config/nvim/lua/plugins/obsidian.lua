@@ -106,11 +106,11 @@ return {
 
       attachments = {
         confirm_img_paste = false,
-        img_text_func = function(client, path)
-          path = client:vault_relative_path(path) or path
-          local path_string = vim.uri_encode(vim.fs.basename(tostring(path)))
-          return string.format("![%s](%s)", path.name, path_string)
-        end,
+        -- img_text_func = function(client, path)
+        --   path = client:vault_relative_path(path) or path
+        --   local path_string = vim.uri_encode(vim.fs.basename(tostring(path)))
+        --   return string.format("![%s](%s)", path.name, path_string)
+        -- end,
       },
 
       note_id_func = function(title)
