@@ -66,6 +66,8 @@ return {
 
       legacy_commands = false,
 
+      open_notes_in = "vsplit_force",
+
       prefer_config_from_obsidian_app = true,
 
       callbacks = {

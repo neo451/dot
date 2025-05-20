@@ -34,6 +34,7 @@ return {
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
+    scroll = { enabled = true },
     image = {
       enabled = true,
       wo = {
@@ -46,8 +47,6 @@ return {
       },
     },
     bigfile = { enabled = true },
-    -- explorer = { enabled = true },
-    indent = { enabled = true },
     input = { enabled = true },
     notifier = {
       enabled = false,
@@ -57,9 +56,7 @@ return {
       enabled = true,
     },
     -- scope = { enabled = true },
-    scroll = { enabled = true },
     statuscolumn = { enabled = true },
-    -- words = { enabled = true },
     dashboard = {
       --    sections = gen_feed_sections(),
     },
@@ -74,35 +71,6 @@ return {
     },
   },
   keys = {
-    {
-      "<leader>:",
-      function()
-        Snacks.picker.command_history()
-      end,
-      desc = "Command History",
-    },
-    {
-      "<leader>e",
-      function()
-        Snacks.explorer()
-      end,
-      desc = "File Explorer",
-    },
-    -- find
-    {
-      "<leader>ff",
-      function()
-        Snacks.picker.files()
-      end,
-      desc = "Find Files",
-    },
-    {
-      "<leader>fg",
-      function()
-        Snacks.picker.git_files()
-      end,
-      desc = "Find Git Files",
-    },
     -- Grep
     {
       "<leader>sb",
@@ -110,28 +78,6 @@ return {
         Snacks.picker.lines()
       end,
       desc = "Buffer Lines",
-    },
-    {
-      "<leader>sB",
-      function()
-        Snacks.picker.grep_buffers()
-      end,
-      desc = "Grep Open Buffers",
-    },
-    {
-      "<leader>sg",
-      function()
-        Snacks.picker.grep()
-      end,
-      desc = "Grep",
-    },
-    {
-      "<leader>sw",
-      function()
-        Snacks.picker.grep_word()
-      end,
-      desc = "Visual selection or word",
-      mode = { "n", "x" },
     },
     -- search
     {
@@ -148,28 +94,6 @@ return {
       end,
       desc = "Search History",
     },
-    {
-      "<leader>sa",
-      function()
-        Snacks.picker.autocmds()
-      end,
-      desc = "Autocmds",
-    },
-    {
-      "<leader>sb",
-      function()
-        Snacks.picker.lines()
-      end,
-      desc = "Buffer Lines",
-    },
-    {
-      "<leader>uC",
-      function()
-        Snacks.picker.colorschemes()
-      end,
-      desc = "Colorschemes",
-    },
-    -- LSP
     -- Other
     {
       "<leader>z",
@@ -179,26 +103,12 @@ return {
       desc = "Toggle Zen Mode",
     },
     {
-      "<leader>.",
-      function()
-        Snacks.scratch()
-      end,
-      desc = "Toggle Scratch Buffer",
-    },
-    {
       "<leader>gB",
       function()
         Snacks.gitbrowse()
       end,
       desc = "Git Browse",
       mode = { "n", "v" },
-    },
-    {
-      "<leader>un",
-      function()
-        Snacks.notifier.hide()
-      end,
-      desc = "Dismiss All Notifications",
     },
   },
   init = function()

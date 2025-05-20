@@ -14,9 +14,6 @@ set("n", "grl", function()
   vim.lsp.buf.document_link({ loclist = false })
 end)
 
-set("n", "<Leader>r", ":SnipRun<CR>")
-set("v", "<Leader>r", ":'<,'>SnipRun<CR>")
-
 set("n", "<C-S-C>", function()
   local buf = vim.api.nvim_get_current_buf()
   local file = vim.api.nvim_buf_get_name(buf)
@@ -62,6 +59,10 @@ set("n", "<leader>/", function()
   Snacks.picker.grep()
 end, { desc = "Grep" })
 
+set("n", "<leader>ff", function()
+  Snacks.picker.files()
+end, { desc = "Find files" })
+
 set("n", "<leader>fc", function()
   Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "Find Config File" })
@@ -85,6 +86,14 @@ end, { desc = "Recent" })
 set("n", "<leader>n", function()
   Snacks.notifier.show_history()
 end, { desc = "Notification History" })
+
+set("n", "<leader>un", function()
+  Snacks.notifier.hide()
+end, { desc = "Hide Notifications" })
+
+set("n", "<leader>.", function()
+  Snacks.scratch()
+end, { desc = "Scratch Pad" })
 
 set("n", "<leader>fp", function()
   Snacks.picker.projects()

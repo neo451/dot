@@ -1,4 +1,4 @@
-local M = require("_fb")
+local M = require("lemon")
 
 local eq = MiniTest.expect.equality
 
