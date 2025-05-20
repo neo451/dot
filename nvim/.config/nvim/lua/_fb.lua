@@ -34,6 +34,7 @@ local config = {
 }
 
 local function count_indent(line)
+  print("counting indent for", line)
   local c = 0
   for i = 1, #line do
     local char = string.sub(line, i, i)
@@ -45,8 +46,6 @@ local function count_indent(line)
   end
   return c / config.indent_size
 end
-
--- print(count_indent("      hello world"))
 
 ---@param buf integer
 ---@param anchor lemon.anchor
@@ -67,8 +66,8 @@ end
 
 local function render_tree(buf, path, row, level)
   for name, t in vim.fs.dir(path) do
-    local line = format_line(name, t)
-    vim.api.nvim_buf_set_lines(buf, row, row, false, { string.rep(" ", level * config.indent_size) .. line })
+    local line = vim.text.indent(level * config.indent_size, format_line(name, t))
+    vim.api.nvim_buf_set_lines(buf, row, row, false, { line })
     row = row + 1
   end
 end
@@ -130,7 +129,7 @@ local function find_parent(lines, current)
     local indent = count_indent(line)
     if indent < current then
       current = indent
-      parents[#parents + 1] = parse_line(line)
+      table.insert(parents, 1, parse_line(line))
     end
     if indent == 0 then
       break
@@ -138,14 +137,6 @@ local function find_parent(lines, current)
   end
   return parents
 end
-
--- vim.print(find_parent({
---   "dir1/",
---   "dir2/",
---   "  file1",
---   "  dir3/",
---   "    cursor_file",
--- }, 2))
 
 local function resolve_path(buf, row)
   local parents = { vim.b[buf].current_dir }
@@ -205,5 +196,8 @@ function M.open()
 end
 
 vim.keymap.set("n", "-", M.open)
+
+M._find_parent = find_parent
+M._count_indent = count_indent
 
 return M
