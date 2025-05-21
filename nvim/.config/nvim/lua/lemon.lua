@@ -17,6 +17,7 @@ local config = {
 ---@field id nil|integer Will be nil if it hasn't been persisted to disk yet
 ---@field parsed_name nil|string
 ---@field meta nil|table
+---@field children lemon.Entry[]
 
 local state = {
   buf = vim.api.nvim_create_buf(false, true),
@@ -81,11 +82,16 @@ local function close_node(buf, anchor)
   vim.api.nvim_buf_set_lines(buf, row, row_counter, true, {})
 end
 
-local function render_tree(buf, path, row, level)
-  for name, t in vim.fs.dir(path) do
-    local line = vim.text.indent(level * config.indent_size, util.format_line(name, t))
-    vim.api.nvim_buf_set_lines(buf, row, row, false, { line })
+---render a sub-tree at given row and indent_level
+---@param buf integer
+---@param path string
+---@param anchor lemon.anchor
+local function render_tree(buf, path, anchor)
+  local row, level = anchor.level, anchor.level
+  for name, entry in pairs(state.cache[path].children) do
     row = row + 1
+    local line = vim.text.indent(level * config.indent_size, util.format_line(name, entry.type))
+    vim.api.nvim_buf_set_lines(buf, row, row, false, { line })
   end
 end
 
@@ -100,11 +106,10 @@ local function edit_directory(path, anchor)
     vim.api.nvim_buf_set_lines(buf, 0, 0, false, { "../" }) -- set parent line
     vim.api.nvim_set_current_buf(buf)
     vim.api.nvim_win_set_cursor(0, { 1, 0 })
-    vim.api.nvim_buf_set_name(buf, "lemon://" .. path)
+    -- vim.api.nvim_buf_set_name(buf, "lemon://" .. path)
   end
 
-  render_tree(buf, path, anchor.row, anchor.level)
-
+  render_tree(buf, path, anchor)
   vim.keymap.set("n", "<cr>", M.open_cursor, { buffer = buf })
   vim.keymap.set("n", "<tab>", M.expand_cursor, { buffer = buf })
 end
@@ -114,50 +119,28 @@ end
 ---@return nil
 local function open(path)
   path = vim.fs.normalize(path)
+
+  if not state.cache[path] then
+    state.cache[path] = {
+      expanded = true,
+    }
+  end
+  local node = state.cache[path]
+  node.children = vim.iter(vim.fs.dir(path)):fold({}, function(acc, name, type)
+    acc[name] = { name = name, type = type }
+    return acc
+  end)
+
+  -- dd(state.cache)
+
   return util.is_file(path) and vim.cmd.edit(path) or edit_directory(path)
-end
-
----Get base name from text
----@param line string
----@return string
-local function parse_line(line)
-  line = line or vim.api.nvim_get_current_line()
-  line = vim.trim(line)
-  if vim.endswith(line, "/") then
-    return line:sub(1, -2)
-  end
-  -- TODO: symlinks
-  return line
-end
-
----look at lines above and return every parent line that indent level changes
----@param lines string[]
----@param current integer indent level of the cursor line
----@return table
-local function find_parent(lines, current)
-  local parents = {}
-  if current == 0 then
-    return parents
-  end
-  for i = #lines, 1, -1 do
-    local line = lines[i]
-    local indent = count_indent(line)
-    if indent < current then
-      current = indent
-      table.insert(parents, 1, parse_line(line))
-    end
-    if indent == 0 then
-      break
-    end
-  end
-  return parents
 end
 
 local function resolve_path(buf, row)
   local parents = { vim.b[buf].current_dir }
   local lines = vim.api.nvim_buf_get_lines(buf, 0, row, false)
   local level = count_indent(lines[#lines])
-  vim.list_extend(parents, find_parent(lines, level))
+  vim.list_extend(parents, util.find_parent(lines, level))
   parents[#parents + 1] = vim.fn.expand("<cfile>")
   return vim.fs.joinpath(unpack(parents))
 end
@@ -210,9 +193,15 @@ function M.open()
   open(path)
 end
 
-vim.keymap.set("n", "-", M.open)
+M.enable = function(enable)
+  if enable then
+    vim.keymap.set("n", "-", M.open)
+  end
+end
 
-M._find_parent = find_parent
+M.enable(true)
+
+M._find_parent = util.find_parent
 M._count_indent = count_indent
 
 return M
