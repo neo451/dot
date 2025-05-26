@@ -97,9 +97,15 @@ end, { desc = "Scratch Pad" })
 
 set("n", "<leader>fp", function()
   Snacks.picker.projects()
-end, {
-  desc = "Projects",
-})
+end, { desc = "Projects" })
+
+set("n", "<leader>sm", function()
+  Snacks.picker.marks()
+end, { desc = "Marks" })
+
+set("n", "<leader>gb", function()
+  Snacks.picker.git_branches()
+end, { desc = "Git branches" })
 
 set("n", "<leader>P", function()
   Snacks.picker()

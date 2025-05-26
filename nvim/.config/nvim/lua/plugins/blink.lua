@@ -3,12 +3,10 @@ return {
   event = "InsertEnter",
   version = "1.*",
   dependencies = {
-    -- "rafamadriz/friendly-snippets",
+    "rafamadriz/friendly-snippets",
     "MahanRahmati/blink-nerdfont.nvim",
     "moyiz/blink-emoji.nvim",
-    {
-      "Kaiser-Yang/blink-cmp-dictionary",
-    },
+    "Kaiser-Yang/blink-cmp-dictionary",
   },
   cond = vim.g.my_cmp == "blink",
   ---@module 'blink.cmp'

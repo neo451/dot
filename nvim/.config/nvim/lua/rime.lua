@@ -54,12 +54,7 @@ local function get_n_rime_item_index(n, items)
   return result
 end
 
--- if pcall(require, "blink.cmp") then
--- if last char is number, and the only completion item is provided by rime-ls, accept it
 require("blink.cmp.completion.list").show_emitter:on(function(event)
-  if not vim.g.rime_enabled then
-    return
-  end
   local col = vim.fn.col(".") - 1
   -- if you don't want use number to select, change the match pattern by yourself
   if event.context.line:sub(col, col):match("%d") == nil then
@@ -73,7 +68,6 @@ require("blink.cmp.completion.list").show_emitter:on(function(event)
     require("blink.cmp").accept({ index = rime_item_index[1] })
   end)
 end)
--- end
 
 -- toggle rime
 vim.b.rime_enabled = false

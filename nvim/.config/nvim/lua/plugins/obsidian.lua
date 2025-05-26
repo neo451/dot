@@ -64,19 +64,13 @@ return {
         use_cache = true,
       },
 
-      legacy_commands = false,
+      -- open_notes_in = "vsplit_force",
 
-      open_notes_in = "vsplit_force",
+      backlinks = {
+        parse_headers = false,
+      },
 
       prefer_config_from_obsidian_app = true,
-
-      callbacks = {
-        enter_note = function(_, note)
-          if note.metadata and note.metadata.spell == false then
-            vim.wo.spell = false
-          end
-        end,
-      },
 
       statusline = {
         enabled = true,
@@ -138,6 +132,10 @@ return {
         {
           name = "work",
           path = "~/Work",
+        },
+        {
+          name = "hub",
+          path = "~/Vualts/obsidian-hub/",
         },
       },
       ui = {

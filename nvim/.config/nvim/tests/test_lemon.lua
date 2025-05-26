@@ -21,4 +21,42 @@ T["count_indent"] = function()
   eq(3, M._count_indent("      hello world"))
 end
 
+T["get_diff"] = new_set()
+
+T["get_diff"]["add"] = function()
+  local set = {
+    [[hi.lua
+world.lua
+]],
+    [[hi.lua
+world.lua
+hello.lua
+]],
+  }
+  local expect = { {
+    type = "add",
+    line = 2,
+    text = "hello.lua",
+  } }
+  eq(expect, M._get_diff(unpack(set)))
+end
+
+T["get_diff"]["delete"] = function()
+  local set = {
+    [[hi.lua
+world.lua
+hello.lua
+]],
+    [[hi.lua
+world.lua
+]],
+  }
+  local expect = { {
+    type = "delete",
+    line = 2,
+    text = "hello.lua",
+  } }
+  eq(expect, M._get_diff(unpack(set)))
+end
+
 return T

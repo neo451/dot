@@ -106,13 +106,95 @@ local function edit_directory(path, anchor)
     vim.api.nvim_buf_set_lines(buf, 0, 0, false, { "../" }) -- set parent line
     vim.api.nvim_set_current_buf(buf)
     vim.api.nvim_win_set_cursor(0, { 1, 0 })
-    -- vim.api.nvim_buf_set_name(buf, "lemon://" .. path)
+    vim.api.nvim_buf_set_name(buf, "lemon://" .. path)
   end
 
   render_tree(buf, path, anchor)
   vim.keymap.set("n", "<cr>", M.open_cursor, { buffer = buf })
   vim.keymap.set("n", "<tab>", M.expand_cursor, { buffer = buf })
 end
+
+---@param path string
+---@return lemon.Entry[]
+local function get_children(path)
+  return vim.iter(vim.fs.dir(path)):fold({}, function(acc, name, type)
+    acc[name] = { name = name, type = type }
+    return acc
+  end)
+end
+
+---@class lemon.Diff
+---@field added lemon.Entry[]
+---@field renamed lemon.Entry[]
+---@field deleted lemon.Entry[]
+
+---@param old lemon.Entry[]
+---@param new lemon.Entry[]
+---@return lemon.Diff
+local function get_diff(old, new)
+  return
+end
+
+local get_diff_str = function(a, b)
+  local lines_a = vim.split(b, "\n")
+  local lines_b = vim.split(b, "\n")
+  local res = {}
+  vim.diff(a, b, {
+    on_hunk = function(line_a, count_a, line_b, count_b)
+      print(line_a, line_b)
+      print(count_a, count_b)
+
+      if count_a == count_b and count_a == 1 then
+        res[#res + 1] = {
+          line = line_b,
+          type = "rename",
+          text = lines_b[line_b],
+        }
+      elseif count_a ~= count_b and count_b == 0 then
+        res[#res + 1] = {
+          line = line_a,
+          type = "delete",
+        }
+      elseif count_a ~= count_b and count_a == 0 then
+        res[#res + 1] = {
+          line = line_b,
+          type = "add",
+          text = lines_b[line_b],
+        }
+      end
+    end,
+  })
+  return res
+end
+
+-- changed
+-- local test = {
+--   [[hi.lua
+-- hello.lua
+-- world.lua
+-- ]],
+--
+--   [[hi.lua
+-- hello2.lua
+-- world.lua
+-- ]],
+-- }
+
+-- deleted
+-- local test = {
+--   [[hi.lua
+-- hello.lua
+-- world.lua
+-- ]],
+--
+--   [[hi.lua
+-- world.lua
+-- ]],
+-- }
+
+-- added
+
+dd(get_diff_str(unpack(test)))
 
 ---Edit file or edit directory
 ---@param path any
@@ -121,18 +203,9 @@ local function open(path)
   path = vim.fs.normalize(path)
 
   if not state.cache[path] then
-    state.cache[path] = {
-      expanded = true,
-    }
+    state.cache[path] = { expanded = true }
   end
-  local node = state.cache[path]
-  node.children = vim.iter(vim.fs.dir(path)):fold({}, function(acc, name, type)
-    acc[name] = { name = name, type = type }
-    return acc
-  end)
-
-  -- dd(state.cache)
-
+  state.cache[path].children = get_children(path)
   return util.is_file(path) and vim.cmd.edit(path) or edit_directory(path)
 end
 
@@ -203,5 +276,6 @@ M.enable(true)
 
 M._find_parent = util.find_parent
 M._count_indent = count_indent
+M._get_diff = get_diff_str
 
 return M
