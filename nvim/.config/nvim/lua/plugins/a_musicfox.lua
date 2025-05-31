@@ -3,6 +3,10 @@ return {
   opts = {},
   keys = {
     {
+      "<leader>ml",
+      "<Plug>MusicfoxLyrics",
+    },
+    {
       "<leader>mf",
       "<Plug>MusicfoxOpen",
     },

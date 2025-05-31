@@ -1,4 +1,18 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+---@type "cmp" | "blink" | "mini"
+vim.g.my_cmp = "blink"
+
+---@type "snacks.picker" | "mini.pick" | "telescope" | "fzf-lua"
+vim.g.my_picker = "snacks.picker"
+
+---@type "tokyonight-storm" | "duskfox" | "neopywal" | "catppuccin-mocha"
+vim.g.my_color = "catppuccin-mocha"
+
+---@type "render-markdown" | "markview"
+vim.g.markdown_renderer = "render-markdown"
+
 local opt = vim.opt
 local o = vim.o
 

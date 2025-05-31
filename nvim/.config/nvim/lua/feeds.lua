@@ -11,6 +11,9 @@ return {
       "v1nh1shungry/nvim-weekly-cn/releases",
       "r/neovim",
     },
+    gaming = {
+      "https://www.bluesnews.com/news/news_1_0.rdf",
+    },
     zig = {
       "https://ziglang.org/news/index.xml",
     },
@@ -18,13 +21,13 @@ return {
     -- "https://hnrss.org/frontpage",
     -- "rsshub://caixinglobal/latest",
   },
-  -- blog = {
-  --    zig = {
-  --       "https://andrewkelley.me/rss.xml",
-  --    },
-  --    "https://feeds.feedburner.com/ruanyifeng",
-  --    "https://www.openmymind.net/atom.xml",
-  -- },
+  blog = {
+    zig = {
+      "https://andrewkelley.me/rss.xml",
+    },
+    "https://feeds.feedburner.com/ruanyifeng",
+    "https://www.openmymind.net/atom.xml",
+  },
   podcast = {
     "https://feeds.megaphone.fm/BVLLC2163264914",
     "https://feeds.simplecast.com/dHoohVNH",

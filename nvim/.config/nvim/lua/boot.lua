@@ -15,3 +15,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+  git = {
+    url_format = "git@github.com:%s.git",
+  },
+  spec = {
+    { import = "plugins" },
+  },
+  install = { colorscheme = { vim.g.my_color, "habamax" } },
+  checker = { enabled = true },
+})

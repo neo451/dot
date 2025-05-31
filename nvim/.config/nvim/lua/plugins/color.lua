@@ -1,18 +1,5 @@
 return {
   {
-    "RedsXDD/neopywal.nvim",
-    name = "neopywal",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-
-  {
-    "webhooked/kanso.nvim",
-    lazy = false,
-    priority = 1000,
-  },
-  {
     "rasulomaroff/reactive.nvim",
     event = "BufEnter",
     opts = {
@@ -23,16 +10,14 @@ return {
       },
     },
   },
+  { "folke/tokyonight.nvim", priority = 1000 },
+  { "catppuccin/nvim", priority = 1000 },
+  { "EdenEast/nightfox.nvim", priority = 1000 },
   {
-    "folke/tokyonight.nvim",
-    cond = true,
-  },
-  {
-    "catppuccin/nvim",
-    cond = false,
-  },
-  {
-    "EdenEast/nightfox.nvim",
+    "RedsXDD/neopywal.nvim",
+    name = "neopywal",
+    lazy = false,
     priority = 1000,
+    opts = {},
   },
 }

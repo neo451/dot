@@ -1,11 +1,9 @@
 ---@diagnostic disable: missing-fields
 return {
-
   {
     "marcocofano/excalidraw.nvim",
     opts = {},
   },
-
   -- TODO: https://github.com/ViViDboarder/vim-settings/blob/23cf5fc1feabcc1baf66a622ffb869117b51e50f/neovim/lua/plugins/obsidian.lua
   -- TODO: https://github.com/B4rc1/obsidian-companion.nvim?tab=readme-ov-file
   -- TODO: https://github.com/oflisback/obsidian-bridge.nvim
@@ -117,6 +115,14 @@ return {
         folder = "templates",
         date_format = "%Y-%m-%d",
         time_format = "%H:%M",
+        customization = {
+          zettel = {
+            dir = "zettel",
+            note_id_func = function(title)
+              return "my-cool-id+" .. title
+            end,
+          },
+        },
       },
       completion = {
         blink = vim.g.my_cmp == "blink",

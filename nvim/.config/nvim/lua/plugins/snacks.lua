@@ -31,6 +31,9 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
+  dependencies = {
+    "rubiin/fortune.nvim",
+  },
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
@@ -58,7 +61,13 @@ return {
     -- scope = { enabled = true },
     statuscolumn = { enabled = true },
     dashboard = {
-      --    sections = gen_feed_sections(),
+      sections = {
+        { section = "header" },
+        { section = "keys", gap = 1, padding = 1 },
+        -- {
+        --   desc = require("fortune").get_fortune(),
+        -- },
+      },
     },
     styles = {
       notification = {
@@ -122,7 +131,7 @@ return {
         _G.bt = function()
           Snacks.debug.backtrace()
         end
-        vim.print = _G.dd -- Override print to use snacks for `:=` command
+        -- vim.print = _G.dd -- Override print to use snacks for `:=` command
 
         -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")

@@ -39,7 +39,6 @@ return {
     "renerocksai/telekasten.nvim",
     cmd = "Telekasten",
     dependencies = {
-      "nvim-telescope/telescope.nvim",
       -- "nvim-telekasten/calendar-vim",
     },
     opts = {

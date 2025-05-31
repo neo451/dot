@@ -10,7 +10,10 @@ return {
     sections = {
       lualine_x = {
         { require("rime").status, "encoding", "fileformat", "filetype" },
-        "g:musicfox_lyric",
+        {
+          "g:musicfox_lyric",
+          color = "String",
+        },
         "g:musicfox",
         {
           "g:obsidian",

@@ -1,5 +1,4 @@
 local set = vim.keymap.set
-
 vim.keymap.set("n", "-", "<cmd>Oil<cr>")
 
 vim.keymap.set("n", "<leader>mm", ":RecallToggle<CR>", { noremap = true, silent = true })
@@ -42,13 +41,15 @@ set("n", "J", "mzJ`z:delmarks z<cr>")
 
 set("i", "jk", "<esc>")
 
--- set("n", "<leader><leader>x", "<cmd>w<cr><cmd>so %<cr>")
 set("n", "<leader><leader>x", function()
   local base = vim.fs.basename(vim.fn.expand("%"))
   if vim.startswith(base, "test_") then
     return "<cmd>lua MiniTest.run_file()<cr>"
+  elseif vim.endswith(base, "_spec.lua") then
+    return "<cmd>PlenaryBustedFile %<cr>"
+  else
+    return "<cmd>w<cr><cmd>so %<cr>"
   end
-  return "<cmd>w<cr><cmd>so %<cr>"
 end, { expr = true })
 
 set("n", "<C-/>", function()

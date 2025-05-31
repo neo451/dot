@@ -1,4 +1,5 @@
 local buf = vim.api.nvim_get_current_buf()
+vim.wo.smoothscroll = true
 
 local map = function(mode, lhs, rhs)
   vim.keymap.set(mode, lhs, rhs, {
@@ -46,9 +47,10 @@ vim.opt_local.comments = {
 -- vim.keymap.set("i", "<S-CR>", "<C-o>o<C-u>")
 -- vim.keymap.set("n", "<leader><cr>", "o<bs><bs>")
 
-vim.keymap.set("v", "<C-b>", "xi****<ESC>hhp", { desc = "Bold Selected Text" })
-vim.keymap.set("n", "<leader>B", "$v0xi****<ESC>hhp", { desc = "Bold Entire Line" })
-vim.keymap.set("n", "<C-b>", "bvexi****<ESC>hhp", { desc = "Bold Word Under Cursor" })
+vim.keymap.set("v", "<C-b>", ":lua require('markdowny').bold()<cr>", { buffer = buf })
+vim.keymap.set("v", "<C-i>", ":lua require('markdowny').italic()<cr>", { buffer = buf })
+vim.keymap.set("v", "<C-k>", ":lua require('markdowny').link()<cr>", { buffer = buf })
+vim.keymap.set("v", "<C-e>", ":lua require('markdowny').code()<cr>", { buffer = buf })
 
 vim.keymap.set("n", "<leader>p", "<cmd>Obsidian paste_img<cr>", { desc = "Obsidian paste_img" })
 

@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd("User", {
     local note = ev.data.note
     --- if frontmatter has `spell: false`, turn of spell
     if note and note.metadata and note.metadata.spell == false then
+      print("here?")
       vim.wo.spell = false
     end
   end,
@@ -57,7 +58,7 @@ require("statusline").setup({
     "lsp",
     "ft",
     -- "percentage",
-    -- "position",
+    "position",
   },
 })
 
@@ -76,12 +77,5 @@ end)
 -- require("rime") -- additional rime stuff
 
 require("_obsidian").enable(true)
-
-local function enable_wall()
-  vim.o.termguicolors = false
-  vim.cmd.colorscheme("neopywal")
-end
-
--- enable_wall()
 
 -- require("quickfix")
