@@ -24,7 +24,11 @@ o.breakindent = true
 o.showmode = false
 o.cursorline = true
 o.list = true
-opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.listchars = {
+  tab = "  ",
+  trail = "·",
+  nbsp = "␣",
+}
 
 -- search
 o.ignorecase = true
@@ -62,8 +66,8 @@ o.spelllang = "en,cjk"
 
 -- diagnostic
 vim.diagnostic.config({
-  virtual_text = true,
-  -- virtual_lines = {
-  --   current_line = true,
-  -- },
+  -- virtual_text = true,
+  virtual_lines = {
+    current_line = true,
+  },
 })

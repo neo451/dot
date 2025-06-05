@@ -1,5 +1,10 @@
 return {
   {
+    "A7Lavinraj/fyler.nvim",
+    dependencies = { "echasnovski/mini.icons" },
+    opts = {},
+  },
+  {
     "stevearc/oil.nvim",
     opts = {
       skip_confirm_for_simple_edits = true,

@@ -9,6 +9,6 @@ local servers = {
   -- "dummy",
 }
 
-for _, name in ipairs(servers) do
+for name in vim.iter(servers) do
   pcall(vim.lsp.enable, name)
 end

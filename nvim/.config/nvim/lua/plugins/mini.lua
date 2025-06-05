@@ -22,20 +22,6 @@ return {
   {
     "echasnovski/mini.test",
     opts = {},
-    -- keys = {
-    --   "<leader><leader>x",
-    -- },
-  },
-  {
-    "echasnovski/mini.keymap",
-    config = function()
-      local map_multistep = require("mini.keymap").map_multistep
-
-      -- map_multistep("i", "<Tab>", { "pmenu_next" })
-      -- map_multistep("i", "<S-Tab>", { "pmenu_prev" })
-      map_multistep("i", "<CR>", { "minipairs_cr" })
-      map_multistep("i", "<BS>", { "minipairs_bs" })
-    end,
   },
   {
     "echasnovski/mini.icons",

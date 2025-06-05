@@ -23,6 +23,11 @@ return {
       "jsonc",
       "hyprlang",
       "norg",
+      "zig",
+      "toml",
+      "http",
+      "vhs",
+      "csv",
     },
     ignore_install = { "org" },
     highlight = {
