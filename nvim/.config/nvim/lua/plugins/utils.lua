@@ -1,9 +1,6 @@
 return {
+  { "2kabhishek/nerdy.nvim", cmd = "Nerdy" },
   { "attilarepka/header.nvim", config = true },
-  {
-    "rubiin/fortune.nvim",
-    opts = {},
-  },
   {
     "ThePrimeagen/refactoring.nvim",
     cmd = "Refactor",

@@ -4,7 +4,6 @@ return {
   version = "1.*",
   dependencies = {
     "rafamadriz/friendly-snippets",
-    "MahanRahmati/blink-nerdfont.nvim",
     "moyiz/blink-emoji.nvim",
     "Kaiser-Yang/blink-cmp-dictionary",
   },
@@ -87,7 +86,6 @@ return {
         "lazydev",
         "emoji",
         "dictionary",
-        -- "nerdfont",
       },
       providers = {
         dictionary = {
@@ -117,12 +115,6 @@ return {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 100,
-        },
-        nerdfont = {
-          module = "blink-nerdfont",
-          name = "Nerd Fonts",
-          score_offset = 15, -- Tune by preference
-          opts = { insert = true },
         },
         emoji = {
           module = "blink-emoji",

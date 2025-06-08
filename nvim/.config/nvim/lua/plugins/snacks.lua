@@ -31,9 +31,6 @@ return {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
-  dependencies = {
-    "rubiin/fortune.nvim",
-  },
   ---@module 'snacks'
   ---@type snacks.Config
   opts = {
@@ -58,17 +55,7 @@ return {
     picker = {
       enabled = true,
     },
-    -- scope = { enabled = true },
     statuscolumn = { enabled = true },
-    dashboard = {
-      sections = {
-        { section = "header" },
-        { section = "keys", gap = 1, padding = 1 },
-        -- {
-        --   desc = require("fortune").get_fortune(),
-        -- },
-      },
-    },
     styles = {
       notification = {
         wo = { wrap = true },
@@ -78,6 +65,16 @@ return {
         col = -1,
       },
     },
+    -- scope = { enabled = true },
+    -- dashboard = {
+    --   sections = {
+    --     { section = "header" },
+    --     { section = "keys", gap = 1, padding = 1 },
+    --     -- {
+    --     --   desc = require("fortune").get_fortune(),
+    --     -- },
+    --   },
+    -- },
   },
   keys = {
     -- Grep

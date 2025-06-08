@@ -1,5 +1,15 @@
 return {
   {
+    "folke/styler.nvim",
+    opts = {
+      themes = {
+        markdown = { colorscheme = "duskfox" },
+        help = { colorscheme = "github_dark", background = "dark" },
+      },
+    },
+  },
+  { "projekt0n/github-nvim-theme", name = "github-theme" },
+  {
     "rasulomaroff/reactive.nvim",
     event = "BufEnter",
     opts = {
@@ -13,11 +23,4 @@ return {
   { "folke/tokyonight.nvim", priority = 1000 },
   { "catppuccin/nvim", priority = 1000 },
   { "EdenEast/nightfox.nvim", priority = 1000 },
-  {
-    "RedsXDD/neopywal.nvim",
-    name = "neopywal",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
 }

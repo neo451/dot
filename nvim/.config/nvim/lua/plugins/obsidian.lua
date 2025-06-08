@@ -115,7 +115,7 @@ return {
         folder = "templates",
         date_format = "%Y-%m-%d",
         time_format = "%H:%M",
-        customization = {
+        customizations = {
           zettel = {
             dir = "zettel",
             note_id_func = function(title)
@@ -124,6 +124,7 @@ return {
           },
         },
       },
+
       completion = {
         blink = vim.g.my_cmp == "blink",
         -- blink = true,
