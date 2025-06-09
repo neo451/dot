@@ -7,8 +7,8 @@ vim.g.my_cmp = "blink"
 ---@type "snacks.picker" | "mini.pick" | "telescope" | "fzf-lua"
 vim.g.my_picker = "snacks.picker"
 
----@type "tokyonight-storm" | "duskfox" | "neopywal" | "catppuccin-mocha"
-vim.g.my_color = "catppuccin-mocha"
+---@type "tokyonight-storm" | "duskfox" | "rose-pine" | "catppuccin-mocha"
+vim.g.my_color = "rose-pine"
 
 ---@type "render-markdown" | "markview"
 vim.g.markdown_renderer = "render-markdown"
@@ -38,7 +38,6 @@ o.shell = "fish"
 
 -- typing
 o.expandtab = true
--- o.undofile = true
 o.tabstop = 2 -- Number of spaces tabs count for
 o.shiftwidth = 2
 

@@ -57,6 +57,7 @@ end
 
 function _G._diy_statusline(name)
   local t = { cmp[name]() }
+  -- local t = vim.g["my_" .. name]
   local buf = {}
   for i = 1, #t, 2 do
     local text, hi = t[i], t[i + 1]
@@ -159,10 +160,14 @@ local cmps = {}
 
 local M = {}
 
+local names = {}
+
 M.setup = function(sections)
   for _, section in ipairs(sections.left) do
     if type(section) == "string" then
-      table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
+      -- table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
+      table.insert(cmps, "%{%v:my_" .. section .. '"%}')
+      names[#names + 1] = section
     end
   end
 
@@ -174,7 +179,9 @@ M.setup = function(sections)
 
   for _, section in ipairs(sections.right) do
     if type(section) == "string" then
-      table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
+      table.insert(cmps, "%{%v:my_" .. section .. '"%}')
+      names[#names + 1] = section
+      -- table.insert(cmps, '%{%v:lua._diy_statusline("' .. section .. '")%}')
     end
   end
 end
@@ -186,11 +193,16 @@ M.enable = function(enable)
     if timer then
       timer:start(0, 1000, function()
         vim.schedule(function()
-          pcall(function()
-            vim.o.statusline = concat(cmps)
-          end)
+          for name in vim.iter(names) do
+            vim.g["my_" .. name] = _G._diy_statusline(name)
+          end
+          -- pcall(function()
+          --   vim.o.statusline = concat(cmps)
+          -- end)
         end)
       end)
+      vim.o.statusline = concat(cmps)
+      print(vim.o.statusline)
     end
   end
 end

@@ -1,19 +1,3 @@
-vim.cmd([[
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': 'md'}]
-]])
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "ObsidianNoteWritePost",
-  callback = function(ev)
-    --- format code blocks
-    require("conform").format({
-      bufnr = ev.buf,
-      formatters = { "prettier", "injected" },
-    })
-  end,
-})
-
 vim.api.nvim_create_autocmd("User", {
   pattern = "ObsidianNoteEnter",
   callback = function(ev)
