@@ -1,4 +1,11 @@
 return {
+  {
+    { "nvzone/volt", lazy = true },
+    {
+      "nvzone/minty",
+      cmd = { "Shades", "Huefy" },
+    },
+  },
   { "2kabhishek/nerdy.nvim", cmd = "Nerdy" },
   { "attilarepka/header.nvim", config = true },
   {

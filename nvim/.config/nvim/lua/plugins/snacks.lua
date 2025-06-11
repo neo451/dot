@@ -46,12 +46,8 @@ return {
         max_height = 20,
       },
     },
-    bigfile = { enabled = true },
+    -- bigfile = { enabled = true },
     input = { enabled = true },
-    notifier = {
-      enabled = true,
-      timeout = 3000,
-    },
     picker = {
       enabled = true,
     },
@@ -65,6 +61,10 @@ return {
         col = -1,
       },
     },
+    -- notifier = {
+    --   enabled = true,
+    --   timeout = 3000,
+    -- },
     -- scope = { enabled = true },
     -- dashboard = {
     --   sections = {

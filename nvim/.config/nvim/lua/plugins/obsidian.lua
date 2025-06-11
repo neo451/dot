@@ -51,15 +51,15 @@ return {
 
   {
     "obsidian-nvim/obsidian.nvim",
+    version = "*",
     dir = "~/Plugins/obsidian.nvim/",
     -- event = "BufReadPre /home/n451/Notes/*.md",
     -- cmd = "Obsidian",
-    dev = true,
     ---@module 'obsidian'
     ---@type obsidian.config.ClientOpts
     opts = {
       cache = {
-        use_cache = true,
+        enable = false,
       },
 
       -- open_notes_in = "vsplit_force",
@@ -74,8 +74,18 @@ return {
         enabled = true,
       },
 
+      open = {
+        use_advanced_uri = true,
+      },
+
       daily_notes = {
         folder = "daily_notes",
+        -- alias_format = "%B %-d, %Y",
+        -- workdays_only = false,
+        func = function(datetime)
+          local note = os.date("%Y/%m-%B/%Y-%m-%d", datetime)
+          return "daily_notes/" .. note .. "!.md"
+        end,
       },
 
       calendar = {
@@ -85,18 +95,18 @@ return {
 
       picker = { name = "telescope.nvim" },
 
-      note_frontmatter_func = function(note)
-        -- Add the title of the note as an alias.
-        local out = { id = note.id, tags = note.tags }
-        -- `note.metadata` contains any manually added fields in the frontmatter.
-        -- So here we just make sure those fields are kept in the frontmatter.
-        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-          for k, v in pairs(note.metadata) do
-            out[k] = v
-          end
-        end
-        return out
-      end,
+      -- note_frontmatter_func = function(note)
+      --   -- Add the title of the note as an alias.
+      --   local out = { id = note.id, tags = note.tags }
+      --   -- `note.metadata` contains any manually added fields in the frontmatter.
+      --   -- So here we just make sure those fields are kept in the frontmatter.
+      --   if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+      --     for k, v in pairs(note.metadata) do
+      --       out[k] = v
+      --     end
+      --   end
+      --   return out
+      -- end,
 
       attachments = {
         confirm_img_paste = false,
@@ -122,6 +132,25 @@ return {
               return "my-cool-id+" .. title
             end,
           },
+        },
+        substitutions = {
+          pretty_title = function(ctx)
+            return tostring(ctx.destination_path.stem)
+          end,
+          -- ---@param target obsidian.Path
+          -- curr_date = function(target)
+          --   return target.stem
+          -- end,
+          --
+          -- ---@param target obsidian.Path
+          -- next_date = function(target)
+          --   return shift_iso_date(target.stem, 1)
+          -- end,
+          --
+          -- ---@param target obsidian.Path
+          -- prev_date = function(target)
+          --   return shift_iso_date(target.stem, -1)
+          -- end,
         },
       },
 

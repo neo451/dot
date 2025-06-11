@@ -5,6 +5,7 @@ return {
       themes = {
         markdown = { colorscheme = "duskfox" },
         help = { colorscheme = "github_dark", background = "dark" },
+        feed = { colorscheme = "kanagawa" },
       },
     },
   },
@@ -30,4 +31,5 @@ return {
   { "folke/tokyonight.nvim", priority = 1000 },
   { "catppuccin/nvim", priority = 1000 },
   { "EdenEast/nightfox.nvim", priority = 1000 },
+  { "rebelot/kanagawa.nvim", priority = 1000 },
 }
