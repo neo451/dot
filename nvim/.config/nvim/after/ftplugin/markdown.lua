@@ -1,6 +1,7 @@
 local buf = vim.api.nvim_get_current_buf()
 vim.wo.smoothscroll = true
 vim.bo.shiftwidth = 2
+vim.wo.conceallevel = 2
 
 local map = function(mode, lhs, rhs)
   vim.keymap.set(mode, lhs, rhs, {

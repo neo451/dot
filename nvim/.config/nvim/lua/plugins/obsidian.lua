@@ -52,6 +52,7 @@ return {
   {
     "obsidian-nvim/obsidian.nvim",
     version = "*",
+    -- commit = "9d165ea54a85cd1677413871f1cc65521b5fad2a",
     dir = "~/Plugins/obsidian.nvim/",
     -- event = "BufReadPre /home/n451/Notes/*.md",
     -- cmd = "Obsidian",
@@ -62,7 +63,20 @@ return {
         enable = false,
       },
 
-      -- open_notes_in = "vsplit_force",
+      mappings = {
+        ["<CR>"] = {
+          action = function()
+            return require("obsidian").util.smart_action()
+          end,
+          opts = { buffer = true, expr = true },
+        },
+        ["<leader>ch"] = {
+          action = function()
+            return require("obsidian").util.toggle_checkbox()
+          end,
+          opts = { buffer = true },
+        },
+      },
 
       backlinks = {
         parse_headers = false,
@@ -134,9 +148,9 @@ return {
           },
         },
         substitutions = {
-          pretty_title = function(ctx)
-            return tostring(ctx.destination_path.stem)
-          end,
+          -- pretty_title = function(ctx)
+          --   return tostring(ctx.destination_path.stem)
+          -- end,
           -- ---@param target obsidian.Path
           -- curr_date = function(target)
           --   return target.stem
@@ -173,9 +187,13 @@ return {
           name = "hub",
           path = "~/Vualts/obsidian-hub/",
         },
+        {
+          name = "stress test",
+          path = "~/.local/share/nvim/nightmare_vault/",
+        },
       },
       ui = {
-        enable = false,
+        enable = true,
         checkboxes = {
           [" "] = { order = 1, char = "󰄱", hl_group = "ObsidianTodo" },
           ["x"] = { order = 5, char = "", hl_group = "ObsidianDone" },

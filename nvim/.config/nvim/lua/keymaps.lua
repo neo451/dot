@@ -1,15 +1,8 @@
 local set = vim.keymap.set
+
 vim.keymap.set("n", "-", "<cmd>Oil<cr>")
 
 vim.keymap.set("n", "<End>", "<cmd>restart<cr>")
-
-vim.keymap.set("n", "<leader>mm", ":RecallToggle<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>mn", ":RecallNext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>mp", ":RecallPrevious<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>mc", ":RecallClear<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>ml", ":Telescope recall<CR>", { noremap = true, silent = true })
-
-vim.keymap.set("v", "w", '<cmd>lua require("jieba_nvim").wordmotion_w()<CR>', { noremap = false, silent = true })
 
 set("n", "grl", function()
   vim.lsp.buf.document_link({ loclist = false })
@@ -54,9 +47,7 @@ set("n", "<leader><leader>x", function()
   end
 end, { expr = true })
 
-set("n", "<C-/>", function()
-  Snacks.terminal.toggle()
-end, { desc = "Terminal" })
+set({ "n", "t" }, "<C-/>", "<cmd>FloatermToggle<cr>", { desc = "Terminal" })
 
 set("n", "<leader>/", function()
   Snacks.picker.grep()
@@ -125,6 +116,8 @@ set("n", "<leader>on", function()
   local legacy = opt == true or (opt == nil)
   return legacy and "<cmd>ObsidianNew<cr>" or "<cmd>Obsidian new<cr>"
 end, { expr = true })
+
+set("n", "<leader>O", "<cmd>Obsidian<cr>")
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
