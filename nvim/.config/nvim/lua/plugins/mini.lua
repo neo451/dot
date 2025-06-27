@@ -1,4 +1,6 @@
 return {
+
+  "echasnovski/mini.nvim",
   {
     "echasnovski/mini.hipatterns",
     config = function()

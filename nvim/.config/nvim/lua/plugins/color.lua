@@ -1,5 +1,11 @@
 return {
   {
+    "mcauley-penney/visual-whitespace.nvim",
+    config = true,
+    event = "ModeChanged *:[vV\22]",
+    opts = {},
+  },
+  {
     "folke/styler.nvim",
     opts = {
       themes = {
@@ -8,14 +14,6 @@ return {
         feed = { colorscheme = "kanagawa" },
       },
     },
-  },
-  { "projekt0n/github-nvim-theme", name = "github-theme" },
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      vim.cmd("colorscheme rose-pine")
-    end,
   },
   {
     "rasulomaroff/reactive.nvim",
@@ -32,4 +30,12 @@ return {
   { "catppuccin/nvim", priority = 1000 },
   { "EdenEast/nightfox.nvim", priority = 1000 },
   { "rebelot/kanagawa.nvim", priority = 1000 },
+  { "projekt0n/github-nvim-theme", name = "github-theme" },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      vim.cmd("colorscheme rose-pine")
+    end,
+  },
 }

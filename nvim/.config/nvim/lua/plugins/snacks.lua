@@ -61,10 +61,10 @@ return {
         col = -1,
       },
     },
-    -- notifier = {
-    --   enabled = true,
-    --   timeout = 3000,
-    -- },
+    notifier = {
+      enabled = true,
+      timeout = 3000,
+    },
     -- scope = { enabled = true },
     -- dashboard = {
     --   sections = {

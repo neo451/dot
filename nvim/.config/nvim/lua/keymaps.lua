@@ -1,8 +1,14 @@
 local set = vim.keymap.set
 
+vim.keymap.set("n", "<leader>ca", function()
+  require("tiny-code-action").code_action()
+end, { noremap = true, silent = true })
+
 vim.keymap.set("n", "-", "<cmd>Oil<cr>")
 
 vim.keymap.set("n", "<End>", "<cmd>restart<cr>")
+
+vim.keymap.set("n", "w", "<Plug>Zh_w")
 
 set("n", "grl", function()
   vim.lsp.buf.document_link({ loclist = false })
@@ -25,8 +31,8 @@ set("n", "ycc", function()
   return "yy" .. vim.v.count1 .. "gcc']p"
 end, { remap = true, expr = true })
 
--- fix previous spell error FIX:
-set("i", "<C-l>", "<c-g>u<Esc>[s1z=g<c-g>u")
+-- fix previous spell error
+set("i", "<C-l>", "<Esc>[s1z=`]a")
 
 --search within visual selection - this is magic
 set("x", "/", "<Esc>/\\%V")

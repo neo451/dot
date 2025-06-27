@@ -51,16 +51,10 @@ require("statusline").enable(false)
 require("babel").enable(true)
 
 pcall(function()
-  require("vim._extui").enable({
-    msg = {
-      pos = "box",
-    },
-  })
+  require("vim._extui").enable({})
 end)
 
--- require("rime") -- additional rime stuff
-
-require("_obsidian").enable(true)
+require("_obsidian").enable(false)
 
 -- require("quickfix")
 
