@@ -149,3 +149,10 @@ vim.api.nvim_create_autocmd("CursorHold", {
     -- vim.diagnostic.open_float(nil, { focusable = false, source = "if_many" })
   end,
 })
+
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "FeedShowIndex",
+--   callback = function(ev)
+--     vim.keymap.del("n", "<cr>", { buffer = ev.buf })
+--   end
+-- })

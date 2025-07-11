@@ -24,10 +24,6 @@ return {
       -- refer to the configuration section below
     },
   },
-  {
-    "michaelb/sniprun",
-    build = "sh install.sh",
-  },
   -- visual mode maps for adding links, bold, italic and inline
   {
     "antonk52/markdowny.nvim",
@@ -58,38 +54,5 @@ return {
   {
     "dhruvasagar/vim-table-mode",
     ft = { "markdown" },
-  },
-
-  {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-    cond = vim.g.markdown_renderer == "markview",
-  },
-
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
-    ft = { "markdown" },
-    cond = false,
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {
-      latex = {
-        enabled = false,
-      },
-      heading = {
-        icons = { "◉ ", "◎ ", "○ ", "✺ ", "▶ ", "⤷ " },
-      },
-    },
-    -- cond = vim.g.markdown_renderer == "render-markdown",
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
   },
 }

@@ -53,7 +53,9 @@ return {
     version = "*",
     dependencies = {
       {
+        "obsidian-nvim/obsidian-markmap.nvim",
         dir = "~/Plugins/obsidian-markmap.nvim/",
+        cond = vim.fs.exists("~/Plugins/obsidian-markmap.nvim/"),
       },
     },
     -- commit = "9d165ea54a85cd1677413871f1cc65521b5fad2a",
@@ -74,9 +76,6 @@ return {
       --   parse_headers = false,
       -- },
       --
-      open = {
-        use_advanced_uri = true,
-      },
 
       daily_notes = {
         folder = "daily_notes",
@@ -122,25 +121,17 @@ return {
 
       completion = {
         blink = vim.g.my_cmp == "blink",
-        nvim_cmp = vim.g.my_cmp == "cmp",
+        -- nvim_cmp = vim.g.my_cmp == "cmp",
       },
 
       workspaces = {
-        {
-          name = "notes",
-          path = "~/Notes",
-        },
-        {
-          name = "work",
-          path = "~/Work",
-        },
+        -- {
+        --   name = "notes",
+        --   path = "~/Notes",
+        -- },
         {
           name = "hub",
-          path = "~/Vualts/obsidian-hub/",
-        },
-        {
-          name = "stress test",
-          path = "~/.local/share/nvim/nightmare_vault/",
+          path = "~/obsidian-hub/",
         },
       },
     },

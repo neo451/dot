@@ -1,5 +1,20 @@
 local set = vim.keymap.set
 
+vim.keymap.set("n",
+  "<leader>cc",
+  "<cmd>CodeCompanionChat<cr>",
+  { desc = "CodeCompanionChat" })
+
+vim.keymap.set("n", "<leader>U",
+  "<cmd>UndotreeToggle<cr>", { desc = "Toggle UndoTree" })
+
+vim.keymap.set("n", "<leader>?",
+  function()
+    require("which-key").show({ global = false })
+  end,
+  { desc = "Buffer Local Keymaps (which-key)" })
+
+
 vim.keymap.set("n", "<leader>ca", function()
   require("tiny-code-action").code_action()
 end, { noremap = true, silent = true })
@@ -7,8 +22,6 @@ end, { noremap = true, silent = true })
 vim.keymap.set("n", "-", "<cmd>Oil<cr>")
 
 vim.keymap.set("n", "<End>", "<cmd>restart<cr>")
-
-vim.keymap.set("n", "w", "<Plug>Zh_w")
 
 set("n", "grl", function()
   vim.lsp.buf.document_link({ loclist = false })
@@ -111,18 +124,8 @@ set("n", "<leader>P", function()
   Snacks.picker()
 end, { desc = "All pickers" })
 
-set("n", "<leader>os", function()
-  local opt = require("obsidian").get_client().opts.legacy_commands
-  local legacy = opt == true or (opt == nil)
-  return legacy and "<cmd>ObsidianQuickSwitch<cr>" or "<cmd>Obsidian quick_switch<cr>"
-end, { expr = true })
-
-set("n", "<leader>on", function()
-  local opt = require("obsidian").get_client().opts.legacy_commands
-  local legacy = opt == true or (opt == nil)
-  return legacy and "<cmd>ObsidianNew<cr>" or "<cmd>Obsidian new<cr>"
-end, { expr = true })
-
+set("n", "<leader>os", "<cmd>Obsidian quick_switch<cr>")
+set("n", "<leader>on", "<cmd>Obsidian new<cr>")
 set("n", "<leader>O", "<cmd>Obsidian<cr>")
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n

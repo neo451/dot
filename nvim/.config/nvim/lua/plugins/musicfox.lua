@@ -1,5 +1,6 @@
 return {
   dir = "~/Plugins/musicfox.nvim/",
+  cond = vim.fs.exists("~/Plugins/musicfox.nvim"),
   opts = {},
   keys = {
     {
