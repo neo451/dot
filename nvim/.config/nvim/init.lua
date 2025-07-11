@@ -46,6 +46,7 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/folke/tokyonight.nvim",
   "https://github.com/EdenEast/nightfox.nvim",
   "https://github.com/echasnovski/mini.icons",
+  "https://github.com/echasnovski/mini.pairs",
   "https://github.com/echasnovski/mini.test",
   "https://github.com/nvim-lualine/lualine.nvim",
   "https://github.com/folke/todo-comments.nvim",
@@ -60,6 +61,7 @@ local ok, err = pcall(vim.pack.add, {
   -- "https://github.com/MeanderingProgrammer/render-markdown.nvim",
   "https://github.com/brianhuster/live-preview.nvim",
   "https://github.com/OXY2DEV/markview.nvim",
+  "https://github.com/dhruvasagar/vim-table-mode",
 
   -- game
   "https://github.com/NStefan002/2048.nvim",
@@ -80,6 +82,9 @@ local ok, err = pcall(vim.pack.add, {
 
   -- picker
   "https://github.com/nvim-telescope/telescope.nvim",
+
+  -- workflow
+  "https://github.com/abecodes/tabout.nvim",
 
   -- experiment
   "https://github.com/A7Lavinraj/fyler.nvim",
@@ -236,6 +241,13 @@ require("lze").load({
   {
     "nightfox.nvim",
     colorscheme = "duskfox",
+  },
+  {
+    "tabout.nvim",
+    event = "InsertCharPre",
+    after = function()
+      require("_tabout")
+    end,
   },
 })
 
