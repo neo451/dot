@@ -54,7 +54,7 @@ pcall(function()
   require("vim._extui").enable({})
 end)
 
-require("_obsidian").enable(false)
+require("ob_git").enable(false)
 
 -- require("quickfix")
 

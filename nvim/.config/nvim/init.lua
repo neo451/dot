@@ -22,7 +22,6 @@ build("mcphub.nvim", { "nvim", "-l", "bundled_build.lua" })
 
 local ok, err = pcall(vim.pack.add, {
   "https://github.com/mbbill/undotree",
-  "https://github.com/folke/tokyonight.nvim",
   "https://github.com/folke/lazydev.nvim",
   "https://github.com/folke/which-key.nvim",
   "https://github.com/folke/snacks.nvim",
@@ -44,6 +43,8 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/monaqa/dial.nvim",
 
   -- beauty
+  "https://github.com/folke/tokyonight.nvim",
+  "https://github.com/EdenEast/nightfox.nvim",
   "https://github.com/echasnovski/mini.icons",
   "https://github.com/echasnovski/mini.test",
   "https://github.com/nvim-lualine/lualine.nvim",
@@ -106,6 +107,33 @@ require("lsp")
 require("lze").load({
   {
     "snacks.nvim",
+    before = function()
+      -- Setup some globals for debugging (lazy-loaded)
+      ---@diagnostic disable-next-line: duplicate-set-field
+      _G.dd = function(...)
+        Snacks.debug.inspect(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      _G.bt = function()
+        Snacks.debug.backtrace()
+      end
+      -- vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+      -- Create some toggle mappings
+      Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+      Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+      Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+      Snacks.toggle.diagnostics():map("<leader>ud")
+      Snacks.toggle.line_number():map("<leader>ul")
+      Snacks.toggle
+        .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+        :map("<leader>uc")
+      Snacks.toggle.treesitter():map("<leader>uT")
+      Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+      Snacks.toggle.inlay_hints():map("<leader>uh")
+      Snacks.toggle.indent():map("<leader>ug")
+      Snacks.toggle.dim():map("<leader>uD")
+    end,
     after = function()
       require("_snacks")
     end,
@@ -205,8 +233,13 @@ require("lze").load({
       })
     end,
   },
+  {
+    "nightfox.nvim",
+    colorscheme = "duskfox",
+  },
 })
 
 require("_obsidian")
+require("experiments")
 
 vim.cmd("colorscheme tokyonight-storm")

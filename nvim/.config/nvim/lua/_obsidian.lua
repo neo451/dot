@@ -3,13 +3,9 @@ require("obsidian").setup({
   -- prefer_config_from_obsidian_app = true,
 
   checkbox = {
-    order = { "?", " " },
+    order = { "x", " " },
   },
 
-  -- backlinks = {
-  --   parse_headers = false,
-  -- },
-  --
   open = {
     use_advanced_uri = true,
     func = function(uri)
