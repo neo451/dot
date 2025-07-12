@@ -1,9 +1,9 @@
 vim.g.mcphub = {
   -- Required options
-  port = 3000,                                              -- Port for MCP Hub server
+  port = 3000, -- Port for MCP Hub server
   config = vim.fn.expand("~/.config/nvim/mcpservers.json"), -- Absolute path to config file
 
-  use_bundled_binary = true,                                -- Use bundled mcp-hub binary
+  use_bundled_binary = true, -- Use bundled mcp-hub binary
 
   -- Optional options
   on_ready = function(hub)
@@ -20,7 +20,3 @@ vim.g.mcphub = {
     prefix = "MCPHub",
   },
 }
-
--- require "copilot".setup {}
-
-require "codecompanion".setup {}

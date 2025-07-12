@@ -31,6 +31,8 @@ local ok, err = pcall(vim.pack.add, {
   -- lazy loader
   "https://github.com/BirdeeHub/lze",
 
+  "https://github.com/alex-popov-tech/store.nvim",
+
   -- lib
   "https://github.com/gregorias/coop.nvim",
   "https://github.com/nvim-lua/plenary.nvim",
@@ -46,6 +48,8 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/folke/tokyonight.nvim",
   "https://github.com/EdenEast/nightfox.nvim",
   "https://github.com/echasnovski/mini.icons",
+  "https://github.com/echasnovski/mini.ai",
+  "https://github.com/echasnovski/mini.surround",
   "https://github.com/echasnovski/mini.pairs",
   "https://github.com/echasnovski/mini.test",
   "https://github.com/nvim-lualine/lualine.nvim",
@@ -62,6 +66,7 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/brianhuster/live-preview.nvim",
   "https://github.com/OXY2DEV/markview.nvim",
   "https://github.com/dhruvasagar/vim-table-mode",
+  "https://github.com/jmbuhr/otter.nvim",
 
   -- game
   "https://github.com/NStefan002/2048.nvim",
@@ -147,6 +152,7 @@ require("lze").load({
     "oil.nvim",
     after = function()
       require("_oil")
+      vim.keymap.set("n", "-", "<cmd>Oil<cr>")
     end,
   },
   {
@@ -165,7 +171,28 @@ require("lze").load({
   {
     "mini.icons",
     after = function()
-      require("_mini")
+      require("mini.icons").setup()
+      MiniIcons.mock_nvim_web_devicons()
+    end,
+  },
+  {
+    "mini.pairs",
+    event = "InsertEnter",
+    after = function()
+      require("mini.pairs").setup()
+    end,
+  },
+  {
+    "otter.nvim",
+    ft = "markdown",
+    after = function()
+      require("otter").setup({})
+    end,
+  },
+  {
+    "mini.ai",
+    after = function()
+      require("mini.ai").setup({})
     end,
   },
   {
@@ -202,7 +229,20 @@ require("lze").load({
   {
     "mcphub.nvim",
     after = function()
-      require("_ai")
+      require("_mcp")
+    end,
+  },
+  {
+    "codecompanion.nvim",
+    keys = {
+      {
+        "<leader>cc",
+        "<cmd>CodeCompanionChat<cr>",
+        desc = "CodeCompanion Chat",
+      },
+    },
+    after = function()
+      require("codecompanion").setup({})
     end,
   },
   {

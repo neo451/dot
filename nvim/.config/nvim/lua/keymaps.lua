@@ -1,25 +1,10 @@
 local set = vim.keymap.set
 
-vim.keymap.set("n",
-  "<leader>cc",
-  "<cmd>CodeCompanionChat<cr>",
-  { desc = "CodeCompanionChat" })
+vim.keymap.set("n", "<leader>U", "<cmd>UndotreeToggle<cr>", { desc = "Toggle UndoTree" })
 
-vim.keymap.set("n", "<leader>U",
-  "<cmd>UndotreeToggle<cr>", { desc = "Toggle UndoTree" })
-
-vim.keymap.set("n", "<leader>?",
-  function()
-    require("which-key").show({ global = false })
-  end,
-  { desc = "Buffer Local Keymaps (which-key)" })
-
-
-vim.keymap.set("n", "<leader>ca", function()
-  require("tiny-code-action").code_action()
-end, { noremap = true, silent = true })
-
-vim.keymap.set("n", "-", "<cmd>Oil<cr>")
+vim.keymap.set("n", "<leader>?", function()
+  require("which-key").show({ global = false })
+end, { desc = "Buffer Local Keymaps (which-key)" })
 
 vim.keymap.set("n", "<End>", "<cmd>restart<cr>")
 

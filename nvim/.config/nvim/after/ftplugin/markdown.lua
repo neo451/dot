@@ -1,10 +1,3 @@
--- require "render-markdown".setup {
---   latex = {
---     enabled = false,
---   },
---   heading = {
---     icons = { "◉ ", "◎ ", "○ ", "✺ ", "▶ ", "⤷ " },
---   },
--- }
---
--- require "livepreview.config".set {}
+pcall(function()
+  require("otter").activate()
+end)

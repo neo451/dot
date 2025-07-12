@@ -5,6 +5,7 @@ local servers = {
   "nixd",
   "rime_ls",
   "zls",
+  "fish_lsp",
   -- "dummy",
 }
 
