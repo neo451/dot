@@ -2,6 +2,10 @@ require("obsidian").setup({
   legacy_commands = false,
   -- prefer_config_from_obsidian_app = true,
 
+  statusline = {
+    enabled = false,
+  },
+
   checkbox = {
     order = { "x", " " },
   },

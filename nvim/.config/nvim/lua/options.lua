@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+vim.loader.enable(true)
 
 ---@type "cmp" | "blink" | "mini"
 vim.g.my_cmp = "blink"

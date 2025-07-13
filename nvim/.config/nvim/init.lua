@@ -56,6 +56,9 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/OXY2DEV/markview.nvim",
   "https://github.com/dhruvasagar/vim-table-mode",
   "https://github.com/jmbuhr/otter.nvim",
+  "https://github.com/marcocofano/excalidraw.nvim",
+  "https://github.com/arakkkkk/kanban.nvim",
+  "https://github.com/efirlus/quickadd.nvim",
 
   -- game
   "https://github.com/NStefan002/2048.nvim",
@@ -95,8 +98,11 @@ if not ok then
   vim.notify(err)
 end
 
+vim.cmd("colorscheme tokyonight-storm")
+
 local local_plugins = {
   "~/Plugins/obsidian.nvim/",
+  "~/Plugins/templater.nvim/",
   "~/Plugins/feed.nvim/",
 }
 
@@ -113,7 +119,7 @@ require("lsp")
 require("lze").load({
   {
     "snacks.nvim",
-    before = function()
+    before_all = function()
       -- Setup some globals for debugging (lazy-loaded)
       ---@diagnostic disable-next-line: duplicate-set-field
       _G.dd = function(...)
@@ -324,11 +330,19 @@ require("lze").load({
       end, { noremap = true, silent = true })
     end,
   },
+  {
+    "excalidraw.nvim",
+    after = function()
+      require("excalidraw").setup({})
+    end,
+  },
+  {
+    "kanban.nvim",
+    after = function()
+      require("kanban").setup({})
+    end,
+  },
 })
 
 require("_obsidian")
 require("experiments")
-
-vim.loader.enable(true)
-
-vim.cmd("colorscheme tokyonight-storm")
