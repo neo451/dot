@@ -1,4 +1,4 @@
-require "snacks".setup {
+require("snacks").setup({
   scroll = { enabled = true },
   image = {
     enabled = true,
@@ -40,4 +40,4 @@ require "snacks".setup {
   --     -- },
   --   },
   -- },
-}
+})

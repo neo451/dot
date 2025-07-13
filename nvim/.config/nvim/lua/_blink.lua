@@ -1,4 +1,4 @@
-require "blink.cmp".setup {
+require("blink.cmp").setup({
   fuzzy = { implementation = "lua" },
   keymap = {
 
@@ -54,7 +54,7 @@ require "blink.cmp".setup {
       },
     },
     ghost_text = {
-      enabled = vim.g.ghost_text,
+      enabled = true,
     },
     accept = {
       auto_brackets = {
@@ -109,12 +109,12 @@ require "blink.cmp".setup {
       emoji = {
         module = "blink-emoji",
         name = "Emoji",
-        score_offset = 15,        -- Tune by preference
+        score_offset = 15, -- Tune by preference
         opts = { insert = true }, -- Insert emoji (default) or complete its name
         should_show_items = function()
           return vim.tbl_contains(
-          -- Enable emoji completion only for git commits and markdown.
-          -- By default, enabled for all file-types.
+            -- Enable emoji completion only for git commits and markdown.
+            -- By default, enabled for all file-types.
             { "gitcommit", "markdown" },
             vim.o.filetype
           )
@@ -122,4 +122,4 @@ require "blink.cmp".setup {
       },
     },
   },
-}
+})

@@ -18,6 +18,32 @@ local function build(name, cmds)
   })
 end
 
+local function branch(name, branch_name)
+  local pkgs = vim.pack.get()
+
+  local pkg = vim.iter(pkgs):find(function(pkg)
+    if pkg.spec.name == name then
+      return true
+    end
+  end)
+  local path = pkg.path
+  local out = vim
+    .system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, {
+      cwd = path,
+    })
+    :wait()
+  assert(out.code == 0, "failed to get current branch")
+  local cur_branch = vim.trim(out.stdout)
+  if cur_branch ~= branch_name then
+    vim.system({ "git", "switch", branch_name }, {
+      cwd = path,
+    }, function(obj)
+      assert(obj.code == 0, "failed to get current branch")
+    end)
+  end
+end
+
+branch("harpoon", "harpoon2")
 build("mcphub.nvim", { "nvim", "-l", "bundled_build.lua" })
 
 local ok, err = pcall(vim.pack.add, {
@@ -27,6 +53,7 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/folke/snacks.nvim",
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/stevearc/conform.nvim",
+  "https://github.com/ThePrimeagen/harpoon",
 
   -- lazy loader
   "https://github.com/BirdeeHub/lze",
@@ -93,6 +120,13 @@ local ok, err = pcall(vim.pack.add, {
 
   -- experiment
   "https://github.com/A7Lavinraj/fyler.nvim",
+
+  -- "file:///home/n451/Plugins/obsidian.nvim/",
+  -- my
+  -- {
+  --   src = "https://github.com/obsidian-nvim/obsidian.nvim",
+  --   version = "*",
+  -- },
 })
 
 if not ok then
@@ -177,7 +211,8 @@ require("lze").load({
   },
   {
     "mini.pairs",
-    event = "InsertEnter",
+    -- event = "InsertEnter",
+    ft = "lua",
     after = function()
       require("mini.pairs").setup()
     end,
@@ -193,6 +228,12 @@ require("lze").load({
     "mini.ai",
     after = function()
       require("mini.ai").setup({})
+    end,
+  },
+  {
+    "mini.test",
+    after = function()
+      require("mini.test").setup({})
     end,
   },
   {
@@ -287,6 +328,53 @@ require("lze").load({
     event = "InsertCharPre",
     after = function()
       require("_tabout")
+    end,
+  },
+  {
+    "harpoon",
+    keys = {
+      "<C-e>",
+      "<leader>a",
+      "<leader>1",
+      "<leader>2",
+      "<leader>3",
+      "<leader>4",
+      "<leader>5",
+    },
+    after = function()
+      local harpoon = require("harpoon")
+      harpoon:setup()
+
+      vim.keymap.set("n", "<leader>a", function()
+        harpoon:list():add()
+      end)
+      vim.keymap.set("n", "<C-e>", function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+
+        local winids = vim.api.nvim_list_wins()
+
+        local harpoon_win = vim.iter(winids):find(function(winid)
+          local buf = vim.api.nvim_win_get_buf(winid)
+          return vim.bo[buf].filetype == "harpoon"
+        end)
+
+        if not harpoon_win then
+          return
+        end
+
+        vim.api.nvim_win_set_config(harpoon_win, {
+          anchor = "NW",
+          col = 0,
+          row = 0,
+          relative = "editor",
+        })
+      end)
+
+      for i = 1, 5 do
+        vim.keymap.set("n", "<leader>" .. i, function()
+          harpoon:list():select(i)
+        end)
+      end
     end,
   },
 })
