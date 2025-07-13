@@ -1,50 +1,8 @@
-local function build(name, cmds)
-  vim.api.nvim_create_autocmd("PackChanged", {
-    callback = function(ev)
-      if ev.data.kind == "install" and ev.data.spec.name == name then
-        vim.system(
-          cmds,
-          {
-            cwd = ev.data.path,
-          },
-          vim.schedule_wrap(function(out)
-            assert(out.code == 0, "failed to build")
-            vim.notify(out.stdout)
-            vim.notify(out.stderr)
-          end)
-        )
-      end
-    end,
-  })
-end
+local m = require("manager")
 
-local function branch(name, branch_name)
-  local pkgs = vim.pack.get()
-
-  local pkg = vim.iter(pkgs):find(function(pkg)
-    if pkg.spec.name == name then
-      return true
-    end
-  end)
-  local path = pkg.path
-  local out = vim
-    .system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }, {
-      cwd = path,
-    })
-    :wait()
-  assert(out.code == 0, "failed to get current branch")
-  local cur_branch = vim.trim(out.stdout)
-  if cur_branch ~= branch_name then
-    vim.system({ "git", "switch", branch_name }, {
-      cwd = path,
-    }, function(obj)
-      assert(obj.code == 0, "failed to get current branch")
-    end)
-  end
-end
-
-branch("harpoon", "harpoon2")
-build("mcphub.nvim", { "nvim", "-l", "bundled_build.lua" })
+m.branch("harpoon", "harpoon2")
+m.build("mcphub.nvim", { "nvim", "-l", "bundled_build.lua" })
+m.build("blink.cmp", { "cargo", "build", "--release" })
 
 local ok, err = pcall(vim.pack.add, {
   "https://github.com/mbbill/undotree",
@@ -54,6 +12,9 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/stevearc/oil.nvim",
   "https://github.com/stevearc/conform.nvim",
   "https://github.com/ThePrimeagen/harpoon",
+
+  -- LSP
+  "https://github.com/rachartier/tiny-code-action.nvim",
 
   -- lazy loader
   "https://github.com/BirdeeHub/lze",
@@ -72,6 +33,7 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/monaqa/dial.nvim",
 
   -- beauty
+  "https://github.com/Bekaboo/dropbar.nvim",
   "https://github.com/folke/tokyonight.nvim",
   "https://github.com/EdenEast/nightfox.nvim",
   "https://github.com/echasnovski/mini.icons",
@@ -342,44 +304,31 @@ require("lze").load({
       "<leader>5",
     },
     after = function()
-      local harpoon = require("harpoon")
-      harpoon:setup()
-
-      vim.keymap.set("n", "<leader>a", function()
-        harpoon:list():add()
-      end)
-      vim.keymap.set("n", "<C-e>", function()
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-
-        local winids = vim.api.nvim_list_wins()
-
-        local harpoon_win = vim.iter(winids):find(function(winid)
-          local buf = vim.api.nvim_win_get_buf(winid)
-          return vim.bo[buf].filetype == "harpoon"
-        end)
-
-        if not harpoon_win then
-          return
-        end
-
-        vim.api.nvim_win_set_config(harpoon_win, {
-          anchor = "NW",
-          col = 0,
-          row = 0,
-          relative = "editor",
-        })
-      end)
-
-      for i = 1, 5 do
-        vim.keymap.set("n", "<leader>" .. i, function()
-          harpoon:list():select(i)
-        end)
-      end
+      require("_harpoon")
+    end,
+  },
+  {
+    "dropbar.nvim",
+    after = function()
+      local dropbar_api = require("dropbar.api")
+      vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+    end,
+  },
+  {
+    "tiny-code-action.nvim",
+    event = "LspAttach",
+    after = function()
+      require("tiny-code-action").setup({})
+      vim.keymap.set({ "n", "x" }, "gra", function()
+        require("tiny-code-action").code_action({})
+      end, { noremap = true, silent = true })
     end,
   },
 })
 
 require("_obsidian")
 require("experiments")
+
+vim.loader.enable(true)
 
 vim.cmd("colorscheme tokyonight-storm")

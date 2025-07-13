@@ -78,17 +78,17 @@ require("blink.cmp").setup({
       -- "dictionary",
     },
     providers = {
-      dictionary = {
-        module = "blink-cmp-dictionary",
-        name = "Dict",
-        -- Make sure this is at least 2.
-        -- 3 is recommended
-        min_keyword_length = 3,
-        opts = {
-          -- options for blink-cmp-dictionary
-          dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
-        },
-      },
+      -- dictionary = {
+      --   module = "blink-cmp-dictionary",
+      --   name = "Dict",
+      --   -- Make sure this is at least 2.
+      --   -- 3 is recommended
+      --   min_keyword_length = 3,
+      --   opts = {
+      --     -- options for blink-cmp-dictionary
+      --     dictionary_files = { vim.fn.expand("~/.config/nvim/dictionary/words.dict") },
+      --   },
+      -- },
       lsp = {
         transform_items = function(_, items)
           -- the default transformer will do this
