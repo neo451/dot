@@ -4,6 +4,19 @@ m.branch("harpoon", "harpoon2")
 m.build("mcphub.nvim", { "nvim", "-l", "bundled_build.lua" })
 m.build("blink.cmp", { "cargo", "build", "--release" })
 
+local local_plugins = {
+  "~/Plugins/obsidian.nvim/",
+  "~/Plugins/templater.nvim/",
+  "~/Plugins/feed.nvim/",
+  "~/Plugins/kanban.nvim/",
+  "~/Plugins/cosma.nvim/",
+}
+
+for _, p in ipairs(local_plugins) do
+  local path = vim.fs.normalize(p)
+  vim.opt.rtp:append(path)
+end
+
 local ok, err = pcall(vim.pack.add, {
   "https://github.com/mbbill/undotree",
   "https://github.com/folke/lazydev.nvim",
@@ -45,6 +58,11 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/folke/todo-comments.nvim",
   "https://github.com/rasulomaroff/reactive.nvim",
   "https://github.com/mcauley-penney/visual-whitespace.nvim",
+  "https://github.com/folke/styler.nvim",
+  {
+    src = "https://github.com/catppuccin/nvim",
+    name = "catppuccin",
+  },
 
   -- treesitter
   "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -57,8 +75,12 @@ local ok, err = pcall(vim.pack.add, {
   "https://github.com/dhruvasagar/vim-table-mode",
   "https://github.com/jmbuhr/otter.nvim",
   "https://github.com/marcocofano/excalidraw.nvim",
-  "https://github.com/arakkkkk/kanban.nvim",
+  -- "https://github.com/arakkkkk/kanban.nvim",
   "https://github.com/efirlus/quickadd.nvim",
+  "https://github.com/bullets-vim/bullets.vim",
+  "https://github.com/wurli/urlpreview.nvim",
+  "https://github.com/vim-pandoc/vim-markdownfootnotes",
+  "https://github.com/roodolv/markdown-toggle.nvim",
 
   -- game
   "https://github.com/NStefan002/2048.nvim",
@@ -86,6 +108,9 @@ local ok, err = pcall(vim.pack.add, {
   -- experiment
   "https://github.com/A7Lavinraj/fyler.nvim",
 
+  -- qol
+  "https://github.com/shortcuts/no-neck-pain.nvim",
+
   -- "file:///home/n451/Plugins/obsidian.nvim/",
   -- my
   -- {
@@ -100,17 +125,6 @@ end
 
 vim.cmd("colorscheme tokyonight-storm")
 
-local local_plugins = {
-  "~/Plugins/obsidian.nvim/",
-  "~/Plugins/templater.nvim/",
-  "~/Plugins/feed.nvim/",
-}
-
-for _, p in ipairs(local_plugins) do
-  local path = vim.fs.normalize(p)
-  vim.opt.rtp:append(path)
-end
-
 require("autocmds")
 require("options")
 require("keymaps")
@@ -120,34 +134,10 @@ require("lze").load({
   {
     "snacks.nvim",
     before_all = function()
-      -- Setup some globals for debugging (lazy-loaded)
-      ---@diagnostic disable-next-line: duplicate-set-field
-      _G.dd = function(...)
-        Snacks.debug.inspect(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      _G.bt = function()
-        Snacks.debug.backtrace()
-      end
-      -- vim.print = _G.dd -- Override print to use snacks for `:=` command
-
-      -- Create some toggle mappings
-      Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-      Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-      Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-      Snacks.toggle.diagnostics():map("<leader>ud")
-      Snacks.toggle.line_number():map("<leader>ul")
-      Snacks.toggle
-        .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-        :map("<leader>uc")
-      Snacks.toggle.treesitter():map("<leader>uT")
-      Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-      Snacks.toggle.inlay_hints():map("<leader>uh")
-      Snacks.toggle.indent():map("<leader>ug")
-      Snacks.toggle.dim():map("<leader>uD")
+      require("_snacks").init()
     end,
     after = function()
-      require("_snacks")
+      require("_snacks").setup()
     end,
   },
   {
@@ -336,13 +326,114 @@ require("lze").load({
       require("excalidraw").setup({})
     end,
   },
+  -- {
+  --   "kanban.nvim",
+  --   after = function()
+  --     require("kanban").setup({})
+  --   end,
+  -- },
   {
-    "kanban.nvim",
+    "styler.nvim",
     after = function()
-      require("kanban").setup({})
+      require("styler").setup({
+        themes = {
+          markdown = { colorscheme = "duskfox" },
+          help = { colorscheme = "catppuccin-mocha", background = "dark" },
+        },
+      })
     end,
   },
+  {
+    "reactive.nvim",
+    after = function()
+      require("reactive").setup({
+        builtin = {
+          cursorline = true,
+          cursor = true,
+          modemsg = true,
+        },
+      })
+    end,
+  },
+  {
+    "urlpreview.nvim",
+    ft = "markdown",
+    after = function()
+      require("urlpreview").setup({
+        keymap = "<leader>K",
+      })
+    end,
+  },
+  {
+    "octo.nvim",
+    cmd = "Octo",
+    keys = {
+      {
+        "<leader>ghp",
+        "<cmd>Octo pr checkout<cr>",
+        desc = "Octo pr checkout",
+      },
+      {
+        "<leader>ghi",
+        "<cmd>Octo pr checkout<cr>",
+        desc = "Octo issue list",
+      },
+    },
+    after = function()
+      require("octo").setup({})
+    end,
+  },
+  {
+    "markdown-toggle.nvim",
+    after = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        desc = "markdown-toggle.nvim keymaps",
+        pattern = { "markdown", "markdown.mdx" },
+        callback = function(args)
+          local opts = { silent = true, noremap = true, buffer = args.buf }
+          local toggle = require("markdown-toggle")
+
+          opts.expr = true -- required for dot-repeat in Normal mode
+          vim.keymap.set("n", "<C-q>", toggle.quote_dot, opts)
+          vim.keymap.set("n", "<C-l>", toggle.list_dot, opts)
+          vim.keymap.set("n", "<Leader><C-l>", toggle.list_cycle_dot, opts)
+          vim.keymap.set("n", "<C-n>", toggle.olist_dot, opts)
+          vim.keymap.set("n", "<M-x>", toggle.checkbox_dot, opts)
+          vim.keymap.set("n", "<Leader><M-x>", toggle.checkbox_cycle_dot, opts)
+          vim.keymap.set("n", "<C-h>", toggle.heading_dot, opts)
+
+          opts.expr = false -- required for Visual mode
+          vim.keymap.set("x", "<C-q>", toggle.quote, opts)
+          vim.keymap.set("x", "<C-l>", toggle.list, opts)
+          vim.keymap.set("x", "<Leader><C-l>", toggle.list_cycle, opts)
+          vim.keymap.set("x", "<C-n>", toggle.olist, opts)
+          vim.keymap.set("x", "<M-x>", toggle.checkbox, opts)
+          vim.keymap.set("x", "<Leader><M-x>", toggle.checkbox_cycle, opts)
+          vim.keymap.set("x", "<C-h>", toggle.heading, opts)
+
+          -- Keymap configurations will be added here for each feature
+        end,
+      })
+    end,
+  },
+  -- {
+  --   "store.nvim",
+  --   after = function()
+  --     require("store").setup({})
+  --   end,
+  -- },
 })
+
+local old_open = vim.ui.open
+
+vim.ui.open = function(uri, opts)
+  opts = opts or { cmd = { "wsl-open" } }
+  old_open(uri, opts)
+end
 
 require("_obsidian")
 require("experiments")
+
+vim.defer_fn(function()
+  require("todo")()
+end, 1000)

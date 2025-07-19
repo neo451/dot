@@ -2,12 +2,9 @@ require("obsidian").setup({
   legacy_commands = false,
   -- prefer_config_from_obsidian_app = true,
 
-  statusline = {
-    enabled = false,
-  },
-
   checkbox = {
     order = { "x", " " },
+    create_new = false,
   },
 
   open = {
@@ -19,10 +16,11 @@ require("obsidian").setup({
 
   daily_notes = {
     folder = "daily_notes",
-    func = function(datetime)
-      local note = os.date("%Y/%m-%B/%Y-%m-%d", datetime)
-      return "daily_notes/" .. note .. "!.md"
-    end,
+    date_format = "%Y/%m/%Y-%m-%d-%A",
+    -- func = function(datetime)
+    --   local note = os.date("%Y/%m-%B/%Y-%m-%d", datetime)
+    --   return "daily_notes/" .. note .. "!.md"
+    -- end,
   },
 
   calendar = {
@@ -30,7 +28,9 @@ require("obsidian").setup({
     close_after = true,
   },
 
-  picker = { name = "telescope.nvim" },
+  picker = {
+    name = "telescope.nvim",
+  },
 
   attachments = {
     confirm_img_paste = false,
@@ -69,12 +69,16 @@ require("obsidian").setup({
       name = "notes",
       path = "~/Notes",
     },
+    {
+      name = "cosma-test",
+      path = "~/cosma-test/",
+    },
     -- {
     --   name = "work",
     --   path = "~/Work",
     -- },
     {
-      name = "hub",
+      -- name = "hub",
       path = "~/obsidian-hub/",
     },
     -- {
